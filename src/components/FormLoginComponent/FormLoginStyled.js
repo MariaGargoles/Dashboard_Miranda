@@ -21,7 +21,7 @@ export const LogoForm = styled.img`
   background-color: #f2f4f4;
 `;
 
-export const TitleForm = styled.h1`
+export const TitleForm = styled.h2`
   font-size: 1.5em;
   weight: 400;
   text-align: center;
@@ -48,8 +48,4 @@ export const Label = styled.label`
 export const Input = styled.input`
   width: 70%;
   margin-bottom: 2rem;
-`;
-
-export const ButtonForm = styled.button`
-  background-color: #135846;
 `;

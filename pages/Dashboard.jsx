@@ -1,11 +1,13 @@
 import { DashboardComponent } from "../src/components/DashboardComponent/Dashboard"
+import { NavbarComponent } from "../src/components/NavbarComponent/NavbarComponent"
 
 
 export const DashboardPage = () => {
 
     
     return (<>
-        <DashboardComponent/>
+        <NavbarComponent/>
+        <DashboardComponent style={{ backgroundColor: 'grey' }} />
         
             
        
