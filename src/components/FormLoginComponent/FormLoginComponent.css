@@ -1,5 +1,16 @@
 *{
-    background-color: #e5e8e8;
+    background-color: #f2f4f4;
     margin: 0 auto;
+
+    
+
+}
+.FormButton {
+    padding: 0.5rem 2rem;
+    border-radius: 22px;
+    border: none;
+    background-color: #135846;
+    color: #FFFF;
+    font-family: "Poppins", sans-serif;
 
 }

@@ -1,19 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FormLoginComponent } from "../src/components/FormLoginComponent/FormLoginComponent.jsx";
-import { DashboardComponent } from "./Dashboard";
+import { DashboardPage } from "./Dashboard.jsx";
+
 
 
 export const IndexPage = () => {
     
     const [isLogged, setIsLogged] = useState(localStorage.getItem("login"))
+    useEffect(() => {
+        setIsLogged(localStorage.getItem("login"));
+    }, []);
 
-    return(<>
-    { 
-        isLogged === "true" ?  (<><DashboardComponent/></>) : 
-        
-        (<>
-        <title>Pagina Login</title><FormLoginComponent/></>)
-    }
-    </>)
+    const handleLogin = () => {
+        setIsLogged("true");
+        localStorage.setItem("login", "true");
+    };
 
-}
+    return (
+        <>
+            {isLogged === "true" ? (
+                <DashboardPage />
+            ) : (
+                <>
+                    <title>Pagina Login</title>
+                    <FormLoginComponent onLogin={handleLogin} />
+                </>
+            )}
+        </>
+    );
+};
+

@@ -1,13 +1,13 @@
+import { DashboardComponent } from "../src/components/DashboardComponent/Dashboard"
 
 
-
-export const DashboardComponent = () => {
+export const DashboardPage = () => {
 
     
     return (<>
+        <DashboardComponent/>
         
-            <title>PAGINA</title>
-            <h1>PAGINA CONTENIDO</h1>
+            
        
         </>)
     

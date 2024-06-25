@@ -9,19 +9,24 @@ export const LoginForm = styled.section`
   margin: auto;
   height: 50%;
   margin-top: 3rem;
+  border-radius: 1rem;
+  box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
 `;
 
 export const LogoForm = styled.img`
   margin: auto;
+  padding-right: 1rem;
   width: 10rem;
   height: 9rem;
   background-color: #f2f4f4;
 `;
 
 export const TitleForm = styled.h1`
-  font-size: 2.5em;
-  weight: 600;
+  font-size: 1.5em;
+  weight: 400;
   text-align: center;
+  padding-top: 1rem;
+  font-family: "Poppins", sans-serif;
 `;
 
 export const Form = styled.form`
@@ -33,10 +38,11 @@ export const Form = styled.form`
 `;
 
 export const Label = styled.label`
-  font-size: 1.5em;
+  font-size: 1em;
   weight: 400;
   padding-bottom: 1.2em;
   background-color: #f2f4f4;
+  font-family: "Poppins", sans-serif;
 `;
 
 export const Input = styled.input`
