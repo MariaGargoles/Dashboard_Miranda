@@ -1,32 +1,50 @@
 import React from "react"
-import "FormLoginComponent.css"
+import "./FormLoginComponent.css"
+import { LoginForm, TitleForm, Form, Label, Input, LogoForm,  } from "./FormLoginStyled.js"
+
+
 
 
 
 export const FormLoginComponent = () => {
 
-    const loginFormHandler = (event) => {
+    const submitHandler = (event) => {
         event.preventDefault()
         let username = "maria";
-        let pasword = "miranda"
+        let password = "miranda"
         if (username === event.target.username.value && password === event.target.password.value)
-            console.log("login")
+            localStorage.setItem("login","true")
         else
             alert("Datos incorrectos")
 
     }
 
 
-    return <>
-    <main>
-    <img></img>
-    <form onSubmit={loginFormHandler}>
-        <input type="text" name="username" placeholder="username"/>
-        <input type="password" name="password" placeholder="password"/>
-        <input type="submit" />
-    </form>
-    </main>
-    </>
+    return (
+        <>
+        
+          <LoginForm>
+            <TitleForm>Login</TitleForm>
+      
+            <LogoForm img src="src/assets/Logo.png" alt="Logo" />
+        
+            <LogoForm img src="src/assets/Trav.png" alt="Trav" />
+             
+      
+            <Form onSubmit={submitHandler}>
+              <Label htmlFor="username">Nombre</Label>
+              <Input type="text" id="username" name="username" placeholder="username" />
+              
+              <Label htmlFor="password">Password</Label>
+              <Input type="password" id="password" name="password" placeholder="password" />
+              
+              <input type="submit" />
+            </Form>
+          </LoginForm>
+          
+        </>
+      );
+      
 
 }
 
