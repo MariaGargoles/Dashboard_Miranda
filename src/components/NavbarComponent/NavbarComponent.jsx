@@ -9,7 +9,7 @@ import { MdDashboard } from "react-icons/md";
 import { PiKeyBold } from "react-icons/pi";
 import { LuCalendarCheck2 } from "react-icons/lu";
 import { MdOutlinePersonOutline } from "react-icons/md";
-import { HiOutlinePuzzle } from "react-icons/hi";
+import { MdContactPhone } from "react-icons/md";
 import { 
     NavbarSection, 
     LogoMenu, 
@@ -26,7 +26,8 @@ import {
     PersonImg, 
     PersonName, 
     UlMenu, 
-    DashboardNav 
+    DashboardNav, 
+    InputSearch
 } from "./NavbarStyled";
 
 export const NavbarComponent = () => {
@@ -44,13 +45,15 @@ export const NavbarComponent = () => {
                     <LogoMenu src="src/assets/Logo.png" alt="Logo" />
                     <LogoText src="src/assets/Trav.png" alt="trav" />
                 </IconsSection>
-                {openMenu &&  <MenuSection>
+                {openMenu &&  
+                
+                <MenuSection>
                     <UlMenu>
-                        <a><ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu></a>
-                        <a><ListMenu><PiKeyBold className="menuicon"/>Room</ListMenu></a>
-                        <a><ListMenu><LuCalendarCheck2 className="menuicon"/>Bookings</ListMenu></a>
-                        <a><ListMenu><MdOutlinePersonOutline className="menuicon"/>Guest</ListMenu></a>
-                        <a><ListMenu><HiOutlinePuzzle className="menuicon"/>Concierge</ListMenu></a>
+                        <a NavLink="" className="list-link"><ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu></a>
+                        <a NavLink="" className="list-link"><ListMenu><PiKeyBold className="menuicon"/>Rooms</ListMenu></a>
+                        <a NavLink="" className="list-link"><ListMenu><LuCalendarCheck2 className="menuicon"/>Bookings</ListMenu></a>
+                        <a NavLink="" className="list-link"> <ListMenu><MdOutlinePersonOutline className="menuicon"/>Users</ListMenu></a>
+                        <a NavLink="" className="list-link"><ListMenu><MdContactPhone className="menuicon"/>Contact</ListMenu></a>
                     </UlMenu>
                     <PersonCard>
                         <PersonImg src="src/assets/photo.jpg" alt="Person" />
@@ -67,8 +70,11 @@ export const NavbarComponent = () => {
                     <TfiAlignLeft onClick={handleClick} />
                     <p className="DashboardText">Dashboard</p>
                 </DashboardNav>
-                <div>
-                <IoIosSearch className="icons" />
+                <div className="iconContainer">
+                
+                
+                <InputSearch/>
+                <IoIosSearch className="icons icons--search" />
                 <IoMdHeartEmpty className="icons" />
                 <MdOutlineMail className="icons" />
                 <TbMessage className="icons" />

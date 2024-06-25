@@ -6,7 +6,10 @@
     color: #135846;
     padding: 2rem;
     background-color:  #fff;
+    cursor: pointer;
 }
+
+
 
 .DashboardText {
     font-family: "Poppins", sans-serif;
@@ -17,5 +20,22 @@
 
 .menuicon {
     padding-right: 1rem;
+    z-index: 999;
 }
+
+.list-link {
+display: block;
+}
+
+.list-link:hover {
+    border-left: 3px solid red;
+    color: red;
+}
+
+.iconContainer {
+   margin: auto 0;
+    align-items: center;
+}
+
+
 

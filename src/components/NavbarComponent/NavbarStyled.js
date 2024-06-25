@@ -40,6 +40,7 @@ export const UlMenu = styled.ul`
 export const ListMenu = styled.li`
   font-family: "Poppins", sans-serif;
   padding: 1.9rem;
+  cursor: pointer;
 `;
 
 export const PersonCard = styled.div`
@@ -96,4 +97,11 @@ export const NavRights = styled.p`
 
 export const DashboardNav = styled.div`
   display: flex;
+  padding-right: 45rem;
+`;
+
+export const InputSearch = styled.input`
+  border-radius: 12px;
+  background-color: #fcfcfc;
+  transform: translateY(-161%);
 `;
