@@ -73,8 +73,8 @@ export const NavbarComponent = () => {
                 <div className="iconContainer">
                 
                 
-                <InputSearch/>
-                <IoIosSearch className="icons icons--search" />
+                <InputSearch />
+                <IoIosSearch className="icons" />
                 <IoMdHeartEmpty className="icons" />
                 <MdOutlineMail className="icons" />
                 <TbMessage className="icons" />
