@@ -23,7 +23,7 @@ export const TableButtonFilter = styled.button`
 `;
 
 export const Table = styled.table`
-  background-color: #ffff;
+  background-color: #f8f8f8;
   padding: 2rem;
   border-radius: 18px;
 `;
@@ -51,4 +51,5 @@ export const TableCell = styled.td`
   padding: 1rem;
   margin: 1rem;
   border-radius: 18px;
+  color: #393939;
 `;

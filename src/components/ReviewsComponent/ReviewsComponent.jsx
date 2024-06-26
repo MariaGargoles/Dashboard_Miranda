@@ -17,7 +17,7 @@ export const ContactMessagesComponent = () => {
                 <Table>
                     <EncabezadoTabla>
                         <tr>
-                            <TableHeadText>Order ID</TableHeadText>
+                            <TableHeadText><input type="checkbox" />Order ID</TableHeadText>
                             <TableHeadText>Date</TableHeadText>
                             <TableHeadText>Name</TableHeadText>
                             <TableHeadText>Email</TableHeadText>
@@ -28,7 +28,7 @@ export const ContactMessagesComponent = () => {
                     <BodyTable>
                         {data.map(comment => (
                             <tr key={comment.id}>
-                                <TableCell>#000123456</TableCell>
+                                <TableCell><input type="checkbox" />#000123456</TableCell>
                                 <TableCell>{comment.date}</TableCell>
                                 <TableCell>{comment.name}</TableCell>
                                 <TableCell>{comment.email}</TableCell>
