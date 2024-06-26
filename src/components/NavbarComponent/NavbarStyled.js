@@ -27,10 +27,10 @@ export const MenuSection = styled.div`
   position: absolute;
   top: 100%;
   left: 0;
-  width: 27%;
+  width: 20%;
   background-color: white;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
-  height: 100%;
+  padding-bottom: 18rem;
 `;
 
 export const UlMenu = styled.ul`
@@ -39,7 +39,7 @@ export const UlMenu = styled.ul`
 
 export const ListMenu = styled.li`
   font-family: "Poppins", sans-serif;
-  padding: 1.9rem;
+  padding: 1.5rem;
   cursor: pointer;
 `;
 
@@ -79,6 +79,7 @@ export const PersonButton = styled.button`
   font-family: "Poppins", sans-serif;
   padding: 1rem 2rem;
   border-radius: 8px;
+  color: #135846;
 `;
 
 export const NavFooter = styled.div``;
