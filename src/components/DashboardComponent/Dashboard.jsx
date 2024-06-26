@@ -1,4 +1,4 @@
-import { ContactMessagesComponent } from "../ReviewsComponent/ReviewsComponent"
+import { ContactMessagesComponent } from "../ContactComponent/ContactMessages"
 
 export const DashboardComponent = () => {
 
@@ -7,7 +7,7 @@ export const DashboardComponent = () => {
         
             <title>PAGINA</title>
             <h1>PAGINA CONTENIDO</h1>
-            <ContactMessagesComponent/>
+            
             </>)
     
  }

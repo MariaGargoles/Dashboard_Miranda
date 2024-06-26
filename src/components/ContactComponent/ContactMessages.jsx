@@ -1,6 +1,6 @@
 
-import data from './Reviews.json';
-import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "./ReviewsStyled";
+import data from './ContactMessages.json';
+import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "./ContactStyled";
 
 
 export const ContactMessagesComponent = () => {
