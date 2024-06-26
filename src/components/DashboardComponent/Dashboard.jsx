@@ -1,3 +1,4 @@
+import { KPIComponent } from "../KPIComponent/KPIComponent"
 import { ContactMessagesComponent } from "../ContactComponent/ContactMessages"
 
 export const DashboardComponent = () => {
@@ -7,7 +8,8 @@ export const DashboardComponent = () => {
         
             <title>PAGINA</title>
             <h1>PAGINA CONTENIDO</h1>
-            
+            <KPIComponent/>
+            <ContactMessagesComponent/>
             </>)
     
  }
