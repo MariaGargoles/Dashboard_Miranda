@@ -20,7 +20,7 @@
 
 .menuicon {
     padding-right: 1rem;
-    z-index: 999;
+    
 }
 
 .list-link {
@@ -35,6 +35,8 @@ display: block;
 .iconContainer {
    margin: auto 0;
     align-items: center;
+
+    
 }
 
 
