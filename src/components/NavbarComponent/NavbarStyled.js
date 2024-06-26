@@ -30,7 +30,7 @@ export const MenuSection = styled.div`
   width: 27%;
   background-color: white;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
-  height: 100%;
+  padding-bottom: 18rem;
 `;
 
 export const UlMenu = styled.ul`

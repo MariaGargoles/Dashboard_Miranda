@@ -49,11 +49,11 @@ export const NavbarComponent = () => {
                 
                 <MenuSection>
                     <UlMenu>
-                        <NavLink  to="/dashboard" className="list-link"><ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu></NavLink>
-                        <NavLink  to="/rooms" className="list-link"><ListMenu><PiKeyBold className="menuicon"/>Rooms</ListMenu></a>
-                        <NavLink  to="/booking" className="list-link"><ListMenu><LuCalendarCheck2 className="menuicon"/>Bookings</ListMenu></a>
-                        <NavLink  to="/users" className="list-link"> <ListMenu><MdOutlinePersonOutline className="menuicon"/>Users</ListMenu></a>
-                        <NavLink  to="/contact" className="list-link"><ListMenu><MdContactPhone className="menuicon"/>Contact</ListMenu></a>
+                        <a  to="/dashboard" className="list-link"><ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu></a>
+                        <a  to="/rooms" className="list-link"><ListMenu><PiKeyBold className="menuicon"/>Rooms</ListMenu></a>
+                        <a to="/booking" className="list-link"><ListMenu><LuCalendarCheck2 className="menuicon"/>Bookings</ListMenu></a>
+                        <a  to="/users" className="list-link"> <ListMenu><MdOutlinePersonOutline className="menuicon"/>Users</ListMenu></a>
+                        <a  to="/contact" className="list-link"><ListMenu><MdContactPhone className="menuicon"/>Contact</ListMenu></a>
                     </UlMenu>
                     <PersonCard>
                         <PersonImg src="src/assets/photo.jpg" alt="Person" />
