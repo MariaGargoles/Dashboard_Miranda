@@ -19,4 +19,36 @@ export const TableButtonFilter = styled.button`
   font-family: "Poppins", sans-serif;
   background-color: #f8f8f8;
   font-size: 1em;
+  color: #135846;
+`;
+
+export const Table = styled.table`
+  background-color: #ffff;
+  padding: 2rem;
+  border-radius: 18px;
+`;
+
+export const EncabezadoTabla = styled.thead`
+  background-color: #ffff;
+  font-family: "Poppins", sans-serif;
+  text-align: justify;
+`;
+
+export const TableHeadText = styled.th`
+  background-color: #ffff;
+  font-family: "Poppins", sans-serif;
+  padding: 1rem;
+`;
+
+export const BodyTable = styled.tbody`
+  background-color: #f8f8f8;
+  font-family: "Poppins", sans-serif;
+`;
+
+export const TableCell = styled.td`
+  background-color: #ffff;
+  font-family: "Poppins", sans-serif;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 18px;
 `;

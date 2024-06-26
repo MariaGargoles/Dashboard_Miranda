@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react"
+
 import data from './Reviews.json';
-import { TableContainer, TableFilters, TableButtonFilter } from "./ReviewsStyled";
+import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "./ReviewsStyled";
 
 
 export const ContactMessagesComponent = () => {
+    
+
     return (
         <>
             <TableContainer>
@@ -12,28 +14,30 @@ export const ContactMessagesComponent = () => {
                     <TableButtonFilter>Published</TableButtonFilter>
                     
                 </TableFilters>
-                <table>
-                    <thead>
+                <Table>
+                    <EncabezadoTabla>
                         <tr>
-                            <th>Order ID</th>
-                            <th>Full Name</th>
-                            <th>Email</th>
-                            <th>Subject</th>
-                            <th>Comment</th>
+                            <TableHeadText>Order ID</TableHeadText>
+                            <TableHeadText>Date</TableHeadText>
+                            <TableHeadText>Name</TableHeadText>
+                            <TableHeadText>Email</TableHeadText>
+                            <TableHeadText>Subject</TableHeadText>
+                            <TableHeadText>Comment</TableHeadText>
                         </tr>
-                    </thead>
-                    <tbody>
+                    </EncabezadoTabla>
+                    <BodyTable>
                         {data.map(comment => (
                             <tr key={comment.id}>
-                                <td>{comment.date}</td>
-                                <td>{comment.name}</td>
-                                <td>{comment.email}</td>
-                                <td>{comment.subject}</td>
-                                <td>{comment.comment}</td>
+                                <TableCell>#000123456</TableCell>
+                                <TableCell>{comment.date}</TableCell>
+                                <TableCell>{comment.name}</TableCell>
+                                <TableCell>{comment.email}</TableCell>
+                                <TableCell>{comment.subject}</TableCell>
+                                <TableCell>{comment.comment}</TableCell>
                             </tr>
                         ))}
-                    </tbody>
-                </table>
+                    </BodyTable>
+                </Table>
             </TableContainer>
         </>
     );
