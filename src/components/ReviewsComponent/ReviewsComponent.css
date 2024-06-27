@@ -1,0 +1,14 @@
+.SwiperSlide {
+    display: flex;
+    background-color: #ffff;
+}
+
+.iconcheck {
+    color: #5AD07A;
+    background-color: #ffff;
+}
+
+.iconcross {
+    color: #E23428;
+    background-color: #ffff;
+}

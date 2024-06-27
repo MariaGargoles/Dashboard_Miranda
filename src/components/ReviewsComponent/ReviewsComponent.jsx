@@ -5,7 +5,8 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import { FaRegCheckCircle } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
-import { ReviewSection, ReviewSectionTitle } from './ReviewsStyled';
+import { ReviewSection, ReviewSectionTitle, ReviewCard, ReviewCardText, ReviewPersonCard, ReviewInnerContainer, ReviewImage, ReviewName, ReviewTime  } from './ReviewsStyled';
+import "./ReviewsComponent.css"
 
 export const ReviewsComponent = () => {
   
@@ -17,47 +18,83 @@ export const ReviewsComponent = () => {
     <ReviewSectionTitle>Latest Review by Customers</ReviewSectionTitle>
     <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
         
-        <SwiperSlide>
-            <div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
-                <div>
-                    <img></img>
-                    <div>
-                        <p>Kusnaidi Anderson</p>
-                        <p>4m ago</p>
-                    </div>
-                    <FaRegCheckCircle/>
-                    <GiCancel/>
-                </div>    
-            </div>
-            <div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
-                <div>
-                    <img></img>
-                    <div>
-                        <p>Bella Saphira</p>
-                        <p>4m ago</p>
-                    </div>
-                    <FaRegCheckCircle/>
-                    <GiCancel/>
-                </div>    
-            </div>
-            <div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
-                <div>
-                    <img></img>
-                    <div>
-                        <p>Thomas Al-Ghazali</p>
-                        <p>4m ago</p>
-                    </div>
-                    <FaRegCheckCircle/>
-                    <GiCancel/>
-                </div>    
-            </div>
+        <SwiperSlide className="SwiperSlide">
+            <ReviewCard>
+                <ReviewCardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</ReviewCardText>
+                <ReviewInnerContainer>
+                    <ReviewImage src="src/assets/3.jpg"/>
+                    <ReviewPersonCard>
+                        <ReviewName>Kusnaidi Anderson</ReviewName>
+                        <ReviewTime>4m ago</ReviewTime>
+                    </ReviewPersonCard>
+                    <FaRegCheckCircle className='iconcheck'/>
+                    <GiCancel className='iconcross'/>
+                </ReviewInnerContainer>    
+            </ReviewCard>
+            <ReviewCard>
+                <ReviewCardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</ReviewCardText>
+                <ReviewInnerContainer>
+                    <ReviewImage src="src/assets/2.jpg"/>
+                    <ReviewPersonCard>
+                        <ReviewName>Bella Saphira</ReviewName>
+                        <ReviewTime>4m ago</ReviewTime>
+                    </ReviewPersonCard>
+                    <FaRegCheckCircle className='iconcheck'/>
+                    <GiCancel className='iconcross'/>
+                </ReviewInnerContainer>    
+            </ReviewCard>
+            <ReviewCard>
+                <ReviewCardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</ReviewCardText>
+                <ReviewInnerContainer>
+                    <ReviewImage src="src/assets/1.jpg"/>
+                    <ReviewPersonCard>
+                        <ReviewName>Thomas Al-Ghazali</ReviewName>
+                        <ReviewTime>4m ago</ReviewTime>
+                    </ReviewPersonCard>
+                    <FaRegCheckCircle className='iconcheck'/>
+                    <GiCancel className='iconcross'/>
+                </ReviewInnerContainer>    
+            </ReviewCard>
             </SwiperSlide>
 
 
-        <SwiperSlide>Slide 2</SwiperSlide>
+        <SwiperSlide className="SwiperSlide">  
+            <ReviewCard>
+                <ReviewCardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</ReviewCardText>
+                <ReviewInnerContainer>
+                    <ReviewImage src="src/assets/3.jpg"/>
+                    <ReviewPersonCard>
+                        <ReviewName>Kusnaidi Anderson</ReviewName>
+                        <ReviewTime>4m ago</ReviewTime>
+                    </ReviewPersonCard>
+                    <FaRegCheckCircle className='iconcheck'/>
+                    <GiCancel className='iconcross'/>
+                </ReviewInnerContainer>    
+            </ReviewCard>
+            <ReviewCard>
+                <ReviewCardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</ReviewCardText>
+                <ReviewInnerContainer>
+                    <ReviewImage src="src/assets/2.jpg"/>
+                    <ReviewPersonCard>
+                        <ReviewName>Bella Saphira</ReviewName>
+                        <ReviewTime>4m ago</ReviewTime>
+                    </ReviewPersonCard>
+                    <FaRegCheckCircle className='iconcheck'/>
+                    <GiCancel className='iconcross'/>
+                </ReviewInnerContainer>    
+            </ReviewCard>
+            <ReviewCard>
+                <ReviewCardText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</ReviewCardText>
+                <ReviewInnerContainer>
+                    <ReviewImage src="src/assets/1.jpg"/>
+                    <ReviewPersonCard>
+                        <ReviewName>Thomas Al-Ghazali</ReviewName>
+                        <ReviewTime>4m ago</ReviewTime>
+                    </ReviewPersonCard>
+                    <FaRegCheckCircle className='iconcheck'/>
+                    <GiCancel className='iconcross'/>
+                </ReviewInnerContainer>    
+            </ReviewCard></SwiperSlide>
         
       
       </Swiper>
