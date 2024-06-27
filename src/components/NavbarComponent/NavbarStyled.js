@@ -113,8 +113,10 @@ export const NavRights = styled.p`
 
 export const DashboardNav = styled.div`
   display: flex;
-  padding-right: 45rem;
+
   background-color: #ffff;
+  transition: margin-left 0.2s ease-in-out;
+  margin-left: ${(props) => (props.isOpen ? "0" : "0")};
 `;
 
 export const InputSearch = styled.input`
@@ -130,7 +132,9 @@ export const DashboardText = styled.p`
 `;
 
 export const IconContainer = styled.div`
-  margin: auto 0;
+  z-index: 1;
+  transition: padding-left 0.2s ease-in-out;
+  padding-left: ${(props) => (props.isOpen ? "18rem" : "2rem")};
   align-items: center;
   background-color: #fff;
 `;
