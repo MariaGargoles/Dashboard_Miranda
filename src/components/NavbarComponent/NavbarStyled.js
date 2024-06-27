@@ -4,7 +4,6 @@ export const NavbarSection = styled.nav`
   background-color: #ffff;
   display: flex;
   align-items: center;
-  background-color: #fff;
   width: 100%;
   position: relative;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
@@ -13,15 +12,19 @@ export const NavbarSection = styled.nav`
 export const LogoMenu = styled.img`
   width: 5rem;
   height: 5rem;
+  background-color: #ffff;
 `;
 
 export const LogoText = styled.img`
   padding-left: 1rem;
   width: 11rem;
   height: 5rem;
+  background-color: #ffff;
 `;
 
-export const IconsSection = styled.div``;
+export const IconsSection = styled.div`
+  background-color: #ffff;
+`;
 
 export const MenuSection = styled.div`
   position: absolute;
@@ -31,16 +34,19 @@ export const MenuSection = styled.div`
   background-color: white;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
   padding-bottom: 18rem;
+  background-color: #ffff;
 `;
 
 export const UlMenu = styled.ul`
   list-style: none;
+  background-color: #ffff;
 `;
 
 export const ListMenu = styled.li`
   font-family: "Poppins", sans-serif;
   padding: 1.5rem;
   cursor: pointer;
+  background-color: #ffff;
 `;
 
 export const PersonCard = styled.div`
@@ -52,12 +58,14 @@ export const PersonCard = styled.div`
   padding-top: 3rem;
   padding-bottom: 3rem;
   width: 75%;
+  background-color: #ffff;
 `;
 
 export const PersonImg = styled.img`
   border-radius: 50%;
   width: 6rem;
   height: 7rem;
+  background-color: #ffff;
 `;
 
 export const PersonName = styled.h4`
@@ -71,6 +79,7 @@ export const PersonEmail = styled.p`
   padding-top: 1rem;
   padding-bottom: 1rem;
   font-size: 1em;
+  background-color: #ffff;
 `;
 
 export const PersonButton = styled.button`
@@ -82,23 +91,28 @@ export const PersonButton = styled.button`
   color: #135846;
 `;
 
-export const NavFooter = styled.div``;
+export const NavFooter = styled.div`
+  background-color: #ffff;
+`;
 
 export const NavCopy = styled.p`
   font-family: "Poppins", sans-serif;
   padding-left: 3rem;
   padding-bottom: 1rem;
   font-weight: bold;
+  background-color: #ffff;
 `;
 
 export const NavRights = styled.p`
   font-family: "Poppins", sans-serif;
   padding-left: 3rem;
+  background-color: #ffff;
 `;
 
 export const DashboardNav = styled.div`
   display: flex;
   padding-right: 45rem;
+  background-color: #ffff;
 `;
 
 export const InputSearch = styled.input`

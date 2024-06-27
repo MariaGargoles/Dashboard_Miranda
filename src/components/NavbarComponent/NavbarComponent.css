@@ -1,11 +1,11 @@
 *{
-    background-color: #fff;
+    background-color: #f8f8f8;
 }
 
 .icons {
     color: #135846;
     padding: 2rem;
-    background-color:  #fff;
+    background-color:  #ffff;
     cursor: pointer;
 }
 
@@ -14,12 +14,14 @@
 .DashboardText {
     font-family: "Poppins", sans-serif;
     padding-left: 3rem;
+    background-color:  #ffff;
     
     
 }
 
 .menuicon {
     padding-right: 1rem;
+    background-color:  #ffff;
     
 }
 
@@ -35,6 +37,7 @@ display: block;
 .iconContainer {
    margin: auto 0;
     align-items: center;
+    background-color:  #fff;
 
     
 }
