@@ -62,18 +62,18 @@ export const NavbarComponent = () => {
                         <PersonImg src="src/assets/1.jpg" alt="Person" />
                         <PersonName>María Gárgoles</PersonName>
                         <PersonEmail>segwanda12@gmail.com</PersonEmail>
-                        <PersonButton>Contact Us</PersonButton>
+                        <PersonButton>Edit User</PersonButton>
                     </PersonCard>
                     <NavFooter>
                         <NavCopy>Travl Hotel Admin Dashboard</NavCopy>
                         <NavRights>© 2020 All Rights Reserved</NavRights>
                     </NavFooter>
                 </MenuSection>}
-                <DashboardNav>
+                <DashboardNav isOpen={openMenu}>
                     <TfiAlignLeft onClick={handleClick} />
                     <DashboardText>Dashboard</DashboardText>
                 </DashboardNav>
-                <IconContainer>
+                <IconContainer isOpen={openMenu}>
                 
                 
                 <InputSearch />
