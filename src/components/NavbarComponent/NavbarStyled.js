@@ -30,11 +30,11 @@ export const MenuSection = styled.div`
   position: absolute;
   top: 100%;
   left: 0;
-  width: 20%;
-  background-color: white;
+  width: 22%;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
-  padding-bottom: 18rem;
   background-color: #ffff;
+  z-index: 999;
+  height: 75em;
 `;
 
 export const UlMenu = styled.ul`
@@ -59,6 +59,7 @@ export const PersonCard = styled.div`
   padding-bottom: 3rem;
   width: 75%;
   background-color: #ffff;
+  margin-top: 5rem;
 `;
 
 export const PersonImg = styled.img`
@@ -93,6 +94,7 @@ export const PersonButton = styled.button`
 
 export const NavFooter = styled.div`
   background-color: #ffff;
+  padding-top: 15rem;
 `;
 
 export const NavCopy = styled.p`
@@ -119,4 +121,16 @@ export const InputSearch = styled.input`
   border-radius: 12px;
   background-color: #fcfcfc;
   transform: translateY(-161%);
+`;
+
+export const DashboardText = styled.p`
+  font-family: "Poppins", sans-serif;
+  padding-left: 3rem;
+  background-color: #ffff;
+`;
+
+export const IconContainer = styled.div`
+  margin: auto 0;
+  align-items: center;
+  background-color: #fff;
 `;

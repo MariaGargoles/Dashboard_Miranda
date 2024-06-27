@@ -10,15 +10,6 @@
 }
 
 
-
-.DashboardText {
-    font-family: "Poppins", sans-serif;
-    padding-left: 3rem;
-    background-color:  #ffff;
-    
-    
-}
-
 .menuicon {
     padding-right: 1rem;
     background-color:  #ffff;
@@ -26,6 +17,8 @@
 }
 
 .list-link {
+text-decoration: none; 
+color: inherit; 
 display: block;
 }
 
@@ -34,13 +27,9 @@ display: block;
     color: red;
 }
 
-.iconContainer {
-   margin: auto 0;
-    align-items: center;
-    background-color:  #fff;
 
-    
-}
+
+
 
 
 
