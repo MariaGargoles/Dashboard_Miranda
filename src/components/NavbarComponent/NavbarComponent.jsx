@@ -27,7 +27,9 @@ import {
     PersonName, 
     UlMenu, 
     DashboardNav, 
-    InputSearch
+    InputSearch,
+    DashboardText,
+    IconContainer
 } from "./NavbarStyled";
 import { NavLink } from "react-router-dom";
 
@@ -52,14 +54,14 @@ export const NavbarComponent = () => {
                     <UlMenu>
                         <NavLink  to="/dashboard" className="list-link"><ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu></NavLink>
                         <NavLink  to="/rooms" className="list-link"><ListMenu><PiKeyBold className="menuicon"/>Rooms</ListMenu></NavLink>
-                        <a to="/booking" className="list-link"><ListMenu><LuCalendarCheck2 className="menuicon"/>Bookings</ListMenu></a>
-                        <a  to="/users" className="list-link"> <ListMenu><MdOutlinePersonOutline className="menuicon"/>Users</ListMenu></a>
+                        <NavLink to="/booking" className="list-link"><ListMenu><LuCalendarCheck2 className="menuicon"/>Bookings</ListMenu></NavLink>
+                        <NavLink  to="/users" className="list-link"> <ListMenu><MdOutlinePersonOutline className="menuicon"/>Users</ListMenu></NavLink>
                         <NavLink  to="/contact" className="list-link"><ListMenu><MdContactPhone className="menuicon"/>Contact</ListMenu></NavLink>
                     </UlMenu>
                     <PersonCard>
-                        <PersonImg src="src/assets/photo.jpg" alt="Person" />
+                        <PersonImg src="src/assets/1.jpg" alt="Person" />
                         <PersonName>María Gárgoles</PersonName>
-                        <PersonEmail>mariagargoles.dev@gmail.com</PersonEmail>
+                        <PersonEmail>segwanda12@gmail.com</PersonEmail>
                         <PersonButton>Contact Us</PersonButton>
                     </PersonCard>
                     <NavFooter>
@@ -69,9 +71,9 @@ export const NavbarComponent = () => {
                 </MenuSection>}
                 <DashboardNav>
                     <TfiAlignLeft onClick={handleClick} />
-                    <p className="DashboardText">Dashboard</p>
+                    <DashboardText>Dashboard</DashboardText>
                 </DashboardNav>
-                <div className="iconContainer">
+                <IconContainer>
                 
                 
                 <InputSearch />
@@ -79,7 +81,7 @@ export const NavbarComponent = () => {
                 <IoMdHeartEmpty className="icons" />
                 <MdOutlineMail className="icons" />
                 <TbMessage className="icons" />
-                </div>
+                </IconContainer>
             </NavbarSection>
         </>
     );
