@@ -19,15 +19,18 @@ export const KPICard = styled.div`
 
 export const KPICardText = styled.div`
   padding-left: 0.5rem;
+  background-color: #ffff;
 `;
 
 export const KPITitle = styled.h3`
   font-family: "Poppins", sans-serif;
   color: #393939;
   font-size: 2rem;
+  background-color: #ffff;
 `;
 
 export const KPIText = styled.p`
   font-family: "Poppins", sans-serif;
   color: #787878;
+  background-color: #ffff;
 `;
