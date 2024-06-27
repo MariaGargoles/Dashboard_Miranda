@@ -1,43 +1,26 @@
 
 import data from './ContactMessages.json';
 import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "./ContactStyled";
-
+import { TableComponent } from '../TableComponent/TableComponent';
 
 export const ContactMessagesComponent = () => {
-    
+    const columns = [
+        { headerColumn: 'Order ID', columnsData: 'id' },
+        { headerColumn: 'Date', columnsData: 'date' },
+        { headerColumn: 'Name', columnsData: 'name' },
+        { headerColumn: 'Email', columnsData: 'email' },
+        { headerColumn: 'Subject', columnsData: 'subject' },
+        { headerColumn: 'Comment', columnsData: 'comment' }
+    ];
 
     return (
         <>
-            <TableContainer>
+           <TableContainer>
                 <TableFilters>
                     <TableButtonFilter>All Contacts</TableButtonFilter>
                     <TableButtonFilter>Published</TableButtonFilter>
-                    
                 </TableFilters>
-                <Table>
-                    <EncabezadoTabla>
-                        <tr>
-                            <TableHeadText>Order ID</TableHeadText>
-                            <TableHeadText>Date</TableHeadText>
-                            <TableHeadText>Name</TableHeadText>
-                            <TableHeadText>Email</TableHeadText>
-                            <TableHeadText>Subject</TableHeadText>
-                            <TableHeadText>Comment</TableHeadText>
-                        </tr>
-                    </EncabezadoTabla>
-                    <BodyTable>
-                        {data.map(comment => (
-                            <tr key={comment.id}>
-                                <TableCell>#000123456</TableCell>
-                                <TableCell>{comment.date}</TableCell>
-                                <TableCell>{comment.name}</TableCell>
-                                <TableCell>{comment.email}</TableCell>
-                                <TableCell>{comment.subject}</TableCell>
-                                <TableCell>{comment.comment}</TableCell>
-                            </tr>
-                        ))}
-                    </BodyTable>
-                </Table>
+                <TableComponent columns={columns} data={data} />
             </TableContainer>
         </>
     );

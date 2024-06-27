@@ -1,5 +1,7 @@
-import { DashboardComponent } from "../src/components/DashboardComponent/Dashboard"
+
 import { NavbarComponent } from "../src/components/NavbarComponent/NavbarComponent"
+import { KPIComponent } from "../src/components/KPIComponent/KPIComponent"
+import { ReviewsComponent } from "../src/components/ReviewsComponent/ReviewsComponent"
 
 
 export const DashboardPage = () => {
@@ -7,7 +9,8 @@ export const DashboardPage = () => {
     
     return (<>
         <NavbarComponent/>
-        <DashboardComponent style={{ backgroundColor: 'grey' }} />
+        <KPIComponent/>
+        <ReviewsComponent/>
         
             
        
