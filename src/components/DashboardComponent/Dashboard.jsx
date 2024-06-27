@@ -1,5 +1,5 @@
 import { KPIComponent } from "../KPIComponent/KPIComponent"
-
+import { ReviewsComponent } from "../ReviewsComponent/ReviewsComponent"
 
 export const DashboardComponent = () => {
 
@@ -9,6 +9,7 @@ export const DashboardComponent = () => {
             <title>PAGINA</title>
             
             <KPIComponent/>
+            <ReviewsComponent/>
             
             </>)
     
