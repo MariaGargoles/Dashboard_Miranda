@@ -1,6 +1,6 @@
 import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "../ContactComponent/ContactStyled"
 
-export const TableComponent = () => {
+export const TableComponent = ({columns, data}) => {
 
     
     return (
