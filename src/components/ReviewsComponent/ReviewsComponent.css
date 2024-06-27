@@ -12,3 +12,17 @@
     color: #E23428;
     background-color: #ffff;
 }
+
+:root {
+    --swiper-navigation-size: initial  !important;
+    
+  }
+
+  .swiper-button-prev, .swiper-button-next {
+    width: 3em ;
+    height: 3em;
+    color: #FFFF !important;
+    background-color: #135846 !important;
+    cursor: pointer;
+    border-radius: 1rem;
+}

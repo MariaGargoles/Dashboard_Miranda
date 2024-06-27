@@ -50,8 +50,6 @@ export const ReviewImage = styled.img`
 `;
 
 export const ReviewPersonCard = styled.div`
-  color: #262626;
-  font-family: "Poppins", sans-serif;
   background-color: #ffff;
 `;
 
