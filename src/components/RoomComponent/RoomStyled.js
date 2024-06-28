@@ -55,6 +55,7 @@ export const BookingButtonStatus = styled.button`
   cursor: pointer;
   font-family: "Poppins", sans-serif;
   font-size: 1em;
+  border-radius: 12px;
 
   ${(props) => {
     switch (props.styled) {
