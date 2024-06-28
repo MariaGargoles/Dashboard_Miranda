@@ -1,7 +1,7 @@
 import data from "./Rooms.json";
 import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "../ContactComponent/ContactStyled";
 import { TableComponent } from '../TableComponent/TableComponent';
-import { ImageRoom, StatusButton } from "./RoomStyled";
+import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector,  } from "./RoomStyled";
 
 
 export const RoomComponent = () => {
@@ -23,6 +23,16 @@ export const RoomComponent = () => {
                     <TableButtonFilter>All Rooms</TableButtonFilter>
                     <TableButtonFilter>Available</TableButtonFilter>
                 </TableFilters>
+                <SelectorContainer>
+                <ButtonRoom>+ New Room</ButtonRoom>
+                <Selector>
+                <option>Room Number</option>
+                <option>Available</option>
+                <option>Booked</option>
+                <option>Price Highest to Lowest</option>
+                <option>Price Lowest to Highest</option>
+                </Selector>
+                </SelectorContainer>
                 <TableComponent columns={columns} data={data} />
             </TableContainer>
         </>
