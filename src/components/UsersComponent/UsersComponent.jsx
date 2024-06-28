@@ -2,7 +2,7 @@ import data from "./Users.json"
 import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText, ContactButton } from "../ContactComponent/ContactStyled";
 import { TableComponent } from '../TableComponent/TableComponent';
 import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector,  } from "../RoomComponent/RoomStyled";
-
+import { UsersButton } from "./UsersStyled";
 
 export const UserComponent = () => {
     const columns = [
@@ -13,7 +13,7 @@ export const UserComponent = () => {
         { headerColumn: 'Description', columnsData: 'description' },
         { headerColumn: 'Email', columnsData: 'email' },
         { headerColumn: 'Contact', columnsData: 'contact' },
-        { headerColumn: 'Status', columnsData: 'status' }
+        { headerColumn: 'Status', columnsData: 'status', columnRenderer: (row) => <UsersButton status={row.status}>{row.status}</UsersButton> },
     ];
     
         return (
