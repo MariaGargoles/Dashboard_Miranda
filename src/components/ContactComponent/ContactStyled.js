@@ -6,15 +6,16 @@ export const TableContainer = styled.div`
   margin-right: 2rem;
 `;
 
-export const TableFilters = styled.div`
+export const TableFilters = styled.ul`
   display: inline-flex;
   background-color: #f8f8f8;
-  width: 50%;
-  margin: 1rem;
+  width: 25%;
+  margin-top: 3rem;
   padding: 1rem;
 `;
 
-export const TableButtonFilter = styled.button`
+export const TableButtonFilter = styled.li`
+  list-style: none;
   border: none;
   font-family: "Poppins", sans-serif;
   background-color: #f8f8f8;
