@@ -54,3 +54,15 @@ export const TableCell = styled.td`
   border-radius: 18px;
   color: #393939;
 `;
+
+export const ContactButton = styled.button`
+  background-color: ${(props) =>
+    props.status === "publish" ? "#E8FFEE" : "#FFEDEC"};
+  color: ${(props) => (props.status === "publish" ? "#5AD07A" : "#E23428")};
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-size: 1em;
+`;
