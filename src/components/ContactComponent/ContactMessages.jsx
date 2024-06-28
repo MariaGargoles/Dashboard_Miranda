@@ -2,6 +2,7 @@
 import data from './ContactMessages.json';
 import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "./ContactStyled";
 import { TableComponent } from '../TableComponent/TableComponent';
+import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector,  } from "../RoomComponent/RoomStyled";
 
 export const ContactMessagesComponent = () => {
     const columns = [
@@ -20,6 +21,13 @@ export const ContactMessagesComponent = () => {
                     <TableButtonFilter>All Contacts</TableButtonFilter>
                     <TableButtonFilter>Published</TableButtonFilter>
                 </TableFilters>
+                <SelectorContainer>
+                <Selector>
+                <option>Newest</option>
+                <option>Oldest</option>
+                </Selector>
+                </SelectorContainer>
+
                 <TableComponent columns={columns} data={data} />
             </TableContainer>
         </>
