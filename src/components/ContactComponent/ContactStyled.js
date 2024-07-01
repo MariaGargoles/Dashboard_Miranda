@@ -73,3 +73,17 @@ export const PaginationContainer = styled.div`
   justify-content: flex-end;
   gap: 2em;
 `;
+
+export const PaginationButton = styled.button`
+  background-color: #135846;
+  color: #ffff;
+  width: 7em;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-size: 1em;
+  margin: 0 0.2rem;
+  text-align: center;
+`;

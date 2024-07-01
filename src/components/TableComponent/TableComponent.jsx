@@ -1,9 +1,9 @@
-import { TableContainer, TableFilters, PaginationContainer, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "../ContactComponent/ContactStyled";
+import { TableContainer, TableFilters, PaginationContainer, PaginationButton, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "../ContactComponent/ContactStyled";
 import { useState, useEffect } from "react";
 
-export const TableComponent = ({columns, data}) => {
-
+export const TableComponent = ({ columns, data }) => {
     const pageSize = 5;
+    
 
     const createPagination = (array, size) => {
         const aux = [];
@@ -55,9 +55,9 @@ export const TableComponent = ({columns, data}) => {
                 ))}
             </Table>
             <PaginationContainer>
-                <button onClick={handlePrev} disabled={num === 0}>Prev</button>
-                <button onClick={handleNext} disabled={num + 1 >= pages.length}>Next</button>
+                <PaginationButton onClick={handlePrev} disabled={num === 0}>Prev</PaginationButton>
+                <PaginationButton onClick={handleNext} disabled={num + 1 >= pages.length}>Next</PaginationButton>
             </PaginationContainer>
         </>
     );
-}
+};
