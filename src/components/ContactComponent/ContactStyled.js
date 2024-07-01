@@ -66,3 +66,10 @@ export const ContactButton = styled.button`
   font-family: "Poppins", sans-serif;
   font-size: 1em;
 `;
+
+export const PaginationContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 2em;
+`;
