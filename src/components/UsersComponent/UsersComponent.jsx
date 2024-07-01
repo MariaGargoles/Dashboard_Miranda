@@ -1,4 +1,4 @@
-import data from "./Users.json"
+import data from "../../data/Users.json"
 import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText, ContactButton } from "../ContactComponent/ContactStyled";
 import { TableComponent } from '../TableComponent/TableComponent';
 import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector,  } from "../RoomComponent/RoomStyled";

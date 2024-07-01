@@ -1,5 +1,5 @@
-import { NavbarComponent } from "../src/components/NavbarComponent/NavbarComponent"
-import { RoomComponent } from "../src/components/RoomComponent/RoomComponent"
+import { NavbarComponent } from "../components/NavbarComponent/NavbarComponent"
+import { RoomComponent } from "../components/RoomComponent/RoomComponent"
 
 export const RoomPage = () => {
 
