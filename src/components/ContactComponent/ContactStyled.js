@@ -21,6 +21,10 @@ export const TableButtonFilter = styled.li`
   background-color: #f8f8f8;
   font-size: 1em;
   color: #135846;
+  cursor: pointer;
+  &:hover {
+    border-bottom: 2px solid #135846;
+  }
 `;
 
 export const Table = styled.table`
@@ -70,7 +74,7 @@ export const ContactButton = styled.button`
 export const PaginationContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-evenly;
   gap: 2em;
 `;
 
