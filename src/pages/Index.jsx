@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FormLoginComponent } from "../src/components/FormLoginComponent/FormLoginComponent.jsx";
+import { FormLoginComponent } from "../components/FormLoginComponent/FormLoginComponent.jsx";
 import { DashboardPage } from "./Dashboard.jsx";
 
 

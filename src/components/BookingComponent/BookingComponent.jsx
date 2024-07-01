@@ -1,4 +1,4 @@
-import data from "./Booking.json"
+import data from "../../data/Booking.json"
 import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "../ContactComponent/ContactStyled";
 import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector, BookingButtonStatus  } from "../RoomComponent/RoomStyled";
 import { TableComponent } from "../TableComponent/TableComponent";
