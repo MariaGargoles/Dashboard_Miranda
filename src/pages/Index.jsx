@@ -1,32 +1,31 @@
-import { useState, useEffect } from "react";
-import { FormLoginComponent } from "../components/FormLoginComponent/FormLoginComponent.jsx";
+import React, { useContext, useEffect } from 'react';
+import FormLoginComponent from "../components/FormLoginComponent/FormLoginComponent.jsx";
 import { DashboardPage } from "./Dashboard.jsx";
-
-
+import { AuthContext } from '../context/AuthUserContext';
 
 export const IndexPage = () => {
-    
-    const [isLogged, setIsLogged] = useState(localStorage.getItem("login"))
-    useEffect(() => {
-        setIsLogged(localStorage.getItem("login"));
-    }, []);
+  const { state, login } = useContext(AuthContext);
 
-    const handleLogin = () => {
-        setIsLogged("true");
-        localStorage.setItem("login", "true");
-    };
+  useEffect(() => {
+    const storedState = localStorage.getItem("authState");
+    if (storedState) {
+      const parsedState = JSON.parse(storedState);
+      if (parsedState.isAuthenticated) {
+        login(parsedState.user.name, parsedState.user.email);
+      }
+    }
+  }, [login]);
 
-    return (
+  return (
+    <>
+      {state.isAuthenticated ? (
+        <DashboardPage />
+      ) : (
         <>
-            {isLogged === "true" ? (
-                <DashboardPage />
-            ) : (
-                <>
-                    <title>Pagina Login</title>
-                    <FormLoginComponent onLogin={handleLogin} />
-                </>
-            )}
+          <title>Página Login</title>
+          <FormLoginComponent />
         </>
-    );
+      )}
+    </>
+  );
 };
-
