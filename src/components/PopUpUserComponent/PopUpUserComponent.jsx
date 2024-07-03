@@ -1,20 +1,22 @@
-import { useContext, useState } from "react";
-import { UserContext } from "../../context/userContext.jsx";
+import { useContext, useState, useEffect } from "react";
+import { AuthContext } from "../../context/AuthUserContext.jsx"; 
+import { Modal, ModalCard } from "./PopUpUserStyled.js";
 
 export const PopupUserComponent = ({ isOpen, onClose }) => {
-  const { state, dispatch } = useContext(UserContext);
+  const { state, updateUser } = useContext(AuthContext); 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
 
+  useEffect(() => {
+    if (isOpen) {
+      setFullName(state.user.name);
+      setEmail(state.user.email);
+    }
+  }, [isOpen, state.user.name, state.user.email]);
+
   const handleSave = () => {
-    if (fullName !== state.name || email !== state.email) {
-      dispatch({
-        type: "UPDATE_USER",
-        payload: {
-          name: fullName,
-          email: email,
-        },
-      });
+    if (fullName !== state.user.name || email !== state.user.email) {
+      updateUser(fullName, email);
     }
 
     onClose();
@@ -46,7 +48,10 @@ export const PopupUserComponent = ({ isOpen, onClose }) => {
         <button styled="close" onClick={onClose}>
           Close
         </button>
-        <button styled="erase" onClick={""}>
+        <button styled="erase" onClick={() => {
+          setFullName("");
+          setEmail("");
+        }}>
           Erase
         </button>
       </ModalCard>

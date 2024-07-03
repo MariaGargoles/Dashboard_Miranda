@@ -32,15 +32,22 @@ import {
     IconContainer
 } from "./NavbarStyled";
 import { NavLink } from "react-router-dom";
-import { PopupUserComponent } from "../PopUpUserComponent/PopUpUserComponent";
-
+import { PopupUserComponent } from "../PopUpUserComponent/PopUpUserComponent.jsx";
 
 export const NavbarComponent = () => {
-
     const [openMenu, setIsOpenMenu] = useState(false);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const handleClick = () => {
-        setIsOpenMenu(!openMenu)
+        setIsOpenMenu(!openMenu);
+    };
+
+    const handleEditUserClick = () => {
+        setIsPopupOpen(true);
+    };
+
+    const handleClosePopup = () => {
+        setIsPopupOpen(false);
     };
 
     return (
@@ -54,11 +61,11 @@ export const NavbarComponent = () => {
                 
                 <MenuSection>
                     <UlMenu>
-                        <NavLink  to="/dashboard" className="list-link"><ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu></NavLink>
-                        <NavLink  to="/rooms" className="list-link"><ListMenu><PiKeyBold className="menuicon"/>Rooms</ListMenu></NavLink>
+                        <NavLink to="/dashboard" className="list-link"><ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu></NavLink>
+                        <NavLink to="/rooms" className="list-link"><ListMenu><PiKeyBold className="menuicon"/>Rooms</ListMenu></NavLink>
                         <NavLink to="/booking" className="list-link"><ListMenu><LuCalendarCheck2 className="menuicon"/>Bookings</ListMenu></NavLink>
-                        <NavLink  to="/users" className="list-link"> <ListMenu><MdOutlinePersonOutline className="menuicon"/>Users</ListMenu></NavLink>
-                        <NavLink  to="/contact" className="list-link"><ListMenu><MdContactPhone className="menuicon"/>Contact</ListMenu></NavLink>
+                        <NavLink to="/users" className="list-link"><ListMenu><MdOutlinePersonOutline className="menuicon"/>Users</ListMenu></NavLink>
+                        <NavLink to="/contact" className="list-link"><ListMenu><MdContactPhone className="menuicon"/>Contact</ListMenu></NavLink>
                     </UlMenu>
                     <PersonCard>
                         <PersonImg src="src/assets/1.jpg" alt="Person" />
@@ -66,26 +73,29 @@ export const NavbarComponent = () => {
                         <PersonEmail>segwanda12@gmail.com</PersonEmail>
                         <PersonButton onClick={handleEditUserClick}>Edit User</PersonButton>
                     </PersonCard>
+                    
                     <NavFooter>
                         <NavCopy>Travl Hotel Admin Dashboard</NavCopy>
                         <NavRights>© 2020 All Rights Reserved</NavRights>
                     </NavFooter>
+                    
                 </MenuSection>}
                 <DashboardNav isOpen={openMenu}>
                     <TfiAlignLeft onClick={handleClick} />
                     <DashboardText>Dashboard</DashboardText>
                 </DashboardNav>
                 <IconContainer isOpen={openMenu}>
-                
-                
-                <InputSearch />
-                <IoIosSearch className="icons" />
-                <IoMdHeartEmpty className="icons" />
-                <MdOutlineMail className="icons" />
-                <TbMessage className="icons" />
+                    <InputSearch />
+                    <IoIosSearch className="icons" />
+                    <IoMdHeartEmpty className="icons" />
+                    <MdOutlineMail className="icons" />
+                    <TbMessage className="icons" />
                 </IconContainer>
-                <PopupUserComponent isOpen={isPopupOpen} onClose={handleClosePopup} />
+                
+               
             </NavbarSection>
+            <PopupUserComponent isOpen={isPopupOpen} onClose={handleClosePopup} />
+            
         </>
     );
 }
