@@ -22,7 +22,7 @@ export const FormLoginComponent = () => {
   return (
     <LoginForm>
       <TitleForm>LoginPage</TitleForm>
-      <LogoForm src="/Logo.png" alt="Logo" />
+      <LogoForm src="assets/Logo.png" alt="Logo" />
       <Form onSubmit={submitHandler}>
         <Label>Nombre</Label>
         <Input
