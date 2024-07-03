@@ -32,6 +32,8 @@ import {
     IconContainer
 } from "./NavbarStyled";
 import { NavLink } from "react-router-dom";
+import { PopupUserComponent } from "../PopUpUserComponent/PopUpUserComponent";
+
 
 export const NavbarComponent = () => {
 
@@ -62,7 +64,7 @@ export const NavbarComponent = () => {
                         <PersonImg src="src/assets/1.jpg" alt="Person" />
                         <PersonName>María Gárgoles</PersonName>
                         <PersonEmail>segwanda12@gmail.com</PersonEmail>
-                        <PersonButton>Edit User</PersonButton>
+                        <PersonButton onClick={handleEditUserClick}>Edit User</PersonButton>
                     </PersonCard>
                     <NavFooter>
                         <NavCopy>Travl Hotel Admin Dashboard</NavCopy>
@@ -82,6 +84,7 @@ export const NavbarComponent = () => {
                 <MdOutlineMail className="icons" />
                 <TbMessage className="icons" />
                 </IconContainer>
+                <PopupUserComponent isOpen={isPopupOpen} onClose={handleClosePopup} />
             </NavbarSection>
         </>
     );

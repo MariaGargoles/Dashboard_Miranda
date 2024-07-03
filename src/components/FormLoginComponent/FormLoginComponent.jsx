@@ -12,7 +12,7 @@ const FormLoginComponent = () => {
     event.preventDefault();
 
     if (username === "maria" && password === "miranda") {
-      login(username, "maria@example.com"); 
+      login(username, "maria@example.com");
     } else {
       alert("Datos incorrectos");
     }
@@ -21,9 +21,9 @@ const FormLoginComponent = () => {
   return (
     <LoginForm>
       <TitleForm>LoginPage</TitleForm>
-      <LogoForm src="src/assets/Logo.png" alt="Logo" />
+      <LogoForm src="/Logo.png" alt="Logo" />
       <Form onSubmit={submitHandler}>
-        <Label htmlFor="username">Nombre</Label>
+        <Label>Nombre</Label>
         <Input
           type="text"
           id="username"
@@ -33,7 +33,7 @@ const FormLoginComponent = () => {
           onChange={(event) => setUsername(event.target.value)}
         />
 
-        <Label htmlFor="password">Password</Label>
+        <Label>Password</Label>
         <Input
           type="password"
           id="password"
