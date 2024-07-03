@@ -1,4 +1,4 @@
-import { NavbarComponent } from "../components/NavbarComponent/NavbarComponent"
+import { NavbarComponent } from "../../components/NavbarComponent/NavbarComponent"
 
 
 export const BookingRoomPage = () =>  {

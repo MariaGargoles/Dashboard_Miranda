@@ -3,6 +3,7 @@ import data from "../../data/Rooms.json";
 import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "../ContactComponent/ContactStyled";
 import { TableComponent } from '../TableComponent/TableComponent';
 import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector,  } from "./RoomStyled";
+import { NavLink } from 'react-router-dom';
 
 
 export const RoomComponent = () => {
@@ -70,7 +71,7 @@ export const RoomComponent = () => {
                     <TableButtonFilter onClick={() => handleFilterClick('booked')}>Booked</TableButtonFilter>
                 </TableFilters>
                 <SelectorContainer>
-                    <ButtonRoom>+ New Room</ButtonRoom>
+                    <NavLink to="BookingRoom"><ButtonRoom>+ New Room</ButtonRoom></NavLink>
                     <Selector value={sortOption} onChange={handleSortChange}>
                         <option value="">Sort By</option>
                         <option value="roomNumberAsc">Room Number Ascending</option>

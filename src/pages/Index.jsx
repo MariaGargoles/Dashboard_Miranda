@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {FormLoginComponent} from "../components/FormLoginComponent/FormLoginComponent.jsx"
-import { DashboardPage } from './Dashboard.jsx';
+import { DashboardPage } from './Dashboard/Dashboard.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser } from '../context/AuthUserContext.jsx';
 
