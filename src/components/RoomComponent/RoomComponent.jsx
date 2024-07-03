@@ -19,7 +19,6 @@ export const RoomComponent = () => {
     ];
 
     const [rooms, setRooms] = useState(data);
-    const [searchTerm, setSearchTerm] = useState('');
     const [sortOption, setSortOption] = useState('');
 
     const filterActions = {
@@ -52,15 +51,7 @@ export const RoomComponent = () => {
         setRooms(sortedData);
     };
 
-    const handleSearchChange = (event) => {
-        const value = event.target.value;
-        setSearchTerm(value);
-        if (value === '') {
-            setRooms(data);
-        } else {
-            setRooms(data.filter(room => room.number.toLowerCase().includes(value.toLowerCase())));
-        }
-    };
+   
 
     return (
         <>
@@ -71,7 +62,7 @@ export const RoomComponent = () => {
                     <TableButtonFilter onClick={() => handleFilterClick('booked')}>Booked</TableButtonFilter>
                 </TableFilters>
                 <SelectorContainer>
-                    <NavLink to="BookingRoom"><ButtonRoom>+ New Room</ButtonRoom></NavLink>
+                    <NavLink to="NewRoom"><ButtonRoom>+ New Room</ButtonRoom></NavLink>
                     <Selector value={sortOption} onChange={handleSortChange}>
                         <option value="">Sort By</option>
                         <option value="roomNumberAsc">Room Number Ascending</option>

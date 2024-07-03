@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { loginUser } from '../../context/AuthUserContext.jsx';
 import "./FormLoginComponent.css";
 import { LoginForm, TitleForm, Form, Label, Input, LogoForm } from "./FormLoginStyled.js";
+import logo from "../../assets/Logo.png"
 
 export const FormLoginComponent = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export const FormLoginComponent = () => {
   return (
     <LoginForm>
       <TitleForm>LoginPage</TitleForm>
-      <LogoForm src="assets/Logo.png" alt="Logo" />
+      <LogoForm src={logo} alt="Logo" />
       <Form onSubmit={submitHandler}>
         <Label>Nombre</Label>
         <Input

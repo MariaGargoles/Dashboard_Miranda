@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, ModalCard, Button } from "./PopUpUserStyled.js";
+import { Modal, ModalCard, Button, ModalTitle, ModalLabel, ModalInput } from "./PopUpUserStyled.js";
 
 export const PopupUserComponent = ({ isOpen, onClose, editUser }) => {
   const [fullName, setFullName] = useState("");
@@ -25,21 +25,22 @@ export const PopupUserComponent = ({ isOpen, onClose, editUser }) => {
   return (
     <Modal>
       <ModalCard>
-        <h2>Edit User</h2>
-        <label>Full Name</label>
-        <input
+        <ModalTitle>Edit User</ModalTitle>
+        <ModalLabel>Full Name</ModalLabel>
+        <ModalInput
           type="text"
           value={fullName}
           onChange={(event) => setFullName(event.target.value)}
           placeholder="Edit full name"
         />
-        <label>Email</label>
-        <input
+        <ModalLabel>Email</ModalLabel>
+        <ModalInput
           type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="Edit email"
         />
+        <div>
         <Button type="button" onClick={handleSave} variant="save">
           Save
         </Button>
@@ -52,6 +53,7 @@ export const PopupUserComponent = ({ isOpen, onClose, editUser }) => {
         }} variant="erase">
           Erase
         </Button>
+        </div>
       </ModalCard>
     </Modal>
   );
