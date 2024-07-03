@@ -1,22 +1,20 @@
-import { useContext, useState, useEffect } from "react";
-import { AuthContext } from "../../context/AuthUserContext.jsx"; 
-import { Modal, ModalCard } from "./PopUpUserStyled.js";
+import React, { useState, useEffect } from "react";
+import { Modal, ModalCard, Button } from "./PopUpUserStyled.js";
 
-export const PopupUserComponent = ({ isOpen, onClose }) => {
-  const { state, updateUser } = useContext(AuthContext); 
+export const PopupUserComponent = ({ isOpen, onClose, editUser }) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
 
   useEffect(() => {
     if (isOpen) {
-      setFullName(state.user.name);
-      setEmail(state.user.email);
+      setFullName(editUser.name || "");
+      setEmail(editUser.email || "");
     }
-  }, [isOpen, state.user.name, state.user.email]);
+  }, [isOpen, editUser]);
 
   const handleSave = () => {
-    if (fullName !== state.user.name || email !== state.user.email) {
-      updateUser(fullName, email);
+    if (fullName !== editUser.name || email !== editUser.email) {
+      editUser(fullName, email);
     }
 
     onClose();
@@ -42,18 +40,18 @@ export const PopupUserComponent = ({ isOpen, onClose }) => {
           onChange={(event) => setEmail(event.target.value)}
           placeholder="Edit email"
         />
-        <button styled="save" onClick={handleSave}>
+        <Button type="button" onClick={handleSave} variant="save">
           Save
-        </button>
-        <button styled="close" onClick={onClose}>
+        </Button>
+        <Button type="button" onClick={onClose} variant="close">
           Close
-        </button>
-        <button styled="erase" onClick={() => {
+        </Button>
+        <Button type="button" onClick={() => {
           setFullName("");
           setEmail("");
-        }}>
+        }} variant="erase">
           Erase
-        </button>
+        </Button>
       </ModalCard>
     </Modal>
   );

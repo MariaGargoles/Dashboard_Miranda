@@ -1,76 +1,56 @@
-import React, { createContext, useReducer, useEffect } from 'react';
-
-const AuthContext = createContext();
+import React, { createContext, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const initialState = {
+  name: null,
+  email: null,
   isAuthenticated: false,
-  user: {
-    name: '',
-    email: '',
-  },
 };
 
-const authReducer = (state, action) => {
+ export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOGIN':
-      return {
-        ...state,
-        isAuthenticated: true,
-        user: {
-          name: action.payload.name,
-          email: action.payload.email,
-        },
-      };
+      return { ...state, name: action.payload.name, email: action.payload.email, isAuthenticated: true };
     case 'LOGOUT':
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: {
-          name: '',
-          email: '',
-        },
-      };
-    case 'UPDATE_USER':
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          name: action.payload.name,
-          email: action.payload.email,
-        },
-      };
+      return { name: null, email: null, isAuthenticated: false };
+    case 'EDITUSER':
+      return { ...state, name: action.payload.name, email: action.payload.email };
     default:
       return state;
   }
 };
 
-const AuthProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, initialState, (initial) => {
-    const localData = localStorage.getItem('authState');
-    return localData ? JSON.parse(localData) : initial;
-  });
+export const loginUser = (payload) => ({ type: 'LOGIN', payload });
+export const logoutUser = () => ({ type: 'LOGOUT' });
+export const editUser = (payload) => ({ type: 'EDITUSER', payload });
+
+export const AuthContext = createContext(null);
+
+export const AuthProvider = ({ children }) => {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.auth);
 
   useEffect(() => {
-    localStorage.setItem('authState', JSON.stringify(state));
+    const storedState = localStorage.getItem('auth');
+    if (storedState) {
+      const parsedState = JSON.parse(storedState);
+      if (parsedState.isAuthenticated) {
+        dispatch(loginUser({ name: parsedState.name, email: parsedState.email }));
+      }
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem('auth', JSON.stringify(state));
   }, [state]);
 
-  const login = (name, email) => {
-    dispatch({ type: 'LOGIN', payload: { name, email } });
-  };
-
-  const logout = () => {
-    dispatch({ type: 'LOGOUT' });
-  };
-
   const updateUser = (name, email) => {
-    dispatch({ type: 'UPDATE_USER', payload: { name, email } });
+    dispatch(editUser({ name, email }));
   };
 
   return (
-    <AuthContext.Provider value={{ state, login, logout, updateUser }}>
+    <AuthContext.Provider value={{ state, login: (name, email) => dispatch(loginUser({ name, email })), logout: () => dispatch(logoutUser()), updateUser }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
-export { AuthContext, AuthProvider };

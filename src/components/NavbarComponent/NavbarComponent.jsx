@@ -10,6 +10,9 @@ import { PiKeyBold } from "react-icons/pi";
 import { LuCalendarCheck2 } from "react-icons/lu";
 import { MdOutlinePersonOutline } from "react-icons/md";
 import { MdContactPhone } from "react-icons/md";
+import { HiLogin } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
+
 import { 
     NavbarSection, 
     LogoMenu, 
@@ -36,9 +39,10 @@ import { PopupUserComponent } from "../PopUpUserComponent/PopUpUserComponent.jsx
 import { AuthContext } from "../../context/AuthUserContext.jsx";
 
 export const NavbarComponent = () => {
-    const { state } = useContext(AuthContext); // Utiliza useContext para acceder al contexto
+    const { state, logout, updateUser } = useContext(AuthContext);
     const [openMenu, setIsOpenMenu] = useState(false);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleClick = () => {
         setIsOpenMenu(!openMenu);
@@ -52,6 +56,11 @@ export const NavbarComponent = () => {
         setIsPopupOpen(false);
     };
 
+    const handleLogoutClick = () => {
+        logout();
+        navigate("/");
+    };
+
     return (
         <>
             <NavbarSection>
@@ -60,7 +69,6 @@ export const NavbarComponent = () => {
                     <LogoText src="src/assets/Trav.png" alt="trav" />
                 </IconsSection>
                 {openMenu &&  
-                
                 <MenuSection>
                     <UlMenu>
                         <NavLink to="/dashboard" className="list-link"><ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu></NavLink>
@@ -71,30 +79,36 @@ export const NavbarComponent = () => {
                     </UlMenu>
                     <PersonCard>
                         <PersonImg src="src/assets/1.jpg" alt="Person" />
-                        <PersonName>{state.user.name}</PersonName> {/* Corregido */}
-                        <PersonEmail>{state.user.email}</PersonEmail> {/* Corregido */}
+                        <PersonName>{state.name}</PersonName> 
+                        <PersonEmail>{state.email}</PersonEmail>
                         <PersonButton onClick={handleEditUserClick}>Edit User</PersonButton>
                     </PersonCard>
                     
                     <NavFooter>
                         <NavCopy>Travl Hotel Admin Dashboard</NavCopy>
-                        <NavRights>© 2020 All Rights Reserved</NavRights>
+                        <NavRights>© 2024</NavRights>
                     </NavFooter>
-                    
                 </MenuSection>}
-                <DashboardNav isOpen={openMenu}>
-                    <TfiAlignLeft onClick={handleClick} />
-                    <DashboardText>Dashboard</DashboardText>
-                </DashboardNav>
-                <IconContainer isOpen={openMenu}>
-                    <InputSearch />
-                    <IoIosSearch className="icons" />
-                    <IoMdHeartEmpty className="icons" />
-                    <MdOutlineMail className="icons" />
-                    <TbMessage className="icons" />
+                <IconContainer onClick={handleClick}>
+                    <TfiAlignLeft className="menuicon" />
                 </IconContainer>
-                <PopupUserComponent isOpen={isPopupOpen} onClose={handleClosePopup} />
+                <IconContainer>
+                    <IoIosSearch className="menuicon" />
+                </IconContainer>
+                <IconContainer>
+                    <IoMdHeartEmpty className="menuicon" />
+                </IconContainer>
+                <IconContainer>
+                    <MdOutlineMail className="menuicon" />
+                </IconContainer>
+                <IconContainer>
+                    <TbMessage className="menuicon" />
+                </IconContainer>
+                <IconContainer>
+                    <HiLogin className="menuicon" onClick={handleLogoutClick} />
+                </IconContainer>
             </NavbarSection>
+            {isPopupOpen && <PopupUserComponent onClose={handleClosePopup} isOpen={isPopupOpen} editUser={updateUser} />}
         </>
     );
-}
+};

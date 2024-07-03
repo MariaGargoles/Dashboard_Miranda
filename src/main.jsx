@@ -10,6 +10,7 @@ import { BookingPage } from './pages/Bookings.jsx';
 import { UserPage } from './pages/Users.jsx';
 import ProtectedRoute from './context/ProtectedRoute.jsx';
 import { Provider } from 'react-redux';
+import { store } from './app/store.js';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

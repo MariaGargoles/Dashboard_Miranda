@@ -90,7 +90,6 @@ export const PersonButton = styled.button`
   padding: 1rem 2rem;
   border-radius: 8px;
   color: #135846;
-  cursor: pointer;
 `;
 
 export const NavFooter = styled.div`

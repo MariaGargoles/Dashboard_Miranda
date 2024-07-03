@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react';
-import { AuthContext } from '../../context/AuthUserContext';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../context/AuthUserContext.jsx';
 import "./FormLoginComponent.css";
 import { LoginForm, TitleForm, Form, Label, Input, LogoForm } from "./FormLoginStyled.js";
 
-const FormLoginComponent = () => {
-  const { login } = useContext(AuthContext);
+export const FormLoginComponent = () => {
+  const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -12,7 +13,7 @@ const FormLoginComponent = () => {
     event.preventDefault();
 
     if (username === "maria" && password === "miranda") {
-      login(username, "maria@example.com");
+      dispatch(loginUser({ name: username, email: "maria@example.com" }));
     } else {
       alert("Datos incorrectos");
     }
@@ -49,4 +50,3 @@ const FormLoginComponent = () => {
   );
 };
 
-export default FormLoginComponent;
