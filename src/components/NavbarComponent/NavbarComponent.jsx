@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./NavbarComponent.css";
 import { TfiAlignLeft } from "react-icons/tfi";
 import { IoIosSearch } from "react-icons/io";
@@ -33,8 +33,10 @@ import {
 } from "./NavbarStyled";
 import { NavLink } from "react-router-dom";
 import { PopupUserComponent } from "../PopUpUserComponent/PopUpUserComponent.jsx";
+import { AuthContext } from "../../context/AuthUserContext.jsx";
 
 export const NavbarComponent = () => {
+    const { state } = useContext(AuthContext); // Utiliza useContext para acceder al contexto
     const [openMenu, setIsOpenMenu] = useState(false);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -69,8 +71,8 @@ export const NavbarComponent = () => {
                     </UlMenu>
                     <PersonCard>
                         <PersonImg src="src/assets/1.jpg" alt="Person" />
-                        <PersonName>María Gárgoles</PersonName>
-                        <PersonEmail>segwanda12@gmail.com</PersonEmail>
+                        <PersonName>{state.user.name}</PersonName> {/* Corregido */}
+                        <PersonEmail>{state.user.email}</PersonEmail> {/* Corregido */}
                         <PersonButton onClick={handleEditUserClick}>Edit User</PersonButton>
                     </PersonCard>
                     
@@ -91,11 +93,8 @@ export const NavbarComponent = () => {
                     <MdOutlineMail className="icons" />
                     <TbMessage className="icons" />
                 </IconContainer>
-                
-               
+                <PopupUserComponent isOpen={isPopupOpen} onClose={handleClosePopup} />
             </NavbarSection>
-            <PopupUserComponent isOpen={isPopupOpen} onClose={handleClosePopup} />
-            
         </>
     );
 }

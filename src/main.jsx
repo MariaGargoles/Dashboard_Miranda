@@ -9,9 +9,11 @@ import { RoomPage } from './pages/Rooms.jsx';
 import { BookingPage } from './pages/Bookings.jsx';
 import { UserPage } from './pages/Users.jsx';
 import ProtectedRoute from './context/ProtectedRoute.jsx';
+import { Provider } from 'react-redux';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+     <Provider store={store}>
     <AuthProvider>
       <BrowserRouter>
         <Routes>
@@ -59,5 +61,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </Routes>
       </BrowserRouter>
     </AuthProvider>
+    </Provider>
   </React.StrictMode>
 );
