@@ -1,16 +1,21 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { addRoom } from '../../features/Room/RoomSlice';
-import { FormContainer, FormTitle,
-    FormLabel,
-    FormInput,
-    FormSelect,
-    SubmitButton, BackButton } from './RoomStyled';
+import {
+  FormContainer,
+  FormTitle,
+  FormLabel,
+  FormInput,
+  FormSelect,
+  SubmitButton,
+  BackButton,
+  CheckboxContainer,
+  FormAmenitiesLabel,
+  AmenitiesInput
+} from './RoomStyled';
 
 import { TbArrowBigLeftLines } from "react-icons/tb";
-import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
 
 export const NewRoom = () => {
   const dispatch = useDispatch();
@@ -19,32 +24,39 @@ export const NewRoom = () => {
     photo: '',
     roomNumber: '',
     bedType: 'Single Bed',
-    amenities: '',
+    amenities: [],
     rate: '',
     offerPrice: '',
   });
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    const { name, value, type, checked } = event.target;
+
+    if (type === 'checkbox') {
+      setFormData(prevState => {
+        const amenities = checked
+          ? [...prevState.amenities, value]
+          : prevState.amenities.filter(amenity => amenity !== value);
+
+        return { ...prevState, amenities };
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
     dispatch(addRoom(formData));
-  };
-
-  const goBack = () => {
     navigate('/rooms');
   };
 
   return (
-    <>
     <FormContainer>
-        <BackButton onClick={() => navigate('/rooms')}>
+      <BackButton onClick={() => navigate('/rooms')}>
         <TbArrowBigLeftLines />
         <span>Back to Rooms</span>
       </BackButton>
@@ -76,12 +88,71 @@ export const NewRoom = () => {
           <option>Suite</option>
         </FormSelect>
         <FormLabel>Amenities</FormLabel>
-        <FormInput
-          type="text"
-          name="amenities"
-          value={formData.amenities}
-          onChange={handleChange}
-        />
+        <CheckboxContainer>
+          <div>
+            <AmenitiesInput
+              type="checkbox"
+              value="Shower"
+              checked={formData.amenities.includes('Shower')}
+              onChange={handleChange}
+            />
+            <FormAmenitiesLabel>Shower</FormAmenitiesLabel>
+          </div>
+          <div>
+            <AmenitiesInput
+              type="checkbox"
+              value="Double Bed"
+              checked={formData.amenities.includes('Double Bed')}
+              onChange={handleChange}
+            />
+            <FormAmenitiesLabel>Double Bed</FormAmenitiesLabel>
+          </div>
+          <div>
+            <AmenitiesInput
+              type="checkbox"
+              value="Towel"
+              checked={formData.amenities.includes('Towel')}
+              onChange={handleChange}
+            />
+            <FormAmenitiesLabel>Towel</FormAmenitiesLabel>
+          </div>
+          <div>
+            <AmenitiesInput
+              type="checkbox"
+              value="Bathup"
+              checked={formData.amenities.includes('Bathup')}
+              onChange={handleChange}
+            />
+            <FormAmenitiesLabel>Bathup</FormAmenitiesLabel>
+          </div>
+          <div>
+            <AmenitiesInput
+              type="checkbox"
+              value="Coffee Set"
+              checked={formData.amenities.includes('Coffee Set')}
+              onChange={handleChange}
+            />
+            <FormAmenitiesLabel>Coffee Set</FormAmenitiesLabel>
+          </div>
+          <div>
+            <AmenitiesInput
+              type="checkbox"
+              value="LED TV"
+              checked={formData.amenities.includes('LED TV')}
+              onChange={handleChange}
+            />
+            <FormAmenitiesLabel>LED TV</FormAmenitiesLabel>
+          </div>
+          <div>
+            <AmenitiesInput
+              type="checkbox"
+              value="Wifi"
+              checked={formData.amenities.includes('Wifi')}
+              onChange={handleChange}
+            />
+            <FormAmenitiesLabel>Wifi</FormAmenitiesLabel>
+          </div>
+        </CheckboxContainer>
         <FormLabel>Rate</FormLabel>
         <FormInput
           type="number"
@@ -97,12 +168,7 @@ export const NewRoom = () => {
           onChange={handleChange}
         />
         <SubmitButton type="submit">Send</SubmitButton>
-        
       </form>
-      
     </FormContainer>
-    </>
   );
- 
 };
-

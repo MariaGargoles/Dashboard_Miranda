@@ -93,7 +93,7 @@ export const FormContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  background-color: #ffff;
+  background-color: #ffff !important;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 40%;
@@ -130,7 +130,6 @@ export const FormInput = styled.input`
   font-size: 1em;
   color: #135846;
   margin-bottom: 1rem;
-  width: 100%;
   box-sizing: border-box;
   outline: none;
 
@@ -148,10 +147,9 @@ export const FormSelect = styled.select`
   font-size: 1em;
   color: #135846;
   margin-bottom: 1rem;
-  width: 100%;
   box-sizing: border-box;
   outline: none;
-
+  width: 44%;
   &:focus {
     border-color: #5ad07a;
     box-shadow: 0 0 0 2px rgba(90, 208, 122, 0.2);
@@ -207,4 +205,26 @@ export const BackButton = styled.div`
     position: absolute;
     left: 18%;
   }
+`;
+export const CheckboxContainer = styled.div`
+  display: inline-flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  background-color: #ffff;
+  padding: 1rem;
+`;
+
+export const FormAmenitiesLabel = styled.label`
+  font-family: "Poppins", sans-serif;
+  margin-top: 0.5rem;
+  display: block;
+  background-color: #ffff;
+`;
+
+export const AmenitiesInput = styled.input`
+  font-family: "Poppins", sans-serif;
+  margin-top: 0.5rem;
+  display: block;
+  background-color: #ffff;
 `;
