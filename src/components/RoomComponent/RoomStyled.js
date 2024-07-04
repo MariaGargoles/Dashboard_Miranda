@@ -87,13 +87,25 @@ export const BookingButtonStatus = styled.button`
   }}
 `;
 
+export const ActionContainer = styled.div`
+  padding: 2rem;
+  background-color: #ffff;
+  display: flex;
+  gap: 1rem; // Añadimos un espacio entre los íconos
+
+  svg {
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+`;
 export const FormContainer = styled.div`
   margin-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  background-color: #ffff !important;
+  background-color: #ffff;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 40%;
