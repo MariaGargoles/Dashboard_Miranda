@@ -97,6 +97,7 @@ export const ActionContainer = styled.div`
     font-size: 1.5em;
     cursor: pointer;
     transition: color 0.3s ease;
+    background-color: #ffff;
   }
 `;
 export const FormContainer = styled.div`
