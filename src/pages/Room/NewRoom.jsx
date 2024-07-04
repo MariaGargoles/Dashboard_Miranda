@@ -5,7 +5,7 @@ export const NewRoomPage = () => {
 
     
     return (<>
-        <NavbarComponent/>
+       <NavbarComponent/>
         <NewRoom/>
         
             
