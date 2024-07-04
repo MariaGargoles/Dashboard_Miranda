@@ -50,7 +50,16 @@ export const NewRoom = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    dispatch(addRoom(formData));
+    dispatch(addRoom({
+      photo: formData.photo,
+      number: formData.roomNumber,
+      BedType: formData.bedType,
+      Amenities: formData.amenities,
+      Rate: formData.rate,
+      OfferPrice: formData.offerPrice,
+      Status: 'Available',  // Asigna un estado inicial por defecto
+      RoomFloor: '1',  // Puedes cambiar esto si es necesario
+    }));
     navigate('/rooms');
   };
 
