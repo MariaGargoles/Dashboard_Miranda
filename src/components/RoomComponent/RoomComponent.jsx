@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RoomsThunk } from '../../features/Room/RoomThunk';
-import {
-  TableContainer,
-  TableFilters,
-  TableButtonFilter,
-  Table,
-  EncabezadoTabla,
-  BodyTable,
-  TableCell,
-  TableHeadText
-} from '../ContactComponent/ContactStyled';
-import { TableComponent } from '../TableComponent/TableComponent';
-import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector, ActionContainer } from './RoomStyled';
+import { deleteRoom, updateRoom } from '../../features/Room/RoomSlice';
+import {TableComponent} from "../TableComponent/TableComponent"
+import { ImageRoom, StatusButton, ButtonRoom, SelectorContainer, Selector, ActionContainer } from './RoomStyled';
 import { NavLink } from 'react-router-dom';
 import { TbEdit, TbTrash } from 'react-icons/tb';
 import Swal from 'sweetalert2';
-import { deleteRoom } from '../../features/Room/RoomSlice';
+import {
+    TableContainer,
+    TableFilters,
+    TableButtonFilter,
+  } from '../ContactComponent/ContactStyled';
+import { UpdateRoom as UpdateRoomModal } from '../PopUpEditRoom/PopUpEditRoom';
 
 export const RoomComponent = () => {
   const dispatch = useDispatch();
@@ -25,6 +21,8 @@ export const RoomComponent = () => {
   const roomError = useSelector((state) => state.room.error);
   const [sortOption, setSortOption] = useState('');
   const [filteredRooms, setFilteredRooms] = useState([]);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState(null);
 
   useEffect(() => {
     if (roomStatus === 'idle') {
@@ -66,7 +64,7 @@ export const RoomComponent = () => {
       columnRenderer: (row) => (
         <ActionContainer>
           <TbEdit title="Edit Room" onClick={() => handleEditRoom(row)} />
-          <TbTrash title="Delete Room" onClick={() => handleDeleteRoom(row)} />
+          <TbTrash title="Delete Room" onClick={() => handleDeleteRoom(row.id)} />
         </ActionContainer>
       )
     }
@@ -102,11 +100,17 @@ export const RoomComponent = () => {
     setFilteredRooms(sortedData);
   };
 
-  const handleEditRoom = (room) => {
-    window.location.href = `/edit-room/${room.id}`;
+  const handleCloseModal = () => {
+    setEditModalOpen(false);
+    setSelectedRoom(null);
   };
 
-  const handleDeleteRoom = (room) => {
+  const handleEditRoom = (room) => {
+    setSelectedRoom(room);
+    setEditModalOpen(true);
+  };
+
+  const handleDeleteRoom = (roomId) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -117,7 +121,7 @@ export const RoomComponent = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteRoom(room.id))
+        dispatch(deleteRoom(roomId))
           .then(() => {
             Swal.fire('Deleted!', 'Your room has been deleted.', 'success');
           })
@@ -127,7 +131,6 @@ export const RoomComponent = () => {
       }
     });
   };
-
 
   return (
     <TableContainer>
@@ -149,6 +152,10 @@ export const RoomComponent = () => {
         </Selector>
       </SelectorContainer>
       <TableComponent columns={columns} data={filteredRooms} />
+    
+      {isEditModalOpen && (
+        <UpdateRoomModal room={selectedRoom} onClose={handleCloseModal} /> 
+      )}
     </TableContainer>
   );
 };
