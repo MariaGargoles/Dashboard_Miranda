@@ -11,8 +11,8 @@ import {
   CheckboxContainer,
   FormAmenitiesLabel,
   AmenitiesInput
-} from "../RoomComponent/RoomStyled";
-import { Modal, ModalCard } from "../PopUpUserComponent/PopUpUserStyled";
+} from '../RoomComponent/RoomStyled';
+import { Modal, ModalCard } from '../PopUpUserComponent/PopUpUserStyled';
 import Swal from 'sweetalert2';
 
 export const UpdateRoom = ({ room, onClose }) => {
@@ -71,8 +71,8 @@ export const UpdateRoom = ({ room, onClose }) => {
         Swal.fire('Updated!', 'Room details updated successfully.', 'success');
         onClose();
       })
-      .catch(() => {
-        Swal.fire('Error!', 'There was an error updating the room.', 'error');
+      .catch((error) => {
+        Swal.fire('Error!', `There was an error updating the room: ${error.message}`, 'error');
       });
   };
 

@@ -7,6 +7,7 @@ export const RoomSlice = createSlice({
     status: "idle",
     data: [],
     error: null,
+    room: null,
   },
   reducers: {
     addRoom: (state, action) => {
