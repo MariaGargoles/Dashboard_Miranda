@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import data from "../../data/Rooms.json";
 import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "../ContactComponent/ContactStyled";
 import { TableComponent } from '../TableComponent/TableComponent';
-import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector,  } from "./RoomStyled";
+import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector, ActionContainer  } from "./RoomStyled";
 import { NavLink } from 'react-router-dom';
-
+import { TbEdit, TbTrash } from 'react-icons/tb';
+import Swal from 'sweetalert2';
 
 export const RoomComponent = () => {
+    const [rooms, setRooms] = useState(data);
+    const [sortOption, setSortOption] = useState('');
+
     const columns = [
         { headerColumn: 'Photo', columnsData: 'photo', columnRenderer: (row) => <ImageRoom src={row.photo} alt="Room Photo" /> },
         { headerColumn: 'Number', columnsData: 'number' },
@@ -15,11 +19,17 @@ export const RoomComponent = () => {
         { headerColumn: 'Rate', columnsData: 'Rate' },
         { headerColumn: 'Offer Price', columnsData: 'OfferPrice' },
         { headerColumn: 'Status', columnsData: 'Status', columnRenderer: (row) => <StatusButton status={row.Status}>{row.Status}</StatusButton> },
-        { headerColumn: 'Room Floor', columnsData: 'RoomFloor' }
+        { headerColumn: 'Room Floor', columnsData: 'RoomFloor' },
+        {
+            headerColumn: 'Actions',
+            columnRenderer: (row) => (
+                <ActionContainer>
+                    <TbEdit  styled= "edit" title="Edit Room" onClick={() => handleEditRoom(row)} />
+                    <TbTrash styled= "trash" title="Delete Room" onClick={() => handleDeleteRoom(row)} />
+                </ActionContainer>
+            )
+        }
     ];
-
-    const [rooms, setRooms] = useState(data);
-    const [sortOption, setSortOption] = useState('');
 
     const filterActions = {
         all: () => setRooms(data),
@@ -51,7 +61,31 @@ export const RoomComponent = () => {
         setRooms(sortedData);
     };
 
-   
+    const handleEditRoom = (room) => {
+        // Navigate to the edit page for the selected room
+        window.location.href = `/edit-room/${room.id}`;
+    };
+
+    const handleDeleteRoom = (room) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setRooms(rooms.filter(r => r.id !== room.id));
+                Swal.fire(
+                    'Deleted!',
+                    'Your room has been deleted.',
+                    'success'
+                );
+            }
+        });
+    };
 
     return (
         <>
