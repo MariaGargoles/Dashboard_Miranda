@@ -25,7 +25,7 @@ import {
   BookingButtonStatus,
   ActionContainer
 } from '../RoomComponent/RoomStyled';
-
+import {UpdateBookingModal} from "../PopUpEditBookinComponent/PopUpEditBookin.jsx"
 
 export const BookingComponent = () => {
   const dispatch = useDispatch();
@@ -91,6 +91,7 @@ export const BookingComponent = () => {
 
   const columns = [
     { headerColumn: "Order ID", columnsData: "id" },
+    { headerColumn: "Name", columnsData: "Name" },
     { headerColumn: "Order Date", columnsData: "OrderDate" },
     { headerColumn: "Check-In Date", columnsData: "CheckIn" },
     { headerColumn: "Check-Out Date", columnsData: "CheckOut" },
