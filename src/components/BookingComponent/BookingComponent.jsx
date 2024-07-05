@@ -2,6 +2,7 @@ import data from "../../data/Booking.json"
 import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "../ContactComponent/ContactStyled";
 import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector, BookingButtonStatus  } from "../RoomComponent/RoomStyled";
 import { TableComponent } from "../TableComponent/TableComponent";
+import { NavLink } from 'react-router-dom';
 
 
 export const BookingComponent = () => {
@@ -36,6 +37,9 @@ return (
             <option>In Progress</option>
             </Selector>
             </SelectorContainer>
+            <NavLink to="NewBookin">
+          <ButtonRoom>+ New Booking</ButtonRoom>
+          </NavLink>
             <TableComponent columns={columns} data={data} />
         </TableContainer>
     </>
