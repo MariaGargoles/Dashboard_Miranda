@@ -1,9 +1,9 @@
 import data from "../../data/Booking.json"
 import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "../ContactComponent/ContactStyled";
-import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector, BookingButtonStatus  } from "../RoomComponent/RoomStyled";
+import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector, BookingButtonStatus, ActionContainer  } from "../RoomComponent/RoomStyled";
 import { TableComponent } from "../TableComponent/TableComponent";
 import { NavLink } from 'react-router-dom';
-
+import { TbEdit, TbTrash } from 'react-icons/tb';
 
 export const BookingComponent = () => {
 
@@ -21,6 +21,15 @@ export const BookingComponent = () => {
             </BookingButtonStatus>
           ),
         },
+        {
+          headerColumn: 'Actions',
+          columnRenderer: (row) => (
+            <ActionContainer>
+              <TbEdit title="Edit Room" onClick={() => handleEditRoom(row)} />
+              <TbTrash title="Delete Room" onClick={() => handleDeleteRoom(row.id)} />
+            </ActionContainer>
+          )
+        }
       ];
     
     
