@@ -61,6 +61,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             }
           />
           <Route
+            path="/booking/NewBookin"
+            element={
+              <ProtectedRoute>
+                <NewRoomPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/users"
             element={
               <ProtectedRoute>
