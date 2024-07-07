@@ -13,6 +13,7 @@ export const UserComponent = () => {
     const status = useSelector((state) => state.users.status);
 
     const [currentFilter, setCurrentFilter] = useState('all');
+    const [sortOrder, setSortOrder] = useState('asc');
 
     useEffect(() => {
         if (status === 'idle') {
@@ -24,11 +25,26 @@ export const UserComponent = () => {
         setCurrentFilter(filter);
     };
 
+    const handleSortChange = (e) => {
+        setSortOrder(e.target.value);
+    };
+
     const filteredData = users.filter(user => {
         if (currentFilter === 'all') return true;
         if (currentFilter === 'active') return user.status === 'ACTIVE';
         if (currentFilter === 'inactive') return user.status === 'INACTIVE';
         return true;
+    });
+
+    const sortedData = filteredData.sort((a, b) => {
+        const dateA = new Date(a.startDate.split('/').reverse().join('/'));
+        const dateB = new Date(b.startDate.split('/').reverse().join('/'));
+
+        if (sortOrder === 'asc') {
+            return dateA - dateB;
+        } else {
+            return dateB - dateA;
+        }
     });
 
     const columns = [
@@ -52,11 +68,12 @@ export const UserComponent = () => {
                 </TableFilters>
                 <SelectorContainer>
                     <ButtonRoom>+ New Employee</ButtonRoom>
-                    <Selector>
-                        <option>Sort by Start Date</option>
+                    <Selector onChange={handleSortChange} value={sortOrder}>
+                        <option value="asc">Sort by Start Date (Ascending)</option>
+                        <option value="desc">Sort by Start Date (Descending)</option>
                     </Selector>
                 </SelectorContainer>
-                <TableComponent columns={columns} data={filteredData} />
+                <TableComponent columns={columns} data={sortedData} />
             </TableContainer>
         </>
     );
