@@ -8,6 +8,7 @@ import { UsersButton } from "./UsersStyled";
 import { UsersThunk } from '../../features/Users/UserThunk';
 import { TbEdit, TbTrash } from 'react-icons/tb';
 import Swal from 'sweetalert2';
+import { EditUserModal } from '../PopUpEditUserComponent/PopUpEditUser';
 
 
 export const UserComponent = () => {
@@ -52,7 +53,7 @@ export const UserComponent = () => {
     });
 
     const handleEditUser = (user) => {
-        setSelectedUser(user);  // Set the user to be edited
+        setSelectedUser(user); 
     };
 
     const handleDeleteUser = (userId) => {
@@ -93,7 +94,7 @@ export const UserComponent = () => {
     };
 
     const columns = [
-        { headerColumn: 'Photo', columnsData: 'foto', columnRenderer: (row) => <img src={row.foto} alt="Employee" style={{ width: '50px', borderRadius: '50%' }} /> },
+        { headerColumn: 'Photo', columnsData: 'photo', columnRenderer: (row) => <img src={row.photo} alt="Employee" style={{ width: '50px', borderRadius: '50%' }} /> },
         { headerColumn: 'Name', columnsData: 'name' },
         { headerColumn: 'ID', columnsData: 'id' },
         { headerColumn: 'Start Date', columnsData: 'startDate' },
@@ -121,7 +122,7 @@ export const UserComponent = () => {
                     <TableButtonFilter onClick={() => handleFilterClick('inactive')}>Inactive Employees</TableButtonFilter>
                 </TableFilters>
                 <SelectorContainer>
-                    <ButtonRoom>+ New Employee</ButtonRoom>
+                    <ButtonRoom onClick={() => setSelectedUser({})}>+ New Employee</ButtonRoom>
                     <Selector onChange={handleSortChange} value={sortOrder}>
                         <option value="asc">Sort by Start Date (Ascending)</option>
                         <option value="desc">Sort by Start Date (Descending)</option>
