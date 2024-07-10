@@ -69,11 +69,11 @@ export const NavbarComponent = () => {
                     <LogoText src="src/assets/Trav.png" alt="trav" />
                 </IconsSection>
                 {openMenu &&  
-                <MenuSection>
+                <MenuSection className="menutoggle">
                     <UlMenu>
-                        <NavLink to="/dashboard" className="list-link"><ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu></NavLink>
-                        <NavLink to="/rooms" className="list-link"><ListMenu><PiKeyBold className="menuicon"/>Rooms</ListMenu></NavLink>
-                        <NavLink to="/booking" className="list-link"><ListMenu><LuCalendarCheck2 className="menuicon"/>Bookings</ListMenu></NavLink>
+                        <NavLink to="/dashboard" className="dashboardlink list-link"><ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu></NavLink>
+                        <NavLink to="/rooms" className="roomslink list-link"><ListMenu><PiKeyBold className="menuicon"/>Rooms</ListMenu></NavLink>
+                        <NavLink to="/booking" className="bookinlink list-link"><ListMenu><LuCalendarCheck2 className="menuicon"/>Bookings</ListMenu></NavLink>
                         <NavLink to="/users" className="list-link"><ListMenu><MdOutlinePersonOutline className="menuicon"/>Users</ListMenu></NavLink>
                         <NavLink to="/contact" className="list-link"><ListMenu><MdContactPhone className="menuicon"/>Contact</ListMenu></NavLink>
                     </UlMenu>
@@ -89,7 +89,7 @@ export const NavbarComponent = () => {
                         <NavRights>© 2024</NavRights>
                     </NavFooter>
                 </MenuSection>}
-                <IconContainer onClick={handleClick}>
+                <IconContainer  className="displaymenu" onClick={handleClick}>
                     <TfiAlignLeft className="menuicon" />
                 </IconContainer>
                 <IconContainer>
