@@ -116,7 +116,6 @@ export const DashboardNav = styled.div`
 
   background-color: #ffff;
   transition: margin-left 0.2s ease-in-out;
-  margin-left: ${(props) => (props.isOpen ? "0" : "0")};
 `;
 
 export const InputSearch = styled.input`
@@ -125,16 +124,26 @@ export const InputSearch = styled.input`
   transform: translateY(-161%);
 `;
 
-export const DashboardText = styled.p`
+export const DashboardText = styled.p.attrs(({ isOpen }) => ({
+  style: {
+    marginLeft: isOpen ? "18rem" : "2rem",
+  },
+}))`
   font-family: "Poppins", sans-serif;
   padding-left: 3rem;
   background-color: #ffff;
+  transition: margin-left 0.2s ease-in-out;
 `;
 
-export const IconContainer = styled.div`
+export const IconContainer = styled.div.attrs(({ isOpen }) => ({
+  style: {
+    paddingLeft: isOpen ? "18rem" : "2rem",
+  },
+}))`
   z-index: 1;
-  transition: padding-left 0.2s ease-in-out;
-  padding-left: ${(props) => (props.isOpen ? "18rem" : "2rem")};
+  display: flex;
   align-items: center;
   background-color: #fff;
+  cursor: pointer;
+  transition: padding-left 0.2s ease-in-out;
 `;

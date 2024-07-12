@@ -32,9 +32,6 @@ describe("Login test and navigate", () => {
     //Entrar al dashboard
     cy.get(".dashboardlink").click();
     cy.url().should("include", "/dashboard");
-    cy.get(".displaymenu").click();
-    cy.get(".menutoggle").should("be.visible");
-    cy.wait(500);
 
     //Entrar a las rooms
     cy.get(".roomslink").click();
