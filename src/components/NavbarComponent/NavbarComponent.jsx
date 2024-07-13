@@ -47,7 +47,7 @@ export const NavbarComponent = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        setIsOpenMenu(prev => !prev);
+        (setIsOpenMenu(prev => !prev));
     };
 
     const handleEditUserClick = () => {
@@ -71,23 +71,13 @@ export const NavbarComponent = () => {
                     <LogoText src="src/assets/Trav.png" alt="trav" />
                 </IconsSection>
                 {openMenu &&  
-                <MenuSection>
+                <MenuSection className="menutoggle">
                     <UlMenu>
-                        <NavLink to="/dashboard" className="dashboardlink list-link">
-                            <ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu>
-                        </NavLink>
-                        <NavLink to="/rooms" className="roomslink list-link">
-                            <ListMenu><PiKeyBold className="menuicon"/>Rooms</ListMenu>
-                        </NavLink>
-                        <NavLink to="/booking" className="bookinlink list-link">
-                            <ListMenu><LuCalendarCheck2 className="menuicon"/>Bookings</ListMenu>
-                        </NavLink>
-                        <NavLink to="/users" className="list-link">
-                            <ListMenu><MdOutlinePersonOutline className="menuicon"/>Users</ListMenu>
-                        </NavLink>
-                        <NavLink to="/contact" className="list-link">
-                            <ListMenu><MdContactPhone className="menuicon"/>Contact</ListMenu>
-                        </NavLink>
+                        <NavLink to="/dashboard" className="dashboardlink list-link"><ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu></NavLink>
+                        <NavLink to="/rooms" className="roomslink list-link"><ListMenu><PiKeyBold className="menuicon"/>Rooms</ListMenu></NavLink>
+                        <NavLink to="/booking" className="bookinlink list-link"><ListMenu><LuCalendarCheck2 className="menuicon"/>Bookings</ListMenu></NavLink>
+                        <NavLink to="/users" className="list-link"><ListMenu><MdOutlinePersonOutline className="menuicon"/>Users</ListMenu></NavLink>
+                        <NavLink to="/contact" className="list-link"><ListMenu><MdContactPhone className="menuicon"/>Contact</ListMenu></NavLink>
                     </UlMenu>
                     <PersonCard>
                         <PersonImg src="src/assets/1.jpg" alt="Person" />
@@ -101,7 +91,7 @@ export const NavbarComponent = () => {
                         <NavRights>© 2024</NavRights>
                     </NavFooter>
                 </MenuSection>}
-                <IconContainer isOpen={openMenu} onClick={handleClick}>
+                <IconContainer  className="displaymenu" onClick={handleClick}>
                     <TfiAlignLeft className="menuicon" />
                 </IconContainer>
                 <IconContainer>
@@ -119,7 +109,6 @@ export const NavbarComponent = () => {
                 <IconContainer>
                     <HiLogin className="menuicon" onClick={handleLogoutClick} />
                 </IconContainer>
-                <DashboardText isOpen={openMenu}>Dashboard</DashboardText>
             </NavbarSection>
             {isPopupOpen && <PopupUserComponent onClose={handleClosePopup} isOpen={isPopupOpen} editUser={updateUser} />}
         </>
