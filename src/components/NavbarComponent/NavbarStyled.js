@@ -124,26 +124,20 @@ export const InputSearch = styled.input`
   transform: translateY(-161%);
 `;
 
-export const DashboardText = styled.p.attrs(({ isOpen }) => ({
-  style: {
-    marginLeft: isOpen ? "18rem" : "2rem",
-  },
-}))`
+export const DashboardText = styled.p`
   font-family: "Poppins", sans-serif;
   padding-left: 3rem;
   background-color: #ffff;
   transition: margin-left 0.2s ease-in-out;
+  margin-left: ${(props) => (props.isOpen ? "18rem" : "2rem")};
 `;
 
-export const IconContainer = styled.div.attrs(({ isOpen }) => ({
-  style: {
-    paddingLeft: isOpen ? "18rem" : "2rem",
-  },
-}))`
+export const IconContainer = styled.div`
   z-index: 1;
   display: flex;
   align-items: center;
   background-color: #fff;
   cursor: pointer;
   transition: padding-left 0.2s ease-in-out;
+  padding-left: ${(props) => (props.isOpen ? "18rem" : "2rem")};
 `;
