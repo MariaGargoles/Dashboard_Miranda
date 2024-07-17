@@ -1,21 +1,38 @@
 import { TableContainer, TableFilters, PaginationContainer, PaginationButton, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "../ContactComponent/ContactStyled";
 import { useState, useEffect } from "react";
 
-export const TableComponent = ({ columns, data }) => {
-    const pageSize = 5;
-    
 
-    const createPagination = <T>(array: T[], size: number): T[][] => {
+interface Column {
+  headerColumn: string;
+  columnsData: string;
+  columnRenderer?: (row: Data) => JSX.Element;
+}
+
+interface Data {
+  id: number;
+  [key: string]: any;
+}
+
+interface TableComponentProps {
+  columns: Column[];
+  data: Data[];
+}
+
+export const TableComponent: React.FC<TableComponentProps> = ({ columns, data }) => {
+    const pageSize = 5;
+
+    
+    const createPagination = <T,>(array: T[], size: number): T[][] => {
         const aux: T[][] = [];
         for (let i = 0; i < array.length; i += size) {
             aux.push(array.slice(i, i + size));
         }
         return aux;
     };
-    
 
     const [num, setNum] = useState(0);
-    const [pages, setPages] = useState(createPagination(data, pageSize));
+    const [pages, setPages] = useState<Data[][]>(createPagination(data, pageSize));
+
 
     const handlePrev = () => {
         if (num > 0) {
@@ -23,6 +40,7 @@ export const TableComponent = ({ columns, data }) => {
         }
     };
 
+   
     const handleNext = () => {
         if (num + 1 < pages.length) {
             setNum(num + 1);

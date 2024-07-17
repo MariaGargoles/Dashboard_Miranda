@@ -1,6 +1,8 @@
 import { TableContainer, TableFilters, PaginationContainer, PaginationButton, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "../ContactComponent/ContactStyled";
 import { useState, useEffect } from "react";
 
+
+
 export const TableComponent = ({ columns, data }) => {
     const pageSize = 5;
     
