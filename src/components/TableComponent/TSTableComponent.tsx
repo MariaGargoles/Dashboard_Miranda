@@ -1,4 +1,4 @@
-import { TableContainer, TableFilters, PaginationContainer, PaginationButton, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "../ContactComponent/ContactStyled";
+import { PaginationContainer, PaginationButton, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from "../ContactComponent/ContactStyled";
 import { useState, useEffect } from "react";
 
 
