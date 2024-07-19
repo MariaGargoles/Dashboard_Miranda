@@ -1,12 +1,27 @@
 import styled from "styled-components";
 
+
+interface StatusButtonProps {
+  status: "Available" | "Unavailable"; 
+}
+
+
+interface ButtonRoomProps {
+  variant?: "default" | "save" | "close" | "erase"; 
+}
+
+
+interface BookingButtonStatusProps {
+  styled: "Check In" | "Check Out" | "In Progress" | "Default"; 
+}
+
 export const ImageRoom = styled.img`
   width: 5.5rem;
   height: 5.5rem;
   border-radius: 0.75rem;
 `;
 
-export const StatusButton = styled.button`
+export const StatusButton = styled.button<StatusButtonProps>`
   background-color: ${(props) =>
     props.status === "Available" ? "#E8FFEE" : "#FFEDEC"};
   color: ${(props) => (props.status === "Available" ? "#5AD07A" : "#E23428")};
@@ -18,7 +33,7 @@ export const StatusButton = styled.button`
   font-size: 1em;
 `;
 
-export const ButtonRoom = styled.button`
+export const ButtonRoom = styled.button<ButtonRoomProps>`
   background-color: #135846;
   color: #ffffff;
   padding: 0.5rem 1rem;
@@ -29,7 +44,7 @@ export const ButtonRoom = styled.button`
   font-size: 1em;
 `;
 
-export const SelectorContainer = styled.div`
+export const SelectorContainer = styled.div<{ booking?: boolean }>`
   display: inline-flex;
   width: 50%;
   ${(props) =>
@@ -48,9 +63,9 @@ export const Selector = styled.select`
   color: #135846;
 `;
 
-export const BookingButtonStatus = styled.button`
+export const BookingButtonStatus = styled.button<BookingButtonStatusProps>`
   padding: 0.5rem 1rem;
-  margin-lef: 1rem;
+  margin-left: 1rem; 
   border: none;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
@@ -100,6 +115,7 @@ export const ActionContainer = styled.div`
     background-color: #ffff;
   }
 `;
+
 export const FormContainer = styled.div`
   margin-top: 3rem;
   display: flex;
@@ -111,6 +127,7 @@ export const FormContainer = styled.div`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 40%;
   position: relative;
+
   form {
     background-color: #ffff;
     display: flex;
@@ -163,6 +180,7 @@ export const FormSelect = styled.select`
   box-sizing: border-box;
   outline: none;
   width: 44%;
+
   &:focus {
     border-color: #5ad07a;
     box-shadow: 0 0 0 2px rgba(90, 208, 122, 0.2);
@@ -189,6 +207,7 @@ export const SubmitButton = styled.button`
     background-color: #0b2a1f;
   }
 `;
+
 export const BackButton = styled.div`
   display: flex;
   align-items: center;
@@ -200,6 +219,7 @@ export const BackButton = styled.div`
   &:hover {
     color: #0f3e36;
   }
+
   svg {
     padding: 1rem;
     color: #e8ffee;
@@ -219,6 +239,7 @@ export const BackButton = styled.div`
     left: 18%;
   }
 `;
+
 export const CheckboxContainer = styled.div`
   display: inline-flex;
   flex-direction: row;

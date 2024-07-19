@@ -18,7 +18,7 @@ export interface User {
     description: string;  
     email: string;        
     contact: string;      
-    status: string;       
+    status: 'ACTIVE' | 'INACTIVE';        
 }
 
 interface Column<T> {
