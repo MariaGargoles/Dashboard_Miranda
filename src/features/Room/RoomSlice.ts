@@ -1,11 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RoomsThunk } from "./RoomThunk";
 
-
 interface Room {
+  photo: string;
+  number: string;
   id: string;
-  name: string;
-  
+  BedType: string;
+  Amenities: string[];
+  Rate: number;
+  OfferPrice: number;
+  Status: string;
+  RoomFloor: string;
 }
 
 
@@ -31,7 +36,7 @@ const RoomSlice = createSlice({
   reducers: {
     addRoom: (state, action: PayloadAction<Room>) => {
       state.data.push(action.payload);
-      console.log("Añadido con éxito");
+      console.log("Room added successfully");
     },
     deleteRoom: (state, action: PayloadAction<string>) => {
       state.data = state.data.filter((room) => room.id !== action.payload);
