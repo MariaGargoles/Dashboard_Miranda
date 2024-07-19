@@ -64,4 +64,5 @@ export const ModalLabel = styled.label`
 
 export const ModalInput = styled.input`
   font-family: "Poppins", sans-serif;
-  padding: 0.5rem
+  padding: 0.5rem;
+`;
