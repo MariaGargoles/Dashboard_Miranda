@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthUserContext.jsx';
-import { IndexPage } from './pages/Index.jsx';
+import { IndexPage } from './pages/Index.js';
 import { DashboardPage } from './pages/Dashboard/Dashboard.jsx';
 import { ContactPage } from './pages/Contact/Contact.jsx';
 import { RoomPage } from './pages/Room/Rooms.jsx';

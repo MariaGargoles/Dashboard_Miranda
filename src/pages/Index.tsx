@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
-import {FormLoginComponent} from "../components/FormLoginComponent/FormLoginComponent.jsx"
-import { DashboardPage } from './Dashboard/Dashboard.jsx';
+import { FormLoginComponent } from "../components/FormLoginComponent/FormLoginComponent";
+import { DashboardPage } from './Dashboard/Dashboard';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginUser } from '../context/AuthUserContext.jsx';
+import { login } from '../context/AuthUserContext';  
 
-export const IndexPage = () => {
+export const IndexPage: React.FC = () => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);  
 
   useEffect(() => {
     const storedState = localStorage.getItem('auth');
     if (storedState) {
       const parsedState = JSON.parse(storedState);
       if (parsedState.isAuthenticated) {
-        dispatch(loginUser({ name: parsedState.name, email: parsedState.email }));
+        dispatch(login({ name: parsedState.name, email: parsedState.email }));
       }
     }
   }, [dispatch]);
