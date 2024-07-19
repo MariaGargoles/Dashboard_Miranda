@@ -12,7 +12,7 @@ import {
   TableFilters,
   TableButtonFilter,
 } from '../ContactComponent/ContactStyled';
-import { UpdateRoomModal } from '../PopUpEditRoom/PopUpEditRoom';
+import {  EditRoom } from '../PopUpEditRoom/PopUpEditRoom';
 import { RootState, AppDispatch } from '../../app/store';
 
 
@@ -167,7 +167,7 @@ interface Room {
         </SelectorContainer>
         <TableComponent columns={columns} data={filteredRooms} />
         {isEditModalOpen && selectedRoom && (
-          <UpdateRoomModal room={selectedRoom} onClose={handleCloseModal} />
+          <EditRoom room={selectedRoom} onClose={handleCloseModal} />
         )}
       </TableContainer>
     );
