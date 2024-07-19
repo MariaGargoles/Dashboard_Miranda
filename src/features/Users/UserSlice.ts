@@ -1,64 +1,92 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UsersThunk } from "./UserThunk";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-interface User {
-  foto: string;
-  name: string;
-  id: string;
-  startDate: string;
-  description: string;
-  email: string;
-  contact: string;
-  status: string;
+
+export interface User {  
+  foto: string;          
+  name: string;         
+  id: string;           
+  startDate: string;    
+  description: string;  
+  email: string;        
+  contact: string;      
+  status: string;       
 }
-
-interface UsersState {
-  status: 'idle' | 'pending' | 'fulfilled' | 'rejected';
+interface UserState {
   data: User[];
+  status: 'idle' | 'pending' | 'fulfilled' | 'rejected';
   error: string | null;
 }
 
-const initialState: UsersState = {
-  status: 'idle',
+const initialState: UserState = {
   data: [],
+  status: 'idle',
   error: null,
 };
 
-export const UsersSlice = createSlice({
-  name: "users",
+
+export const addUser = createAsyncThunk<User, User, { rejectValue: string }>(
+  'users/addUser',
+  async (user, { rejectWithValue }) => {
+    try {
+      // Simula una solicitud a una API
+      return user;
+    } catch (error) {
+      return rejectWithValue('Failed to add user');
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk<User, User, { rejectValue: string }>(
+  'users/updateUser',
+  async (user, { rejectWithValue }) => {
+    try {
+      // Simula una solicitud a una API
+      return user;
+    } catch (error) {
+      return rejectWithValue('Failed to update user');
+    }
+  }
+);
+
+const userSlice = createSlice({
+  name: 'users',
   initialState,
   reducers: {
-    addUser: (state, action: PayloadAction<User>) => {
-      state.data.push(action.payload);
-      console.log("Añadido con éxito");
-    },
-    deleteUser: (state, action: PayloadAction<string>) => {
-      state.data = state.data.filter((data) => data.id !== action.payload);
-    },
-    updateUser: (state, action: PayloadAction<User>) => {
-      const index = state.data.findIndex(
-        (user) => user.id === action.payload.id
-      );
-      if (index !== -1) {
-        state.data[index] = action.payload;
-      }
+    deleteUser: (state, action) => {
+      state.data = state.data.filter((user) => user.id !== action.payload);
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(UsersThunk.pending, (state) => {
-        state.status = "pending";
+      .addCase(addUser.pending, (state) => {
+        state.status = 'pending';
       })
-      .addCase(UsersThunk.fulfilled, (state, action: PayloadAction<User[]>) => {
-        state.status = "fulfilled";
-        state.data = action.payload;
+      .addCase(addUser.fulfilled, (state, action) => {
+        state.status = 'fulfilled';
+        state.data.push(action.payload);
+        state.error = null;
       })
-      .addCase(UsersThunk.rejected, (state, action) => {
-        state.status = "rejected";
-        state.error = action.error.message || null;
+      .addCase(addUser.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.payload as string || 'Failed to add user';
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.status = 'pending';
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.status = 'fulfilled';
+        const index = state.data.findIndex((user) => user.id === action.payload.id);
+        if (index !== -1) {
+          state.data[index] = action.payload;
+        }
+        state.error = null;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.payload as string || 'Failed to update user';
       });
   },
 });
 
-export const { addUser, deleteUser, updateUser } = UsersSlice.actions;
-export default UsersSlice.reducer;
+export const { deleteUser } = userSlice.actions;
+export default userSlice.reducer;

@@ -1,37 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from "../../app/store"; 
 import { addUser, deleteUser, updateUser } from "../../features/Users/UserSlice"; 
-import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText, ContactButton } from "../ContactComponent/ContactStyled";
-import { TableComponent } from '../TableComponent/TSTableComponent';
-import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector, ActionContainer } from "../RoomComponent/RoomStyled";
+import { TableContainer, TableFilters, TableButtonFilter, SelectorContainer, ButtonRoom, Selector, ActionContainer } from "../RoomComponent/RoomStyled";
 import { UsersButton } from "./UsersStyled";
 import { UsersThunk } from '../../features/Users/UserThunk';
 import { TbEdit, TbTrash } from 'react-icons/tb';
 import Swal from 'sweetalert2';
 import { EditUserModal } from '../PopUpEditUserComponent/PopUpEditUser';
+import { TableComponent } from '../TableComponent/TableComponent';
 
+export interface User {  
+    foto: string;          
+    name: string;         
+    id: string;           
+    startDate: string;    
+    description: string;  
+    email: string;        
+    contact: string;      
+    status: string;       
+}
 
-export const UserComponent = () => {
-    const dispatch = useDispatch();
-    const users = useSelector((state) => state.users.data);
-    const status = useSelector((state) => state.users.status);
+interface Column<T> {
+  headerColumn: string;
+  columnsData?: keyof T;
+  columnRenderer?: (row: T) => JSX.Element;
+}
 
-    const [currentFilter, setCurrentFilter] = useState('all');
-    const [sortOrder, setSortOrder] = useState('asc');
-    const [selectedUser, setSelectedUser] = useState(null);
+interface UserComponentState {
+  currentFilter: 'all' | 'active' | 'inactive';
+  sortOrder: 'asc' | 'desc';
+  selectedUser: User | null;
+}
+
+export const UserComponent: React.FC = () => {
+    const dispatch: AppDispatch = useDispatch();
+    const users = useSelector((state: RootState) => state.users.data);
+    const status = useSelector((state: RootState) => state.users.status);
+    const error = useSelector((state: RootState) => state.users.error);
+
+    const [currentFilter, setCurrentFilter] = useState<'all' | 'active' | 'inactive'>('all');
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
     useEffect(() => {
         if (status === 'idle') {
             dispatch(UsersThunk());
+        } else if (status === 'rejected' && error) {
+            Swal.fire('Error!', `Failed to fetch users: ${error}`, 'error');
         }
-    }, [status, dispatch]);
+    }, [status, dispatch, error]);
 
-    const handleFilterClick = (filter) => {
+    const handleFilterClick = (filter: 'all' | 'active' | 'inactive') => {
         setCurrentFilter(filter);
     };
 
-    const handleSortChange = (e) => {
-        setSortOrder(e.target.value);
+    const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSortOrder(e.target.value as 'asc' | 'desc');
     };
 
     const filteredData = users.filter(user => {
@@ -46,17 +71,17 @@ export const UserComponent = () => {
         const dateB = new Date(b.startDate.split('/').reverse().join('/'));
 
         if (sortOrder === 'asc') {
-            return dateA - dateB;
+            return dateA.getTime() - dateB.getTime();
         } else {
-            return dateB - dateA;
+            return dateB.getTime() - dateA.getTime();
         }
     });
 
-    const handleEditUser = (user) => {
+    const handleEditUser = (user: User) => {
         setSelectedUser(user); 
     };
 
-    const handleDeleteUser = (userId) => {
+    const handleDeleteUser = (userId: string) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -67,44 +92,31 @@ export const UserComponent = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(deleteUser(userId))
-                    .then(() => {
-                        Swal.fire('Deleted!', 'The user has been deleted.', 'success');
-                    })
-                    .catch((error) => {
-                        Swal.fire('Error!', 'There was an error deleting the user.', 'error');
-                    });
+                dispatch(deleteUser(userId));
             }
         });
     };
 
-    const handleSaveUser = (user) => {
-        dispatch(updateUser(user))
-            .then(() => {
-                Swal.fire('Updated!', 'The user has been updated.', 'success');
-                setSelectedUser(null);  
-            })
-            .catch((error) => {
-                Swal.fire('Error!', 'There was an error updating the user.', 'error');
-            });
+    const handleSaveUser = (user: User) => {
+        dispatch(updateUser(user));
     };
 
     const handleCloseModal = () => {
         setSelectedUser(null);
     };
 
-    const columns = [
-        { headerColumn: 'Photo', columnsData: 'photo', columnRenderer: (row) => <img src={row.photo} alt="Employee" style={{ width: '50px', borderRadius: '50%' }} /> },
+    const columns: Column<User>[] = [
+        { headerColumn: 'Photo', columnsData: 'foto', columnRenderer: (row: User) => <img src={row.foto} alt="Employee" style={{ width: '50px', borderRadius: '50%' }} /> },
         { headerColumn: 'Name', columnsData: 'name' },
         { headerColumn: 'ID', columnsData: 'id' },
         { headerColumn: 'Start Date', columnsData: 'startDate' },
         { headerColumn: 'Description', columnsData: 'description' },
         { headerColumn: 'Email', columnsData: 'email' },
         { headerColumn: 'Contact', columnsData: 'contact' },
-        { headerColumn: 'Status', columnsData: 'status', columnRenderer: (row) => <UsersButton status={row.status}>{row.status}</UsersButton> },
+        { headerColumn: 'Status', columnsData: 'status', columnRenderer: (row: User) => <UsersButton status={row.status}>{row.status}</UsersButton> },
         {
             headerColumn: 'Actions',
-            columnRenderer: (row) => (
+            columnRenderer: (row: User) => (
                 <ActionContainer>
                     <TbEdit title="Edit User" onClick={() => handleEditUser(row)} />
                     <TbTrash title="Delete User" onClick={() => handleDeleteUser(row.id)} />
@@ -122,7 +134,7 @@ export const UserComponent = () => {
                     <TableButtonFilter onClick={() => handleFilterClick('inactive')}>Inactive Employees</TableButtonFilter>
                 </TableFilters>
                 <SelectorContainer>
-                    <ButtonRoom onClick={() => setSelectedUser({})}>+ New Employee</ButtonRoom>
+                    <ButtonRoom onClick={() => setSelectedUser({} as User)}>+ New Employee</ButtonRoom>
                     <Selector onChange={handleSortChange} value={sortOrder}>
                         <option value="asc">Sort by Start Date (Ascending)</option>
                         <option value="desc">Sort by Start Date (Descending)</option>
