@@ -1,19 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { Modal, ModalCard, Button, ModalTitle, ModalLabel, ModalInput } from "./PopUpUserStyled.js";
+import { Modal, ModalCard, Button, ModalTitle, ModalLabel, ModalInput } from "./PopUpUserStyled";
 
-export const PopupUserComponent = ({ isOpen, onClose, editUser }) => {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
+
+export interface User {  
+    foto: string;          
+    name: string;         
+    id: string;           
+    startDate: string;    
+    description: string;  
+    email: string;        
+    contact: string;      
+    status: string;       
+}
+
+interface PopupUserComponentProps {
+    isOpen: boolean;
+    onClose: () => void;
+    editUser: (fullName: string, email: string) => void;
+    user: User;
+  }
+  export const PopupUserComponent: React.FC<PopupUserComponentProps> = ({ isOpen, onClose, editUser, user }) => {
+    const [fullName, setFullName] = useState<string>(user.name);
+    const [email, setEmail] = useState<string>(user.email);
 
   useEffect(() => {
     if (isOpen) {
-      setFullName(editUser.name || "");
-      setEmail(editUser.email || "");
+      setFullName(user.name || "");
+      setEmail(user.email || "");
     }
-  }, [isOpen, editUser]);
+  }, [isOpen, user]);
 
   const handleSave = () => {
-    if (fullName !== editUser.name || email !== editUser.email) {
+    if (fullName !== user.name || email !== user.email) {
       editUser(fullName, email);
     }
 

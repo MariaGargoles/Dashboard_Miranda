@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface ButtonProps {
+  variant?: "default" | "save" | "close" | "erase"; 
+}
+
 export const Modal = styled.div`
   position: fixed;
   top: 0;
@@ -25,12 +29,14 @@ export const ModalCard = styled.div`
   width: 100%;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<ButtonProps>`
   background: ${(props) =>
     props.variant === "save"
       ? "#4CAF50"
       : props.variant === "close"
       ? "#f44336"
+      : props.variant === "erase"
+      ? "#FFC107"  
       : "#9e9e9e"};
   color: white;
   font-family: "Poppins", sans-serif;
@@ -44,6 +50,7 @@ export const Button = styled.button`
     opacity: 0.9;
   }
 `;
+
 export const ModalTitle = styled.h2`
   font-family: "Poppins", sans-serif;
   background-color: #ffff;
@@ -57,5 +64,4 @@ export const ModalLabel = styled.label`
 
 export const ModalInput = styled.input`
   font-family: "Poppins", sans-serif;
-  padding: 0.5rem;
-`;
+  padding: 0.5rem
