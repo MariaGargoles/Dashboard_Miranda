@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { UsersThunk } from "./TSUserThunk";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UsersThunk } from "./UserThunk";
 
 interface User {
   foto: string;
