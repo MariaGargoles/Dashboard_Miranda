@@ -32,7 +32,7 @@ interface UpdateRoomProps {
     onClose: () => void;
 }
 
-export const UpdateRoom: React.FC<UpdateRoomProps> = ({ room, onClose }) => {
+export const EditRoomModal: React.FC<UpdateRoomProps> = ({ room, onClose }) => {
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
       photo: '',
