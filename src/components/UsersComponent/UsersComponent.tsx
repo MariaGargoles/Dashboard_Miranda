@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser, deleteUser, updateUser } from "../../features/Users/UserSlice"; 
 import { TableContainer, TableFilters, TableButtonFilter, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText, ContactButton } from "../ContactComponent/ContactStyled";
-import { TableComponent } from '../TableComponent/TableComponent';
+import { TableComponent } from '../TableComponent/TSTableComponent';
 import { ImageRoom, StatusButton, SelectorContainer, ButtonRoom, Selector, ActionContainer } from "../RoomComponent/RoomStyled";
 import { UsersButton } from "./UsersStyled";
 import { UsersThunk } from '../../features/Users/UserThunk';
