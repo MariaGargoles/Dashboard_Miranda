@@ -12,7 +12,7 @@ import { MdOutlinePersonOutline } from "react-icons/md";
 import { MdContactPhone } from "react-icons/md";
 import { HiLogin } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-import ReactDOM from "react-dom";
+
 
 
 import { 
@@ -37,17 +37,22 @@ import {
     IconContainer
 } from "./NavbarStyled";
 import { NavLink } from "react-router-dom";
-import { PopupUserComponent } from "../PopUpUserComponent/PopUpUserComponent.jsx";
-import { AuthContext } from "../../context/AuthUserContext.jsx";
+import { PopupUserComponent } from "../PopUpUserComponent/PopUpUserComponent";
+import { AuthContext } from "../../context/AuthUserContext";
 
-export const NavbarComponent = () => {
-    const { state, logout, updateUser } = useContext(AuthContext);
-    const [openMenu, setIsOpenMenu] = useState(false);
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+export const NavbarComponent: React.FC = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("AuthContext is not available");
+    }
+
+    const { state, logout, updateUser } = context;
+    const [openMenu, setIsOpenMenu] = useState<boolean>(false);
+    const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const handleClick = () => {
-        (setIsOpenMenu(prev => !prev));
+        setIsOpenMenu(prev => !prev);
     };
 
     const handleEditUserClick = () => {
@@ -73,11 +78,21 @@ export const NavbarComponent = () => {
                 {openMenu &&  
                 <MenuSection className="menutoggle">
                     <UlMenu>
-                        <NavLink to="/dashboard" className="dashboardlink list-link"><ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu></NavLink>
-                        <NavLink to="/rooms" className="roomslink list-link"><ListMenu><PiKeyBold className="menuicon"/>Rooms</ListMenu></NavLink>
-                        <NavLink to="/booking" className="bookinlink list-link"><ListMenu><LuCalendarCheck2 className="menuicon"/>Bookings</ListMenu></NavLink>
-                        <NavLink to="/users" className="list-link"><ListMenu><MdOutlinePersonOutline className="menuicon"/>Users</ListMenu></NavLink>
-                        <NavLink to="/contact" className="list-link"><ListMenu><MdContactPhone className="menuicon"/>Contact</ListMenu></NavLink>
+                        <NavLink to="/dashboard" className="dashboardlink list-link">
+                            <ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu>
+                        </NavLink>
+                        <NavLink to="/rooms" className="roomslink list-link">
+                            <ListMenu><PiKeyBold className="menuicon"/>Rooms</ListMenu>
+                        </NavLink>
+                        <NavLink to="/booking" className="bookinlink list-link">
+                            <ListMenu><LuCalendarCheck2 className="menuicon"/>Bookings</ListMenu>
+                        </NavLink>
+                        <NavLink to="/users" className="list-link">
+                            <ListMenu><MdOutlinePersonOutline className="menuicon"/>Users</ListMenu>
+                        </NavLink>
+                        <NavLink to="/contact" className="list-link">
+                            <ListMenu><MdContactPhone className="menuicon"/>Contact</ListMenu>
+                        </NavLink>
                     </UlMenu>
                     <PersonCard>
                         <PersonImg src="src/assets/1.jpg" alt="Person" />
@@ -91,7 +106,7 @@ export const NavbarComponent = () => {
                         <NavRights>© 2024</NavRights>
                     </NavFooter>
                 </MenuSection>}
-                <IconContainer  className="displaymenu" onClick={handleClick}>
+                <IconContainer isOpen={openMenu} className="displaymenu" onClick={handleClick}>
                     <TfiAlignLeft className="menuicon" />
                 </IconContainer>
                 <IconContainer>
@@ -110,7 +125,7 @@ export const NavbarComponent = () => {
                     <HiLogin className="menuicon" onClick={handleLogoutClick} />
                 </IconContainer>
             </NavbarSection>
-            {isPopupOpen && <PopupUserComponent onClose={handleClosePopup} isOpen={isPopupOpen} editUser={updateUser} />}
+            {isPopupOpen && <PopupUserComponent onClose={handleClosePopup} isOpen={isPopupOpen} editUser={updateUser} user={state} />}
         </>
     );
 };

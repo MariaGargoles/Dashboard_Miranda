@@ -4,8 +4,14 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import type { RootState } from "../app/store";
 
 interface AuthState {
-  name: string | null;
-  email: string | null;
+  foto: string;          
+  name: string;
+  id: string;
+  startDate: string;
+  description: string;
+  email: string;
+  contact: string;
+  status: string;
   isAuthenticated: boolean;
 }
 
@@ -15,8 +21,14 @@ interface LoginPayload {
 }
 
 const initialState: AuthState = {
-  name: null,
-  email: null,
+  foto: '',
+  name: '',
+  id: '',
+  startDate: '',
+  description: '',
+  email: '',
+  contact: '',
+  status: '',
   isAuthenticated: false,
 };
 
@@ -30,8 +42,8 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
     },
     logout(state) {
-      state.name = null;
-      state.email = null;
+      state.name = '';
+      state.email = '';
       state.isAuthenticated = false;
     },
     editUser(state, action: PayloadAction<LoginPayload>) {

@@ -163,7 +163,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onSave, onCa
             </FormSelect>
             
             <SubmitButton type="submit">Save</SubmitButton>
-            <BackButton type="button" onClick={onCancel}>Cancel</BackButton>
+            <BackButton  onClick={onCancel}>Cancel</BackButton>
           </form>
         </ModalCard>
       </Modal>

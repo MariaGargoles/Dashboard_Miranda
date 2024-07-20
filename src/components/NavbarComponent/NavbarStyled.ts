@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+
+
+
 export const NavbarSection = styled.nav`
   background-color: #ffff;
   display: flex;
@@ -113,7 +116,6 @@ export const NavRights = styled.p`
 
 export const DashboardNav = styled.div`
   display: flex;
-
   background-color: #ffff;
   transition: margin-left 0.2s ease-in-out;
 `;
@@ -124,7 +126,11 @@ export const InputSearch = styled.input`
   transform: translateY(-161%);
 `;
 
-export const DashboardText = styled.p`
+interface DashboardTextProps {
+  isOpen: boolean;
+}
+
+export const DashboardText = styled.p<DashboardTextProps>`
   font-family: "Poppins", sans-serif;
   padding-left: 3rem;
   background-color: #ffff;
@@ -132,7 +138,11 @@ export const DashboardText = styled.p`
   margin-left: ${(props) => (props.isOpen ? "18rem" : "2rem")};
 `;
 
-export const IconContainer = styled.div`
+interface IconContainerProps {
+  isOpen?: boolean;
+}
+
+export const IconContainer = styled.div<IconContainerProps>`
   z-index: 1;
   display: flex;
   align-items: center;
