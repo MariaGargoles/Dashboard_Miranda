@@ -2,13 +2,12 @@ import styled from "styled-components";
 import { ButtonHTMLAttributes } from "react";
 
 interface UsersButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    status: "ACTIVE" | "INACTIVE"; 
-  }
-  
+  status: string;  
+}
 
 export const UsersButton = styled.button<UsersButtonProps>`
   padding: 0.5rem 1rem;
-  margin-left: 1rem; 
+  margin-left: 1rem;
   border: none;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
