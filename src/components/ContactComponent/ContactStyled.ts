@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+
+interface ContactButtonProps {
+  status: "publish" | "archived"; 
+}
+
 export const TableContainer = styled.div`
   background-color: #f8f8f8;
   margin-left: 30rem;
@@ -59,7 +64,7 @@ export const TableCell = styled.td`
   color: #393939;
 `;
 
-export const ContactButton = styled.button`
+export const ContactButton = styled.button<ContactButtonProps>`
   background-color: ${(props) =>
     props.status === "publish" ? "#E8FFEE" : "#FFEDEC"};
   color: ${(props) => (props.status === "publish" ? "#5AD07A" : "#E23428")};
