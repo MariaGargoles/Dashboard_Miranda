@@ -5,11 +5,11 @@ import { Room, User, Booking, ContactMessage, ColumnType } from '../../types/glo
 
 interface TableProps<T> {
   data: T[];
-  columns: ColumnType[];
+  columns: ColumnType<T>[];
 }
 
 
-export const TableComponent = <T extends User | Room | Booking | ContactMessage>({ columns, data }: TableProps<T>) => {
+export const TableComponent = <T extends Object>({ columns, data }: TableProps<T>) => {
   const pageSize = 5;
 
   const createPagination = (array: T[], size: number): T[][] => {
@@ -57,7 +57,7 @@ export const TableComponent = <T extends User | Room | Booking | ContactMessage>
                 <TableCell key={colIndex}>
                   {col.columnRenderer 
                     ? col.columnRenderer(row) 
-                    : col.columnsData in row ? (row[col.columnsData as keyof T] as any) : null}
+                    : col.columnsData && col.columnsData in row ? (row[col.columnsData as keyof T] as any) : null }
                 </TableCell>
               ))}
             </tr>

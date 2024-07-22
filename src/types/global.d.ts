@@ -6,7 +6,7 @@ export interface User {
   description: string;
   email: string;
   contact: string;
-  status: 'ACTIVE' | 'INACTIVE';
+  status: string;
 }
   export interface Room {
     photo: string;
@@ -16,7 +16,7 @@ export interface User {
     Amenities: string [];
     Rate: number;
     OfferPrice: number;
-    Status: 'Available' | 'Unavailable'; 
+    Status: string; 
     RoomFloor: string;
   }
 
@@ -29,7 +29,7 @@ export interface User {
     SpecialRequest: string;
     RoomType: string;
     RoomNumber: string;
-    Status: 'Check In' | 'Check Out' | 'In Progress';
+    Status: string;
   }
 
   export interface ContactMessage {
@@ -39,11 +39,23 @@ export interface User {
     email: string;
     subject: string;
     comment: string;
-    action: 'publish' | 'archived'; 
+    action: string; 
 }
 
-export interface ColumnType {
+export interface ColumnType<T> {
   headerColumn: string,
   columnsData: keyof T;
   columnRenderer?: (row: T) => React.ReactNode;
+}
+
+export interface UserStateStates {
+  data: User[];
+  status: 'idle' | 'pending' | 'fulfilled' | 'rejected';
+  error: string | null;
+}
+
+export interface BookingState {
+  status: 'idle' | 'pending' | 'fulfilled' | 'rejected';
+  data: Booking[];
+  error: string | null;
 }

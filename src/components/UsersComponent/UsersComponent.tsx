@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from "../../app/store"; 
-import { addUser, deleteUser, updateUser } from "../../features/Users/UserSlice"; 
+import {  deleteUser, updateUser } from "../../features/Users/UserSlice"; 
 import { SelectorContainer, ButtonRoom, Selector, ActionContainer } from "../RoomComponent/RoomStyled";
 import {
     TableContainer,
     TableFilters,
     TableButtonFilter,
-  } from '../ContactComponent/ContactStyled';
+} from '../ContactComponent/ContactStyled';
 import { UsersButton } from "./UsersStyled";
 import { UsersThunk } from '../../features/Users/UserThunk';
 import { TbEdit, TbTrash } from 'react-icons/tb';
@@ -94,7 +94,7 @@ export const UserComponent: React.FC = () => {
         setSelectedUser(null);
     };
 
-    const columns = [
+    const columns: ColumnType<User>[] = [
         { headerColumn: 'Photo', columnsData: 'foto', columnRenderer: (row: User) => <img src={row.foto} alt="Employee" style={{ width: '50px', borderRadius: '50%' }} /> },
         { headerColumn: 'Name', columnsData: 'name' },
         { headerColumn: 'ID', columnsData: 'id' },
@@ -105,6 +105,7 @@ export const UserComponent: React.FC = () => {
         { headerColumn: 'Status', columnsData: 'status', columnRenderer: (row: User) => <UsersButton status={row.status}>{row.status}</UsersButton> },
         {
             headerColumn: 'Actions',
+            columnsData: 'id', 
             columnRenderer: (row: User) => (
                 <ActionContainer>
                     <TbEdit title="Edit User" onClick={() => handleEditUser(row)} />
@@ -129,7 +130,7 @@ export const UserComponent: React.FC = () => {
                         <option value="desc">Sort by Start Date (Descending)</option>
                     </Selector>
                 </SelectorContainer>
-                <TableComponent columns={columns} data={sortedData} />
+                <TableComponent<User> columns={columns} data={sortedData} />
             </TableContainer>
             {selectedUser && (
                 <EditUserModal

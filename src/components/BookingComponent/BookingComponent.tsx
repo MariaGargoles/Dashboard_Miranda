@@ -21,18 +21,7 @@ import {
 import { UpdateBookingModal } from "../PopUpEditBookinComponent/PopUpEditBookin";
 
 import { RootState, AppDispatch } from '../../app/store';
-
-interface Booking {
-  id: string;
-  Name: string;
-  OrderDate: string;
-  CheckIn: string;
-  CheckOut: string;
-  SpecialRequest: string;
-  RoomType: string;
-  RoomNumber: string;
-  Status: 'Check In' | 'Check Out' | 'In Progress';
-}
+import { Booking, ColumnType, BookinState } from '../../types/global';
 
 export const BookingComponent: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -95,7 +84,7 @@ export const BookingComponent: React.FC = () => {
     return true;
   });
 
-  const columns = [
+  const columns: ColumnType<Booking>[] = [
     { headerColumn: "Order ID", columnsData: "id" as keyof Booking },
     { headerColumn: "Name", columnsData: "Name" as keyof Booking },
     { headerColumn: "Order Date", columnsData: "OrderDate" as keyof Booking },
@@ -115,6 +104,7 @@ export const BookingComponent: React.FC = () => {
     },
     {
       headerColumn: 'Actions',
+      columnsData: 'id', // Aquí se añade columnsData también
       columnRenderer: (row: Booking) => (
         <ActionContainer>
           <TbEdit title="Edit Booking" onClick={() => handleEditBooking(row)} />
@@ -144,7 +134,7 @@ export const BookingComponent: React.FC = () => {
         <NavLink to="NewBookin">
           <ButtonRoom>+ New Booking</ButtonRoom>
         </NavLink>
-        <TableComponent columns={columns} data={filteredBookingList} />
+        <TableComponent<Booking> columns={columns} data={filteredBookingList} />
 
         {isEditModalOpen && selectedBooking && (
           <UpdateBookingModal booking={selectedBooking} onClose={handleCloseModal} />
