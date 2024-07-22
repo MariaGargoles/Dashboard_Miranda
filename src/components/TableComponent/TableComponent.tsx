@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { PaginationContainer, PaginationButton, Table, EncabezadoTabla, BodyTable, TableCell, TableHeadText } from '../ContactComponent/ContactStyled';
+import { Room, User, Booking, ContactMessage, ColumnType } from '../../types/global';
 
-interface Column<T> {
-  headerColumn: string;
-  columnsData?: keyof T;
-  columnRenderer?: (row: T) => JSX.Element;
-}
 
-interface TableComponentProps<T> {
-  columns: Column<T>[];
+interface TableProps<T> {
   data: T[];
+  columns: ColumnType[];
 }
 
-export const TableComponent = <T,>({ columns, data }: TableComponentProps<T>) => {
+
+export const TableComponent = <T extends User | Room | Booking | ContactMessage>({ columns, data }: TableProps<T>) => {
   const pageSize = 5;
 
   const createPagination = (array: T[], size: number): T[][] => {
@@ -60,7 +57,7 @@ export const TableComponent = <T,>({ columns, data }: TableComponentProps<T>) =>
                 <TableCell key={colIndex}>
                   {col.columnRenderer 
                     ? col.columnRenderer(row) 
-                    : (col.columnsData ? (row[col.columnsData] as any) : null)}
+                    : col.columnsData in row ? (row[col.columnsData as keyof T] as any) : null}
                 </TableCell>
               ))}
             </tr>
