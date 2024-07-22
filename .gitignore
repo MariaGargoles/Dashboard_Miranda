@@ -27,6 +27,4 @@ dist-ssr
 *.sw?
 
 # Archivos específicos del proyecto
-package.json
-package-lock.json
-vite.config.js
+
