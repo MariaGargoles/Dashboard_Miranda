@@ -29,7 +29,7 @@ export interface User {
     SpecialRequest: string;
     RoomType: string;
     RoomNumber: string;
-    Status: string;
+    Status: "Check In" | "Check Out" | "In Progress" | "Default";
   }
 
   export interface ContactMessage {

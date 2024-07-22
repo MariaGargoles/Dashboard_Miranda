@@ -2,8 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { BookinThunk } from "./BookinThunk";
 import { Booking, BookingState } from "../../types/global";
 
-
-
 const initialState: BookingState = {
   status: 'idle',
   data: [],
@@ -16,27 +14,17 @@ export const BookinSlice = createSlice({
   reducers: {
     addBookin: (state, action: PayloadAction<Booking>) => {
       state.data.push(action.payload);
-      state.status = 'fulfilled';
-      state.error = null;
-      console.log("Añadido con éxito");
     },
     deleteBookin: (state, action: PayloadAction<string>) => {
       state.data = state.data.filter((data) => data.id !== action.payload);
     },
     updateBookin: (state, action: PayloadAction<Booking>) => {
-      const index = state.data.findIndex((bookin) => bookin.id === action.payload.id);
+      const index = state.data.findIndex(
+        (bookin) => bookin.id === action.payload.id
+      );
       if (index !== -1) {
         state.data[index] = action.payload;
       }
-      state.status = 'fulfilled';
-      state.error = null;
-    },
-    setPending: (state) => {
-      state.status = 'pending';
-    },
-    setRejected: (state, action: PayloadAction<string>) => {
-      state.status = 'rejected';
-      state.error = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -47,7 +35,6 @@ export const BookinSlice = createSlice({
       .addCase(BookinThunk.fulfilled, (state, action: PayloadAction<Booking[]>) => {
         state.status = "fulfilled";
         state.data = action.payload;
-        state.error = null;
       })
       .addCase(BookinThunk.rejected, (state, action) => {
         state.status = "rejected";
@@ -56,5 +43,5 @@ export const BookinSlice = createSlice({
   },
 });
 
-export const { addBookin, deleteBookin, updateBookin, setPending, setRejected } = BookinSlice.actions;
+export const { addBookin, deleteBookin, updateBookin } = BookinSlice.actions;
 export default BookinSlice.reducer;

@@ -21,7 +21,7 @@ import {
 import { UpdateBookingModal } from "../PopUpEditBookinComponent/PopUpEditBookin";
 
 import { RootState, AppDispatch } from '../../app/store';
-import { Booking, ColumnType, BookinState } from '../../types/global';
+import { Booking, ColumnType, BookingState } from '../../types/global';
 
 export const BookingComponent: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -104,7 +104,7 @@ export const BookingComponent: React.FC = () => {
     },
     {
       headerColumn: 'Actions',
-      columnsData: 'id', // Aquí se añade columnsData también
+      columnsData: 'id', 
       columnRenderer: (row: Booking) => (
         <ActionContainer>
           <TbEdit title="Edit Booking" onClick={() => handleEditBooking(row)} />
