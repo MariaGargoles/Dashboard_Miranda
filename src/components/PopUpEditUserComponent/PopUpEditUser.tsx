@@ -46,7 +46,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onSave, onCa
       const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-          await dispatch(updateUser(formData) as any); // Usa `as any` para evitar errores de tipado si necesario
+          await dispatch(updateUser(formData) as any); 
           Swal.fire('Updated!', 'User details updated successfully.', 'success');
           onSave(formData);
         } catch (error: any) {
@@ -54,7 +54,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onSave, onCa
         }
       };
     }
-    
+
     return (
       <Modal onClick={onCancel}>
         <ModalCard onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
