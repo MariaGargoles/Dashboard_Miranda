@@ -1,22 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ContactMessagesThunk } from "./MessagesThunk";
+import { ContactMessage, ContactState } from "../../types/global";
 
-interface ContactMessage {
-    id: number;
-    date: string;
-    name: string;
-    email: string;
-    subject: string;
-    comment: string;
-    action: 'publish' | 'archived';
-}
 
-interface ContactState {
-    status: 'idle' | 'pending' | 'fulfilled' | 'rejected';
-    data: ContactMessage[];
-    error: string | null;
-    message: ContactMessage | null;
-}
 
 const initialState: ContactState = {
     status: 'idle',

@@ -1,20 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import BookinJson from "../../data/Booking.json";
 import { Booking } from "../../types/global";
+import delay from "../Messages/MessagesThunk";
 
+type Bookin = Booking[];
 
-const BookinThunkPromise = (data: Booking[]): Promise<Booking[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(data);
-    }, 200);
-  });
-};
-
-export const BookinThunk = createAsyncThunk<Booking[], void>(
+export const BookinThunk = createAsyncThunk<Bookin>(
   "bookin/getBookinList",
   async () => {
-    const bookings = await BookinThunkPromise(BookinJson as Booking[]);
+    const bookings = await delay<Bookin>(BookinJson);
     return bookings;
   }
 );

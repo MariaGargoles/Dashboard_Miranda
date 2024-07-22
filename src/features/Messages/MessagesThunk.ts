@@ -1,30 +1,21 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import ContactJson from "../../data/ContactMessages.json";
-
-interface ContactMessage {
-    id: number;
-    date: string;
-    name: string;
-    email: string;
-    subject: string;
-    comment: string;
-    action: 'publish' | 'archived';
-}
+import { ContactMessage } from "../../types/global";
 
 type ContactMessages = ContactMessage[];
 
-const ContactThunkPromise = (data: ContactMessages): Promise<ContactMessages> => {
+function delay<T>(data: T, time: number = 200): Promise<T> {
     return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(data);
-        }, 200);
+        setTimeout(() => resolve(data), time);
     });
-};
+}
 
 export const ContactMessagesThunk = createAsyncThunk<ContactMessages>(
     "contact/getContactList",
     async () => {
-        const contactMessages = await ContactThunkPromise(ContactJson as ContactMessages);
+        const contactMessages = await delay<ContactMessages>(ContactJson);
         return contactMessages;
     }
 );
+
+export default delay

@@ -1,18 +1,15 @@
 import styled from "styled-components";
 
-
 interface StatusButtonProps {
   status: "Available" | "Unavailable"; 
 }
-
 
 interface ButtonRoomProps {
   variant?: "default" | "save" | "close" | "erase"; 
 }
 
-
 interface BookingButtonStatusProps {
-  styled: "Check In" | "Check Out" | "In Progress" | "Default"; 
+  styled: string;
 }
 
 export const ImageRoom = styled.img`

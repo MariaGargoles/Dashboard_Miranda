@@ -142,3 +142,12 @@ export const UserComponent: React.FC = () => {
         </>
     );
 };
+const mapStatus = (status: string): "ACTIVE" | "INACTIVE" => {
+    switch (status) {
+      case "ACTIVE":
+      case "INACTIVE":
+        return status;
+      default:
+        return "INACTIVE"; 
+    }
+  };

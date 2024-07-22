@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import { AppDispatch } from "../../app/store";
-import { addUser, updateUser } from '../../features/Users/UserSlice';
+import { updateUser } from '../../features/Users/UserSlice';
 import { Modal, ModalCard } from '../PopUpUserComponent/PopUpUserStyled';
 import {
   FormTitle,
@@ -12,97 +12,62 @@ import {
   SubmitButton,
   BackButton
 } from '../RoomComponent/RoomStyled';
-
-export interface User {  
-    foto: string;          
-    name: string;         
-    id: string;           
-    startDate: string;    
-    description: string;  
-    email: string;        
-    contact: string;      
-    status: string;       
-}
+import { User } from '../../types/global';
 
 interface EditUserModalProps {
-  user: User | null;
+  user: User; // Cambiado de `onSave` a `user` para pre-poblar el formulario
   onSave: (user: User) => void;
   onCancel: () => void;
 }
 
 export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onSave, onCancel }) => {
     const dispatch = useDispatch<AppDispatch>();
-    const [formData, setFormData] = React.useState<User>({
-      foto: user?.foto || '',  
-      name: user?.name || '',
-      id: user?.id || '',
-      startDate: user?.startDate || '',
-      description: user?.description || '',
-      email: user?.email || '',
-      contact: user?.contact || '',
-      status: user?.status || 'ACTIVE'
-    });
-  
-    React.useEffect(() => {
-      if (user) {
-        setFormData({
-          foto: user.foto,  
-          name: user.name,
-          id: user.id,
-          startDate: user.startDate,
-          description: user.description,
-          email: user.email,
-          contact: user.contact,
-          status: user.status
-        });
-      }
-    }, [user]);
-  
+    const [formData, setFormData] = React.useState<User>(user);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
       const { name, value } = e.target;
-      setFormData(prevFormData => ({ ...prevFormData as User, [name]: value }));
+      setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
     };
-  
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-  
-      try {
-        if (user?.id) {
-          const resultAction = await dispatch(updateUser(formData));
-          if (updateUser.fulfilled.match(resultAction)) {
-            Swal.fire('Success', 'User updated successfully', 'success');
-            onSave(formData);
-          } else {
-            throw new Error(resultAction.error.message || 'Failed to update user');
-          }
-        } else {
-          const resultAction = await dispatch(addUser(formData));
-          if (addUser.fulfilled.match(resultAction)) {
-            Swal.fire('Success', 'User added successfully', 'success');
-            onSave(formData);
-          } else {
-            throw new Error(resultAction.error.message || 'Failed to add user');
-          }
+
+      const updatedUser = {
+        id: formData.id,
+        foto: formData.foto,
+        name: formData.name,
+        startDate: formData.startDate,
+        description: formData.description,
+        email: formData.email,
+        contact: formData.contact,
+        status: formData.status,
+      };
+
+      const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+          await dispatch(updateUser(formData) as any); // Usa `as any` para evitar errores de tipado si necesario
+          Swal.fire('Updated!', 'User details updated successfully.', 'success');
+          onSave(formData);
+        } catch (error: any) {
+          Swal.fire('Error!', `There was an error updating the user: ${error.message}`, 'error');
         }
-      } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        Swal.fire('Error', `There was an error: ${errorMessage}`, 'error');
-      }
-    };
-  
+      };
+    }
+    
     return (
       <Modal onClick={onCancel}>
         <ModalCard onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
-          <FormTitle>{user?.id ? 'Edit User' : 'Add New User'}</FormTitle>
+          <FormTitle>Edit User</FormTitle>
           <form onSubmit={handleSubmit}>
             <FormLabel>Photo URL:</FormLabel>
             <FormInput
               type="text"
-              name="foto"  
+              name="foto"
               value={formData.foto}
               onChange={handleChange}
             />
-            
+
             <FormLabel>Name:</FormLabel>
             <FormInput
               type="text"
@@ -110,7 +75,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onSave, onCa
               value={formData.name}
               onChange={handleChange}
             />
-            
+
             <FormLabel>ID:</FormLabel>
             <FormInput
               type="text"
@@ -118,7 +83,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onSave, onCa
               value={formData.id}
               disabled
             />
-            
+
             <FormLabel>Start Date:</FormLabel>
             <FormInput
               type="text"
@@ -126,7 +91,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onSave, onCa
               value={formData.startDate}
               onChange={handleChange}
             />
-            
+
             <FormLabel>Description:</FormLabel>
             <textarea
               name="description"
@@ -135,7 +100,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onSave, onCa
               rows={4}
               style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
             />
-            
+
             <FormLabel>Email:</FormLabel>
             <FormInput
               type="email"
@@ -143,7 +108,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onSave, onCa
               value={formData.email}
               onChange={handleChange}
             />
-            
+
             <FormLabel>Contact:</FormLabel>
             <FormInput
               type="text"
@@ -151,7 +116,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onSave, onCa
               value={formData.contact}
               onChange={handleChange}
             />
-            
+
             <FormLabel>Status:</FormLabel>
             <FormSelect
               name="status"
@@ -161,12 +126,11 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onSave, onCa
               <option value="ACTIVE">Active</option>
               <option value="INACTIVE">Inactive</option>
             </FormSelect>
-            
+
             <SubmitButton type="submit">Save</SubmitButton>
-            <BackButton  onClick={onCancel}>Cancel</BackButton>
+            <BackButton onClick={onCancel}>Cancel</BackButton>
           </form>
         </ModalCard>
       </Modal>
     );
-  };
-
+};

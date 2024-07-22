@@ -29,7 +29,7 @@ export interface User {
     SpecialRequest: string;
     RoomType: string;
     RoomNumber: string;
-    Status: "Check In" | "Check Out" | "In Progress" | "Default";
+    Status: string;
   }
 
   export interface ContactMessage {
@@ -58,4 +58,11 @@ export interface BookingState {
   status: 'idle' | 'pending' | 'fulfilled' | 'rejected';
   data: Booking[];
   error: string | null;
+}
+
+interface ContactState {
+  status: 'idle' | 'pending' | 'fulfilled' | 'rejected';
+  data: ContactMessage[];
+  error: string | null;
+  message: ContactMessage | null;
 }

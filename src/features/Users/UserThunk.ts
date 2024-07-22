@@ -1,33 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import UsersJson from "../../data/Users.json";
+import { User } from "../../types/global";
+import delay from "../Messages/MessagesThunk";
 
-export interface User {  
-  foto: string;          
-  name: string;         
-  id: string;           
-  startDate: string;    
-  description: string;  
-  email: string;        
-  contact: string;      
-  status: string;       
-}
+type Users = User[];
 
-const UsersThunkPromise = (data: User[]): Promise<User[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(data);
-    }, 200); 
-  });
-};
-
-export const UsersThunk = createAsyncThunk<User[], void, { rejectValue: string }>(
+export const UsersThunk = createAsyncThunk<Users>(
   "users/getUsersList", 
-  async (_, { rejectWithValue }) => {
-    try {
-      const users = await UsersThunkPromise(UsersJson);
-      return users;
-    } catch (error) {
-      return rejectWithValue('Failed to fetch users');
-    }
+  async () => {
+    const users = await delay<Users>(UsersJson);
+    return users;
   }
 );

@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
-
 interface ContactButtonProps {
-  status: "publish" | "archived"; 
+  status: string;
 }
 
 export const TableContainer = styled.div`

@@ -1,29 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ContactMessagesThunk } from '../../features/Messages/MessagesThunk'; 
-import { deleteMessage, updateMessage } from '../../features/Messages/MessagesSlice';
+import { ContactMessagesThunk } from '../../features/Messages/MessagesThunk';
+import { deleteMessage } from '../../features/Messages/MessagesSlice';
 import { TableComponent } from '../TableComponent/TableComponent';
 import { ContactButton } from './ContactStyled';
 import { SelectorContainer, Selector } from '../RoomComponent/RoomStyled';
 import { TableContainer, TableFilters, TableButtonFilter } from '../ContactComponent/ContactStyled';
 import Swal from 'sweetalert2';
 import { RootState, AppDispatch } from '../../app/store';
-
-interface ContactMessage {
-    id: number;
-    date: string;
-    name: string;
-    email: string;
-    subject: string;
-    comment: string;
-    action: 'publish' | 'archived'; 
-}
-
-interface Column<T> {
-    headerColumn: string;
-    columnsData?: keyof T;
-    columnRenderer?: (row: T) => JSX.Element;
-}
+import { ContactMessage, ColumnType } from '../../types/global';
 
 export const ContactMessagesComponent: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -39,7 +24,7 @@ export const ContactMessagesComponent: React.FC = () => {
         } else if (contactStatus === 'fulfilled') {
             setFilteredContacts(contactList);
         } else if (contactStatus === 'rejected' && contactError) {
-            alert('Error: ' + contactError);
+            Swal.fire('Error!', `Failed to fetch contacts: ${contactError}`, 'error');
         }
     }, [contactStatus, dispatch, contactError, contactList]);
 
@@ -47,7 +32,7 @@ export const ContactMessagesComponent: React.FC = () => {
         setFilteredContacts(contactList);
     }, [contactList]);
 
-    const columns: Column<ContactMessage>[] = [
+    const columns: ColumnType<ContactMessage>[] = [
         { headerColumn: 'Order ID', columnsData: 'id' },
         { headerColumn: 'Date', columnsData: 'date' },
         { headerColumn: 'Name', columnsData: 'name' },
@@ -56,8 +41,12 @@ export const ContactMessagesComponent: React.FC = () => {
         { headerColumn: 'Comment', columnsData: 'comment' },
         {
             headerColumn: 'Action',
-            columnsData: 'action',
-            columnRenderer: (row: ContactMessage) => <ContactButton status={row.action}>{row.action}</ContactButton>
+            columnsData: 'action', 
+            columnRenderer: (row: ContactMessage) => (
+                <ContactButton status={row.action}>
+                    {row.action}
+                </ContactButton>
+            )
         }
     ];
 
