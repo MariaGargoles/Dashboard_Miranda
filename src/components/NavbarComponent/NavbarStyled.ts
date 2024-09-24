@@ -150,4 +150,9 @@ export const IconContainer = styled.div<IconContainerProps>`
   cursor: pointer;
   transition: padding-left 0.2s ease-in-out;
   padding-left: ${(props) => (props.isOpen ? "18rem" : "2rem")};
+  svg {
+    padding-right: 1rem;
+    background-color:  #ffff;
+    font-size: 1.3rem;
+  }
 `;

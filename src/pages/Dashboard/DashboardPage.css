@@ -1,0 +1,16 @@
+.dashboard-container {
+    
+    grid-template-rows: auto 1fr;
+    height: 100vh; /* Hacemos que el contenedor ocupe toda la altura de la ventana */
+}
+
+/* Navbar en la primera fila, será fijo por la estructura de la grid */
+.navbar {
+    grid-row: 1; /* Esta fila se queda fija */
+}
+
+/* Contenido desplazable en la segunda fila */
+.dashboard-content {
+    grid-row: 2; 
+    overflow-y: auto; /* Permite el desplazamiento vertical */
+}

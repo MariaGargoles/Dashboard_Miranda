@@ -76,7 +76,7 @@ export const NavbarComponent: React.FC = () => {
                     <LogoText src="src/assets/Trav.png" alt="trav" />
                 </IconsSection>
                 {openMenu &&  
-                <MenuSection className="menutoggle">
+                <MenuSection>
                     <UlMenu>
                         <NavLink to="/dashboard" className="dashboardlink list-link">
                             <ListMenu><MdDashboard className="menuicon"/>Dashboard</ListMenu>

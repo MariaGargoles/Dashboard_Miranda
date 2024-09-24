@@ -5,6 +5,7 @@ export const KPISection = styled.section`
   display: flex;
   padding-top: 3rem;
   padding-bottom: 3rem;
+  
 `;
 
 export const KPICard = styled.div`

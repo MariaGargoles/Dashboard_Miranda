@@ -5,6 +5,7 @@ export const ReviewSection = styled.section`
   margin: 1rem;
   padding: 1rem;
   border-radius: 2.5rem;
+  
 `;
 
 export const ReviewSectionTitle = styled.h3`
