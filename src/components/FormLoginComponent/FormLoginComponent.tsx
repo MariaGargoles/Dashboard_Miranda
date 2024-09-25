@@ -26,8 +26,8 @@ export const FormLoginComponent: React.FC = () => {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (username === "maria" && password === "miranda") {
-      dispatch(login({ name: username, email: "maria@example.com" }));
+    if (username === "segwanda12" && password === "miranda") {
+      dispatch(login({ name: username, email: "segwanda12@example.com" }));
     } else {
       alert("Datos incorrectos");
     }
