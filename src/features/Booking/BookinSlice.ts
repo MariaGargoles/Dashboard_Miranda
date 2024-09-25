@@ -1,5 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BookinThunk } from "./BookinThunk";
+import { 
+  fetchBookingsListThunk,
+  fetchSingleBookingThunk,
+  addBookingThunk,
+  updateBookingThunk,
+  deleteBookingThunk
+} from "./BookinThunk";
 import { Booking, BookingState } from "../../types/global";
 
 const initialState: BookingState = {
@@ -16,11 +22,11 @@ export const BookinSlice = createSlice({
       state.data.push(action.payload);
     },
     deleteBookin: (state, action: PayloadAction<string>) => {
-      state.data = state.data.filter((data) => data.id !== action.payload);
+      state.data = state.data.filter((data) => data._id !== action.payload);
     },
     updateBookin: (state, action: PayloadAction<Booking>) => {
       const index = state.data.findIndex(
-        (bookin) => bookin.id === action.payload.id
+        (booking) => booking._id === action.payload._id
       );
       if (index !== -1) {
         state.data[index] = action.payload;
@@ -29,16 +35,34 @@ export const BookinSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(BookinThunk.pending, (state) => {
+      .addCase(fetchBookingsListThunk.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(BookinThunk.fulfilled, (state, action: PayloadAction<Booking[]>) => {
+      .addCase(fetchBookingsListThunk.fulfilled, (state, action: PayloadAction<Booking[]>) => {
         state.status = "fulfilled";
         state.data = action.payload;
       })
-      .addCase(BookinThunk.rejected, (state, action) => {
+      .addCase(fetchBookingsListThunk.rejected, (state, action) => {
         state.status = "rejected";
         state.error = action.error.message || null;
+      })
+      .addCase(fetchSingleBookingThunk.fulfilled, (state, action: PayloadAction<Booking>) => {
+        const index = state.data.findIndex((booking) => booking._id === action.payload._id);
+        if (index === -1) {
+          state.data.push(action.payload); 
+        }
+      })
+      .addCase(addBookingThunk.fulfilled, (state, action: PayloadAction<Booking>) => {
+        state.data.push(action.payload);
+      })
+      .addCase(updateBookingThunk.fulfilled, (state, action: PayloadAction<Booking>) => {
+        const index = state.data.findIndex((booking) => booking._id === action.payload._id);
+        if (index !== -1) {
+          state.data[index] = action.payload; 
+        }
+      })
+      .addCase(deleteBookingThunk.fulfilled, (state, action: PayloadAction<string>) => {
+        state.data = state.data.filter((booking) => booking._id !== action.payload); 
       });
   },
 });

@@ -21,6 +21,7 @@ export interface User {
   }
 
    export interface Booking {
+    _id: any;
     id: string;
     Name: string;
     OrderDate: string;
