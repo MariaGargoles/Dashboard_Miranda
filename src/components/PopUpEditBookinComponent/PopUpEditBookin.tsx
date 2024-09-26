@@ -12,26 +12,16 @@ import {
   BackButton,
 } from '../RoomComponent/RoomStyled';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { Booking } from '../../types/global';
 
-interface Bookin {
-    id: string;
-    Name: string;
-    OrderDate: string;
-    CheckIn: string;
-    CheckOut: string;
-    SpecialRequest: string;
-    RoomType: string;
-    RoomNumber: string;
-    Status: string;
-  }
   
   interface UpdateBookingModalProps {
-    booking: Bookin;
+    booking: Booking;
     onClose: () => void;
   }
   
   export const UpdateBookingModal: React.FC<UpdateBookingModalProps> = ({ booking, onClose }) => {
-    const [formData, setFormData] = useState<Bookin>({ ...booking });
+    const [formData, setFormData] = useState<Booking>({ ...booking });
     const dispatch = useDispatch();
   
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

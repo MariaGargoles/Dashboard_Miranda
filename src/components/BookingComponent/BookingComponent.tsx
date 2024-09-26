@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BookinThunk } from '../../features/Booking/BookinThunk';
-import { deleteBookin, updateBookin } from '../../features/Booking/BookinSlice';
+import { fetchBookingsListThunk, deleteBookingThunk } from '../../features/Booking/BookinThunk';
+import { Booking, ColumnType } from '../../types/global';
 import { TableComponent } from '../TableComponent/TableComponent';
 import { NavLink } from 'react-router-dom';
 import { TbEdit, TbTrash } from 'react-icons/tb';
@@ -21,7 +21,6 @@ import {
 import { UpdateBookingModal } from "../PopUpEditBookinComponent/PopUpEditBookin";
 
 import { RootState, AppDispatch } from '../../app/store';
-import { Booking, ColumnType, BookingState } from '../../types/global';
 
 export const BookingComponent: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -35,7 +34,7 @@ export const BookingComponent: React.FC = () => {
 
   useEffect(() => {
     if (bookingStatus === 'idle') {
-      dispatch(BookinThunk());
+      dispatch(fetchBookingsListThunk());
     } else if (bookingStatus === 'rejected') {
       alert('Error: ' + bookingError);
     }
@@ -66,12 +65,11 @@ export const BookingComponent: React.FC = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        try {
-          dispatch(deleteBookin(id));
+        dispatch(deleteBookingThunk(id)).then(() => {
           Swal.fire('Deleted!', 'Your booking has been deleted.', 'success');
-        } catch (error) {
+        }).catch(() => {
           Swal.fire('Error!', 'There was an error deleting the booking.', 'error');
-        }
+        });
       }
     });
   };
@@ -85,7 +83,7 @@ export const BookingComponent: React.FC = () => {
   });
 
   const columns: ColumnType<Booking>[] = [
-    { headerColumn: "Order ID", columnsData: "id" as keyof Booking },
+    { headerColumn: "Order ID", columnsData: "_id" as keyof Booking },
     { headerColumn: "Name", columnsData: "Name" as keyof Booking },
     { headerColumn: "Order Date", columnsData: "OrderDate" as keyof Booking },
     { headerColumn: "Check-In Date", columnsData: "CheckIn" as keyof Booking },
@@ -104,11 +102,11 @@ export const BookingComponent: React.FC = () => {
     },
     {
       headerColumn: 'Actions',
-      columnsData: 'id', 
+      columnsData: '_id', 
       columnRenderer: (row: Booking) => (
         <ActionContainer>
           <TbEdit title="Edit Booking" onClick={() => handleEditBooking(row)} />
-          <TbTrash title="Delete Booking" onClick={() => handleDeleteBooking(row.id)} />
+          <TbTrash title="Delete Booking" onClick={() => handleDeleteBooking(row._id)} />
         </ActionContainer>
       )
     }
