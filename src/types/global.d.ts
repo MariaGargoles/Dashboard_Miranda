@@ -9,6 +9,7 @@ export interface User {
   status: string;
 }
   export interface Room {
+    _id: any;
     photo: string;
     number: string;
     id: string;
