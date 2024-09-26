@@ -1,6 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User, UserStateStates } from '../../types/global';
-import { UsersThunk } from "./UserThunk";
+import { 
+  fetchUsersListThunk,
+  fetchSingleUserThunk,
+  addUserThunk,
+  updateUserThunk,
+  deleteUserThunk 
+} from './UserThunk';
 
 const initialState: UserStateStates = {
   data: [],
@@ -16,28 +22,46 @@ const userSlice = createSlice({
       state.data.push(action.payload);
     },
     updateUser: (state, action: PayloadAction<User>) => {
-      const index = state.data.findIndex((user) => user.id === action.payload.id);
+      const index = state.data.findIndex((user: { _id: any; }) => user._id === action.payload._id);
       if (index !== -1) {
         state.data[index] = action.payload;
       }
     },
     deleteUser: (state, action: PayloadAction<string>) => {
-      state.data = state.data.filter((user) => user.id !== action.payload);
+      state.data = state.data.filter((user: { _id: string; }) => user._id !== action.payload);
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(UsersThunk.pending, (state) => {
+      .addCase(fetchUsersListThunk.pending, (state) => {
         state.status = 'pending';
       })
-      .addCase(UsersThunk.fulfilled, (state, action: PayloadAction<User[]>) => {
+      .addCase(fetchUsersListThunk.fulfilled, (state, action: PayloadAction<User[]>) => {
         state.status = 'fulfilled';
         state.data = action.payload;
         state.error = null;
       })
-      .addCase(UsersThunk.rejected, (state, action) => {
+      .addCase(fetchUsersListThunk.rejected, (state, action) => {
         state.status = 'rejected';
         state.error = action.error.message || 'Unknown error';
+      })
+      .addCase(fetchSingleUserThunk.fulfilled, (state, action: PayloadAction<User>) => {
+        const index = state.data.findIndex((user: { _id: any; }) => user._id === action.payload._id);
+        if (index === -1) {
+          state.data.push(action.payload); 
+        }
+      })
+      .addCase(addUserThunk.fulfilled, (state, action: PayloadAction<User>) => {
+        state.data.push(action.payload);
+      })
+      .addCase(updateUserThunk.fulfilled, (state, action: PayloadAction<User>) => {
+        const index = state.data.findIndex((user: { _id: any; }) => user._id === action.payload._id);
+        if (index !== -1) {
+          state.data[index] = action.payload; 
+        }
+      })
+      .addCase(deleteUserThunk.fulfilled, (state, action: PayloadAction<string>) => {
+        state.data = state.data.filter((user: { _id: string; }) => user._id !== action.payload); 
       });
   },
 });
