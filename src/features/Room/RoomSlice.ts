@@ -1,7 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RoomsThunk } from "./RoomThunk";
+import {
+  fetchRoomsListThunk,
+  fetchSingleRoomThunk,
+  addRoomThunk,
+  updateRoomThunk,
+  deleteRoomThunk
+} from "./RoomThunk";
 import { Room } from "../../types/global";
-
 
 interface RoomState {
   status: 'idle' | 'pending' | 'fulfilled' | 'rejected';
@@ -10,14 +15,12 @@ interface RoomState {
   room: Room | null;
 }
 
-
 const initialState: RoomState = {
   status: 'idle',
   data: [],
   error: null,
   room: null,
 };
-
 
 const RoomSlice = createSlice({
   name: "room",
@@ -28,11 +31,11 @@ const RoomSlice = createSlice({
       console.log("Room added successfully");
     },
     deleteRoom: (state, action: PayloadAction<string>) => {
-      state.data = state.data.filter((room) => room.id !== action.payload);
+      state.data = state.data.filter((room) => room._id !== action.payload); 
     },
     updateRoom: (state, action: PayloadAction<Room>) => {
       const index = state.data.findIndex(
-        (room) => room.id === action.payload.id
+        (room) => room._id === action.payload._id 
       );
       if (index !== -1) {
         state.data[index] = action.payload;
@@ -41,16 +44,34 @@ const RoomSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(RoomsThunk.pending, (state) => {
+      .addCase(fetchRoomsListThunk.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(RoomsThunk.fulfilled, (state, action: PayloadAction<Room[]>) => {
+      .addCase(fetchRoomsListThunk.fulfilled, (state, action: PayloadAction<Room[]>) => {
         state.status = "fulfilled";
         state.data = action.payload;
       })
-      .addCase(RoomsThunk.rejected, (state, action) => {
+      .addCase(fetchRoomsListThunk.rejected, (state, action) => {
         state.status = "rejected";
         state.error = action.error.message || null;
+      })
+      .addCase(fetchSingleRoomThunk.fulfilled, (state, action: PayloadAction<Room>) => {
+        const index = state.data.findIndex((room) => room._id === action.payload._id);
+        if (index === -1) {
+          state.data.push(action.payload); 
+        }
+      })
+      .addCase(addRoomThunk.fulfilled, (state, action: PayloadAction<Room>) => {
+        state.data.push(action.payload);
+      })
+      .addCase(updateRoomThunk.fulfilled, (state, action: PayloadAction<Room>) => {
+        const index = state.data.findIndex((room) => room._id === action.payload._id);
+        if (index !== -1) {
+          state.data[index] = action.payload;
+        }
+      })
+      .addCase(deleteRoomThunk.fulfilled, (state, action: PayloadAction<string>) => {
+        state.data = state.data.filter((room) => room._id !== action.payload);
       });
   },
 });

@@ -16,6 +16,7 @@ import { TbArrowBigLeftLines } from 'react-icons/tb';
 
 
 interface FormData {
+    _id: string;
     id: string;
   Name: string;
   OrderDate: string;
@@ -32,6 +33,7 @@ export const NewBookin: React.FC = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<FormData>({
+    _id: '', 
     id: '', 
     Name: '',
     OrderDate: '',

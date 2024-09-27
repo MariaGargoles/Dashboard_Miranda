@@ -27,6 +27,7 @@ export const TitleForm = styled.h2`
   text-align: center;
   padding-top: 1rem;
   font-family: "Poppins", sans-serif;
+  background-color: #f2f4f4;
 `;
 
 export const Form = styled.form`

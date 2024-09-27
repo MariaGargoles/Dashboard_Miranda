@@ -1,4 +1,5 @@
 export interface User {
+  _id: any;
   id: string;
   name: string;
   foto: string;
@@ -9,6 +10,7 @@ export interface User {
   status: string;
 }
   export interface Room {
+    _id: any;
     photo: string;
     number: string;
     id: string;
@@ -21,6 +23,7 @@ export interface User {
   }
 
    export interface Booking {
+    _id: any;
     id: string;
     Name: string;
     OrderDate: string;

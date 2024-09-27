@@ -1,8 +1,9 @@
-import { useDispatch } from 'react-redux';
-import { useState, ChangeEvent, FormEvent } from 'react';
-import { addRoom } from '../../features/Room/RoomSlice';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { useAppDispatch } from "../../app/hooks"
+import { addRoomThunk } from '../../features/Room/RoomThunk'; 
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 import {
-  FormContainer,
   FormTitle,
   FormLabel,
   FormInput,
@@ -11,29 +12,27 @@ import {
   BackButton,
   CheckboxContainer,
   FormAmenitiesLabel,
-  AmenitiesInput
-} from './RoomStyled';
-import { TbArrowBigLeftLines } from "react-icons/tb";
-import { useNavigate } from 'react-router-dom';
-
+  AmenitiesInput,
+} from '../RoomComponent/RoomStyled';
+import { TbArrowBigLeftLines } from 'react-icons/tb';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 interface FormData {
   photo: string;
-  roomNumber: string;
+  number: string;
   bedType: string;
   amenities: string[];
   rate: number; 
   offerPrice: number; 
 }
 
-export const NewRoom = () => {
-  const dispatch = useDispatch();
+export const NewRoom: React.FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
- 
   const [formData, setFormData] = useState<FormData>({
     photo: '',
-    roomNumber: '',
+    number: '',
     bedType: 'Single Bed',
     amenities: [],
     rate: 0, 
@@ -69,59 +68,69 @@ export const NewRoom = () => {
     }
   };
 
-
-  const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(addRoom({
+    try {
+      const newRoomData = {
         photo: formData.photo,
-        number: formData.roomNumber,
+        number: formData.number,
         BedType: formData.bedType,
         Amenities: formData.amenities,
         Rate: formData.rate,
         OfferPrice: formData.offerPrice,
-        Status: 'Available',
-        RoomFloor: '1',
-        id: ''
-    }));
-    navigate('/rooms');
+        Status: 'Available', 
+        RoomFloor: '1', 
+      };
+
+      
+      const resultAction = await dispatch(addRoomThunk(newRoomData));
+      unwrapResult(resultAction); 
+      Swal.fire('Success', 'Room added successfully', 'success');
+      navigate('/rooms');
+    } catch (error) {
+      Swal.fire('Error', 'There was an error adding the room', 'error');
+    }
   };
 
   return (
-    <FormContainer>
+    <div>
       <BackButton onClick={() => navigate('/rooms')}>
         <TbArrowBigLeftLines />
         <span>Back to Rooms</span>
       </BackButton>
       <FormTitle>Create a New Room</FormTitle>
       <form onSubmit={submitHandler}>
-        <FormLabel>Photo</FormLabel>
+        <FormLabel>Photo:</FormLabel>
         <FormInput
           type="text"
           name="photo"
           value={formData.photo}
           onChange={handleChange}
         />
-        <FormLabel>Room Number</FormLabel>
+        
+        <FormLabel>Room Number:</FormLabel>
         <FormInput
           type="text"
-          name="roomNumber"
-          value={formData.roomNumber}
+          name="number"
+          value={formData.number}
           onChange={handleChange}
         />
-        <FormLabel>Bed Type</FormLabel>
+        
+        <FormLabel>Bed Type:</FormLabel>
         <FormSelect
           name="bedType"
           value={formData.bedType}
           onChange={handleChange}
         >
-          <option>Single Bed</option>
-          <option>Double Bed</option>
-          <option>Double Superior</option>
-          <option>Suite</option>
+          <option value="Single Bed">Single Bed</option>
+          <option value="Double Bed">Double Bed</option>
+          <option value="Double Superior">Double Superior</option>
+          <option value="Suite">Suite</option>
         </FormSelect>
-        <FormLabel>Amenities</FormLabel>
+        
+        <FormLabel>Amenities:</FormLabel>
         <CheckboxContainer>
-          {['Shower', 'Double Bed', 'Towel', 'Bathup', 'Coffee Set', 'LED TV', 'Wifi'].map(amenity => (
+          {['Shower', 'Double Bed', 'Towel', 'Bathtub', 'Coffee Set', 'LED TV', 'WiFi'].map(amenity => (
             <div key={amenity}>
               <AmenitiesInput
                 type="checkbox"
@@ -133,22 +142,25 @@ export const NewRoom = () => {
             </div>
           ))}
         </CheckboxContainer>
-        <FormLabel>Rate</FormLabel>
+        
+        <FormLabel>Rate:</FormLabel>
         <FormInput
           type="number"
           name="rate"
           value={formData.rate}
           onChange={handleChange}
         />
-        <FormLabel>Offer Price</FormLabel>
+        
+        <FormLabel>Offer Price:</FormLabel>
         <FormInput
           type="number"
           name="offerPrice"
           value={formData.offerPrice}
           onChange={handleChange}
         />
-        <SubmitButton type="submit">Send</SubmitButton>
+        
+        <SubmitButton type="submit">Submit</SubmitButton>
       </form>
-    </FormContainer>
+    </div>
   );
 };

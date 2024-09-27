@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RoomsThunk } from '../../features/Room/RoomThunk';
-import { deleteRoom, updateRoom } from '../../features/Room/RoomSlice';
+import { fetchRoomsListThunk, deleteRoomThunk } from '../../features/Room/RoomThunk';
+import { Room, ColumnType } from '../../types/global';
 import { TableComponent } from "../TableComponent/TableComponent";
 import { ImageRoom, StatusButton, ButtonRoom, SelectorContainer, Selector, ActionContainer } from './RoomStyled';
 import { NavLink } from 'react-router-dom';
@@ -12,34 +12,27 @@ import {
   TableFilters,
   TableButtonFilter,
 } from '../ContactComponent/ContactStyled';
-import {  EditRoomModal } from '../PopUpEditRoom/PopUpEditRoom';
+import { EditRoomModal } from '../PopUpEditRoom/PopUpEditRoom'; 
 import { RootState, AppDispatch } from '../../app/store';
-import { Room, ColumnType } from '../../types/global';
-
 
 export const RoomComponent: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const roomList = useSelector((state: RootState) => state.room.data as unknown as Room[]);
   const roomStatus = useSelector((state: RootState) => state.room.status);
   const roomError = useSelector((state: RootState) => state.room.error);
-  const [sortOption, setSortOption] = useState('');
   const [filteredRooms, setFilteredRooms] = useState<Room[]>([]);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
 
   useEffect(() => {
     if (roomStatus === 'idle') {
-      dispatch(RoomsThunk());
+      dispatch(fetchRoomsListThunk());
     } else if (roomStatus === 'fulfilled') {
       setFilteredRooms(roomList);
     } else if (roomStatus === 'rejected' && roomError) {
       alert('Error: ' + roomError);
     }
   }, [roomStatus, dispatch, roomError, roomList]);
-
-  useEffect(() => {
-    setFilteredRooms(roomList);
-  }, [roomList]);
 
   const columns: ColumnType<Room>[] = [
     {
@@ -61,53 +54,17 @@ export const RoomComponent: React.FC = () => {
       columnsData: 'Status',
       columnRenderer: (row: Room) => <StatusButton status={mapStatus(row.Status)}>{mapStatus(row.Status)}</StatusButton>
     },
-    { headerColumn: 'Room Floor', columnsData: 'RoomFloor' },
     {
       headerColumn: 'Actions',
       columnsData: 'id',
       columnRenderer: (row: Room) => (
         <ActionContainer>
           <TbEdit title="Edit Room" onClick={() => handleEditRoom(row)} />
-          <TbTrash title="Delete Room" onClick={() => handleDeleteRoom(row.id)} />
+          <TbTrash title="Delete Room" onClick={() => handleDeleteRoom(row._id)} />
         </ActionContainer>
       )
     }
   ];
-
-  const filterActions = {
-    all: () => setFilteredRooms(roomList),
-    available: () => setFilteredRooms(roomList.filter((room) => mapStatus(room.Status) === 'Available')),
-    booked: () => setFilteredRooms(roomList.filter((room) => mapStatus(room.Status) === 'Unavailable'))
-  };
-
-  const handleFilterClick = (action: 'all' | 'available' | 'booked') => {
-    filterActions[action]();
-  };
-
-  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const sortValue = event.target.value;
-    setSortOption(sortValue);
-    const sortedData = [...filteredRooms].sort((a, b) => {
-      switch (sortValue) {
-        case 'roomNumberAsc':
-          return a.number.localeCompare(b.number);
-        case 'roomNumberDesc':
-          return b.number.localeCompare(a.number);
-        case 'priceHighLow':
-          return b.OfferPrice - a.OfferPrice;
-        case 'priceLowHigh':
-          return a.OfferPrice - b.OfferPrice;
-        default:
-          return 0;
-      }
-    });
-    setFilteredRooms(sortedData);
-  };
-
-  const handleCloseModal = () => {
-    setEditModalOpen(false);
-    setSelectedRoom(null);
-  };
 
   const handleEditRoom = (room: Room) => {
     setSelectedRoom(room);
@@ -125,30 +82,30 @@ export const RoomComponent: React.FC = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteRoom(roomId));
+        dispatch(deleteRoomThunk(roomId)).then(() => {
+          Swal.fire('Deleted!', 'Your room has been deleted.', 'success');
+        }).catch(() => {
+          Swal.fire('Error!', 'There was an error deleting the room.', 'error');
+        });
       }
     });
+  };
+
+  const handleCloseModal = () => {
+    setEditModalOpen(false);
+    setSelectedRoom(null);
   };
 
   return (
     <TableContainer>
       <TableFilters>
-        <TableButtonFilter onClick={() => handleFilterClick('all')}>All Rooms</TableButtonFilter>
-        <TableButtonFilter onClick={() => handleFilterClick('available')}>Available</TableButtonFilter>
-        <TableButtonFilter onClick={() => handleFilterClick('booked')}>Booked</TableButtonFilter>
+        <TableButtonFilter onClick={() => setFilteredRooms(roomList)}>All Rooms</TableButtonFilter>
+        <TableButtonFilter onClick={() => setFilteredRooms(roomList.filter(room => room.Status === 'Available'))}>Available</TableButtonFilter>
+        <TableButtonFilter onClick={() => setFilteredRooms(roomList.filter(room => room.Status === 'Booked'))}>Booked</TableButtonFilter>
       </TableFilters>
-      <SelectorContainer>
-        <NavLink to="NewRoom">
-          <ButtonRoom>+ New Room</ButtonRoom>
-        </NavLink>
-        <Selector value={sortOption} onChange={handleSortChange}>
-          <option value="">Sort By</option>
-          <option value="roomNumberAsc">Room Number Ascending</option>
-          <option value="roomNumberDesc">Room Number Descending</option>
-          <option value="priceLowHigh">Price Lowest to Highest</option>
-          <option value="priceHighLow">Price Highest to Lowest</option>
-        </Selector>
-      </SelectorContainer>
+      <NavLink to="NewRoom">
+        <ButtonRoom>+ New Room</ButtonRoom>
+      </NavLink>
       <TableComponent columns={columns} data={filteredRooms} />
       {isEditModalOpen && selectedRoom && (
         <EditRoomModal room={selectedRoom} onClose={handleCloseModal} />
