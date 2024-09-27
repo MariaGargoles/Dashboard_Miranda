@@ -3,36 +3,27 @@ import { useDispatch } from 'react-redux';
 import { login } from '../../context/AuthUserContext';
 import "./FormLoginComponent.css";
 import { LoginForm, TitleForm, Form, Label, Input, LogoForm } from "./FormLoginStyled.js";
-import logo from "../../assets/Logo.png"
+import logo from "../../assets/Logo.png";
+import { login as apiLogin } from "../../features/Connect API/ConnectApi";
 
 export const FormLoginComponent: React.FC = () => {
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-
-  interface AuthState {
-    foto: string;          
-    name: string;
-    id: string;
-    startDate: string;
-    description: string;
-    email: string;
-    contact: string;
-    status: string;
-    isAuthenticated: boolean;
-  }
-
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (username === "segwanda12" && password === "miranda") {
-      dispatch(login({ name: username, email: "segwanda12@example.com" }));
-    } else {
-      alert("Datos incorrectos");
+    try {
+      const user = await apiLogin({ email: username, password });
+      dispatch(login(user));
+      setError('');
+    } catch (err: any) {
+      setError('Datos de inicio de sesión incorrectos');
     }
   };
-  
+
   return (
     <LoginForm>
       <TitleForm>LoginPage</TitleForm>
@@ -47,7 +38,6 @@ export const FormLoginComponent: React.FC = () => {
           value={username}
           onChange={(event) => setUsername(event.target.value)}
         />
-
         <Label>Password</Label>
         <Input
           type="password"
@@ -57,10 +47,9 @@ export const FormLoginComponent: React.FC = () => {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-
+        {error && <p className="error-message">{error}</p>}
         <input className="FormButton" type="submit" value="Login" />
       </Form>
     </LoginForm>
   );
 };
-
