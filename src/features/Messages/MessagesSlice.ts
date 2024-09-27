@@ -1,50 +1,63 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ContactMessagesThunk } from "./MessagesThunk";
+import { 
+  fetchMessagesListThunk,
+  addMessageThunk,
+  updateMessageThunk,
+  deleteMessageThunk 
+} from "./MessagesThunk";
 import { ContactMessage, ContactState } from "../../types/global";
-
-
 
 const initialState: ContactState = {
     status: 'idle',
     data: [],
     error: null,
-    message: null,
+    message: null
 };
 
 const contactSlice = createSlice({
-    name: "contact",
-    initialState,
-    reducers: {
-        addMessage: (state, action: PayloadAction<ContactMessage>) => {
-            state.data.push(action.payload);
-            console.log("Message added successfully");
-        },
-        deleteMessage: (state, action: PayloadAction<number>) => {
-            state.data = state.data.filter((message) => message.id !== action.payload);
-        },
-        updateMessage: (state, action: PayloadAction<ContactMessage>) => {
-            const index = state.data.findIndex(
-                (message) => message.id === action.payload.id
-            );
-            if (index !== -1) {
-                state.data[index] = action.payload;
-            }
-        },
+  name: "contact",
+  initialState,
+  reducers: {
+    addMessage: (state, action: PayloadAction<ContactMessage>) => {
+      state.data.push(action.payload);
     },
-    extraReducers: (builder) => {
-        builder
-            .addCase(ContactMessagesThunk.pending, (state) => {
-                state.status = "pending";
-            })
-            .addCase(ContactMessagesThunk.fulfilled, (state, action: PayloadAction<ContactMessage[]>) => {
-                state.status = "fulfilled";
-                state.data = action.payload;
-            })
-            .addCase(ContactMessagesThunk.rejected, (state, action) => {
-                state.status = "rejected";
-                state.error = action.error.message || null;
-            });
+    deleteMessage: (state, action: PayloadAction<string>) => {
+      state.data = state.data.filter((message) => message._id !== action.payload);
     },
+    updateMessage: (state, action: PayloadAction<ContactMessage>) => {
+      const index = state.data.findIndex((message) => message._id === action.payload._id);
+      if (index !== -1) {
+        state.data[index] = action.payload;
+      }
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchMessagesListThunk.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(fetchMessagesListThunk.fulfilled, (state, action: PayloadAction<ContactMessage[]>) => {
+        state.status = "fulfilled";
+        state.data = action.payload;
+        state.error = null;
+      })
+      .addCase(fetchMessagesListThunk.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.error.message || null;
+      })
+      .addCase(addMessageThunk.fulfilled, (state, action: PayloadAction<ContactMessage>) => {
+        state.data.push(action.payload);
+      })
+      .addCase(updateMessageThunk.fulfilled, (state, action: PayloadAction<ContactMessage>) => {
+        const index = state.data.findIndex((message) => message._id === action.payload._id);
+        if (index !== -1) {
+          state.data[index] = action.payload; 
+        }
+      })
+      .addCase(deleteMessageThunk.fulfilled, (state, action: PayloadAction<string>) => {
+        state.data = state.data.filter((message) => message._id !== action.payload); 
+      });
+  },
 });
 
 export const { addMessage, deleteMessage, updateMessage } = contactSlice.actions;

@@ -9,7 +9,7 @@ import {
     TableButtonFilter,
 } from '../ContactComponent/ContactStyled';
 import { UsersButton } from "./UsersStyled";
-import { UsersThunk } from '../../features/Users/UserThunk';
+import { fetchUsersListThunk, deleteUserThunk } from "../../features/Users/UserThunk"; 
 import { TbEdit, TbTrash } from 'react-icons/tb';
 import Swal from 'sweetalert2';
 import { EditUserModal } from '../PopUpEditUserComponent/PopUpEditUser';
@@ -34,7 +34,7 @@ export const UserComponent: React.FC = () => {
 
     useEffect(() => {
         if (status === 'idle') {
-            dispatch(UsersThunk());
+            dispatch(fetchUsersListThunk());
         } else if (status === 'rejected' && error) {
             Swal.fire('Error!', `Failed to fetch users: ${error}`, 'error');
         }
@@ -81,7 +81,7 @@ export const UserComponent: React.FC = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(deleteUser(userId));
+                dispatch(deleteUserThunk(userId));
             }
         });
     };

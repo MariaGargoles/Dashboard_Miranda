@@ -36,6 +36,7 @@ export interface User {
   }
 
   export interface ContactMessage {
+    _id: any;
     id: number;
     date: string;
     name: string;
