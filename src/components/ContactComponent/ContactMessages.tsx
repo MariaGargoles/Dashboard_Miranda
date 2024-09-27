@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ContactMessagesThunk } from '../../features/Messages/MessagesThunk';
-import { deleteMessage } from '../../features/Messages/MessagesSlice';
+import { fetchMessagesListThunk, deleteMessageThunk } from '../../features/Messages/MessagesThunk';
 import { TableComponent } from '../TableComponent/TableComponent';
 import { ContactButton } from './ContactStyled';
 import { SelectorContainer, Selector } from '../RoomComponent/RoomStyled';
@@ -20,7 +19,7 @@ export const ContactMessagesComponent: React.FC = () => {
 
     useEffect(() => {
         if (contactStatus === 'idle') {
-            dispatch(ContactMessagesThunk());
+            dispatch(fetchMessagesListThunk());
         } else if (contactStatus === 'fulfilled') {
             setFilteredContacts(contactList);
         } else if (contactStatus === 'rejected' && contactError) {
@@ -76,7 +75,7 @@ export const ContactMessagesComponent: React.FC = () => {
         setFilteredContacts(sortedData);
     };
 
-    const handleDeleteContact = (contactId: number) => {
+    const handleDeleteContact = (contactId: string) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -87,7 +86,7 @@ export const ContactMessagesComponent: React.FC = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch(deleteMessage(contactId));
+                dispatch(deleteMessageThunk(contactId)); 
             }
         });
     };
