@@ -1,4 +1,4 @@
-export async function ApiConnect(path: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE', data: any = null) {
+export async function ApiConnect(path: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE'| 'PATCH', data: any = null) {
     const token = localStorage.getItem('TOKEN_KEY');
     const API_URL = import.meta.env.VITE_API_URL;
 

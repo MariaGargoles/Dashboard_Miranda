@@ -8,6 +8,7 @@ import { TableContainer, TableFilters, TableButtonFilter } from '../ContactCompo
 import Swal from 'sweetalert2';
 import { RootState, AppDispatch } from '../../app/store';
 import { ContactMessage, ColumnType } from '../../types/global';
+import { format } from 'date-fns';
 
 export const ContactMessagesComponent: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -32,8 +33,14 @@ export const ContactMessagesComponent: React.FC = () => {
     }, [contactList]);
 
     const columns: ColumnType<ContactMessage>[] = [
-        { headerColumn: 'Order ID', columnsData: 'id' },
-        { headerColumn: 'Date', columnsData: 'date' },
+        { headerColumn: 'Order ID', columnsData: '_id' },
+        { 
+            headerColumn: 'Date', 
+            columnsData: 'date', 
+            columnRenderer: (row: ContactMessage) => (
+                <span>{format(new Date(row.date), 'dd/MM/yyyy')}</span>
+            ) 
+        },
         { headerColumn: 'Name', columnsData: 'name' },
         { headerColumn: 'Email', columnsData: 'email' },
         { headerColumn: 'Subject', columnsData: 'subject' },

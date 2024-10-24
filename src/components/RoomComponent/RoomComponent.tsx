@@ -41,20 +41,44 @@ export const RoomComponent: React.FC = () => {
       columnRenderer: (row: Room) => <ImageRoom src={row.photo} alt="Room Photo" />
     },
     { headerColumn: 'Number', columnsData: 'number' },
-    { headerColumn: 'Bed Type', columnsData: 'BedType' },
-    {
-      headerColumn: 'Amenities',
-      columnsData: 'Amenities',
+    { 
+      headerColumn: 'Bed Type', 
+      columnsData: 'bedType',
       columnRenderer: (row: Room) => (
-        <span>{row.Amenities ? row.Amenities.join(', ') : 'No amenities listed'}</span>
+        row.bedType ? <span>{row.bedType}</span> : <span>No bed type</span>
       )
     },
-    { headerColumn: 'Rate', columnsData: 'Rate' },
-    { headerColumn: 'Offer Price', columnsData: 'OfferPrice' },
+    {
+      headerColumn: 'Amenities',
+      columnsData: 'amenities',  
+      columnRenderer: (row: Room) => (
+        row.amenities && row.amenities.length > 0 
+        ? <span>{row.amenities.join(', ')}</span>  
+        : <span>No amenities listed</span> 
+      )
+    },
+    {
+      headerColumn: 'Rate',
+      columnsData: 'rate',
+      columnRenderer: (row: Room) => (
+        row.rate ? <span>${row.rate}</span> : <span>N/A</span>
+      )
+    },
+    {
+      headerColumn: 'Offer Price',
+      columnsData: 'offerPrice',
+      columnRenderer: (row: Room) => (
+        row.offerPrice ? <span>${row.offerPrice}</span> : <span>N/A</span>
+      )
+    },
     {
       headerColumn: 'Status',
-      columnsData: 'Status',
-      columnRenderer: (row: Room) => <StatusButton status={mapStatus(row.Status)}>{mapStatus(row.Status)}</StatusButton>
+      columnsData: 'status',
+      columnRenderer: (row: Room) => (
+        <StatusButton status={row.status === 'Available' ? 'Available' : 'Unavailable'}>
+          {row.status === 'Available' ? 'Available' : 'Unavailable'}
+        </StatusButton>
+      )
     },
     {
       headerColumn: 'Actions',
@@ -102,8 +126,8 @@ export const RoomComponent: React.FC = () => {
     <TableContainer>
       <TableFilters>
         <TableButtonFilter onClick={() => setFilteredRooms(roomList)}>All Rooms</TableButtonFilter>
-        <TableButtonFilter onClick={() => setFilteredRooms(roomList.filter(room => room.Status === 'Available'))}>Available</TableButtonFilter>
-        <TableButtonFilter onClick={() => setFilteredRooms(roomList.filter(room => room.Status === 'Booked'))}>Booked</TableButtonFilter>
+        <TableButtonFilter onClick={() => setFilteredRooms(roomList.filter(room => room.status === 'Available'))}>Available</TableButtonFilter>
+        <TableButtonFilter onClick={() => setFilteredRooms(roomList.filter(room => room.status === 'Booked'))}>Booked</TableButtonFilter>
       </TableFilters>
       <NavLink to="NewRoom">
         <ButtonRoom>+ New Room</ButtonRoom>

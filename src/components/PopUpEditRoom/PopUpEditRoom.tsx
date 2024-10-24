@@ -10,6 +10,9 @@ import {
   FormSelect,
   SubmitButton,
   BackButton,
+  CheckboxContainer,
+  FormAmenitiesLabel,
+  AmenitiesInput
 } from '../RoomComponent/RoomStyled';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Room } from '../../types/global';
@@ -21,11 +24,25 @@ interface UpdateRoomModalProps {
 
 export const EditRoomModal: React.FC<UpdateRoomModalProps> = ({ room, onClose }) => {
   const dispatch = useAppDispatch();
-  const [formData, setFormData] = useState<Room>({ ...room });
+  const [formData, setFormData] = useState<Room>({
+    ...room,
+    amenities: room.amenities || []
+  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, type } = e.target;
+    if (type === 'checkbox') {
+      const { checked } = e.target as HTMLInputElement;
+      setFormData(prevState => {
+        const amenities = checked
+          ? [...prevState.amenities, value]
+          : prevState.amenities.filter(amenity => amenity !== value);
+
+        return { ...prevState, amenities }; // Use lowercase 'amenities' consistently
+      });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -61,37 +78,47 @@ export const EditRoomModal: React.FC<UpdateRoomModalProps> = ({ room, onClose })
           />
           <FormLabel>Bed Type:</FormLabel>
           <FormSelect
-            name="BedType"
-            value={formData.BedType}
+            name="bedType"  // Ensure consistent naming here as well
+            value={formData.bedType}
             onChange={handleChange}
           >
-            <option value="">Select Bed Type</option>
             <option value="Single Bed">Single Bed</option>
             <option value="Double Bed">Double Bed</option>
             <option value="Double Superior">Double Superior</option>
             <option value="Suite">Suite</option>
           </FormSelect>
+          
           <FormLabel>Amenities:</FormLabel>
-          <FormInput
-            type="text"
-            name="Amenities"
-            value={formData.Amenities.join(', ')} 
-            onChange={handleChange}
-          />
+          <CheckboxContainer>
+            {['Shower', 'Double Bed', 'Towel', 'Bathtub', 'Coffee Set', 'LED TV', 'WiFi'].map(amenity => (
+              <div key={amenity}>
+                <AmenitiesInput
+                  type="checkbox"
+                  value={amenity}
+                  checked={formData.amenities.includes(amenity)}
+                  onChange={handleChange}
+                />
+                <FormAmenitiesLabel>{amenity}</FormAmenitiesLabel>
+              </div>
+            ))}
+          </CheckboxContainer>
+
           <FormLabel>Rate:</FormLabel>
           <FormInput
             type="number"
-            name="Rate"
-            value={formData.Rate}
+            name="rate"  // Ensure consistent naming here
+            value={formData.rate}
             onChange={handleChange}
           />
+          
           <FormLabel>Offer Price:</FormLabel>
           <FormInput
             type="number"
-            name="OfferPrice"
-            value={formData.OfferPrice}
+            name="offerPrice"  // Ensure consistent naming here
+            value={formData.offerPrice}
             onChange={handleChange}
           />
+          
           <SubmitButton type="submit">Save</SubmitButton>
           <BackButton onClick={onClose}>Cancel</BackButton>
         </form>

@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { useAppDispatch } from "../../app/hooks"
+import { useAppDispatch } from "../../app/hooks";
 import { addRoomThunk } from '../../features/Room/RoomThunk'; 
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
@@ -33,60 +33,55 @@ export const NewRoom: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     photo: '',
     number: '',
-    bedType: 'Single Bed',
+    bedType: 'Single',
     amenities: [],
     rate: 0, 
     offerPrice: 0, 
   });
 
+  
   const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
-    const target = event.target as HTMLInputElement | HTMLSelectElement;
+    const target = event.target;
+  
     
-    if (target instanceof HTMLInputElement) {
-      const { name, value, type, checked } = target;
-
-      if (type === 'checkbox') {
-        setFormData(prevState => {
-          const amenities = checked
-            ? [...prevState.amenities, value]
-            : prevState.amenities.filter(amenity => amenity !== value);
-
-          return { ...prevState, amenities };
-        });
-      } else {
-        setFormData(prevState => ({
-          ...prevState,
-          [name]: type === 'number' ? Number(value) : value
-        }));
-      }
-    } else if (target instanceof HTMLSelectElement) {
-      const { name, value } = target;
+    if (target instanceof HTMLInputElement && target.type === 'checkbox') {
+      const { value, checked } = target;
+  
+      setFormData(prevState => {
+        const amenities = checked
+          ? [...prevState.amenities, value]
+          : prevState.amenities.filter(amenity => amenity !== value);
+  
+        return { ...prevState, amenities };
+      });
+    } else {
+      const { name, value, type } = target as HTMLInputElement | HTMLSelectElement;
       setFormData(prevState => ({
         ...prevState,
-        [name]: value
+        [name]: type === 'number' ? Number(value) : value
       }));
     }
   };
 
+  // Manejar el envío del formulario
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const newRoomData = {
         photo: formData.photo,
         number: formData.number,
-        BedType: formData.bedType,
-        Amenities: formData.amenities,
-        Rate: formData.rate,
-        OfferPrice: formData.offerPrice,
-        Status: 'Available', 
-        RoomFloor: '1', 
+        bedType: formData.bedType,
+        amenities: formData.amenities,
+        rate: formData.rate,
+        offerPrice: formData.offerPrice,
+        status: 'Available',  
+        roomFloor: '1',  
       };
 
-      
       const resultAction = await dispatch(addRoomThunk(newRoomData));
       unwrapResult(resultAction); 
       Swal.fire('Success', 'Room added successfully', 'success');
-      navigate('/rooms');
+      navigate('/rooms'); 
     } catch (error) {
       Swal.fire('Error', 'There was an error adding the room', 'error');
     }
@@ -122,15 +117,15 @@ export const NewRoom: React.FC = () => {
           value={formData.bedType}
           onChange={handleChange}
         >
-          <option value="Single Bed">Single Bed</option>
-          <option value="Double Bed">Double Bed</option>
-          <option value="Double Superior">Double Superior</option>
-          <option value="Suite">Suite</option>
+          <option value="Single">Single</option>
+          <option value="Double">Double</option>
+          <option value="Queen">Queen</option>
+          <option value="King">King</option>
         </FormSelect>
         
         <FormLabel>Amenities:</FormLabel>
         <CheckboxContainer>
-          {['Shower', 'Double Bed', 'Towel', 'Bathtub', 'Coffee Set', 'LED TV', 'WiFi'].map(amenity => (
+          {['Shower', 'WiFi', 'Air Conditioner', 'TV', 'Towels'].map(amenity => (
             <div key={amenity}>
               <AmenitiesInput
                 type="checkbox"

@@ -20,6 +20,7 @@ import {
 } from '../RoomComponent/RoomStyled';
 import { UpdateBookingModal } from "../PopUpEditBookinComponent/PopUpEditBookin";
 import { RootState, AppDispatch } from '../../app/store';
+import { format } from 'date-fns';
 
 export const BookingComponent: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -82,34 +83,52 @@ export const BookingComponent: React.FC = () => {
   });
 
   const columns: ColumnType<Booking>[] = [
-    { headerColumn: "Order ID", columnsData: "_id" as keyof Booking },
-    { headerColumn: "Name", columnsData: "Name" as keyof Booking },
-    { headerColumn: "Order Date", columnsData: "OrderDate" as keyof Booking },
-    { headerColumn: "Check-In Date", columnsData: "CheckIn" as keyof Booking },
-    { headerColumn: "Check-Out Date", columnsData: "CheckOut" as keyof Booking },
-    { headerColumn: "Special Request", columnsData: "SpecialRequest" as keyof Booking },
-    { headerColumn: "Room Type", columnsData: "RoomType" as keyof Booking },
-    { headerColumn: "Room Number", columnsData: "RoomNumber" as keyof Booking },
-    {
-      headerColumn: "Status", 
-      columnsData: "Status" as keyof Booking, 
-      columnRenderer: (row: Booking) => (
-        <BookingButtonStatus styled={row.Status}>
-          {row.Status}
-        </BookingButtonStatus>
-      ),
-    },
-    {
-      headerColumn: 'Actions',
-      columnsData: '_id', 
-      columnRenderer: (row: Booking) => (
-        <ActionContainer>
-          <TbEdit title="Edit Booking" onClick={() => handleEditBooking(row)} />
-          <TbTrash title="Delete Booking" onClick={() => handleDeleteBooking(row._id)} />
-        </ActionContainer>
-      )
-    }
-  ];
+  { headerColumn: "Order ID", columnsData: "_id" as keyof Booking },
+  { headerColumn: "Name", columnsData: "Name" as keyof Booking },
+  {
+    headerColumn: "Order Date",
+    columnsData: "OrderDate" as keyof Booking,
+    columnRenderer: (row: Booking) => (
+      <span>{format(new Date(row.OrderDate), 'dd/MM/yyyy')}</span>
+    ),
+  },
+  {
+    headerColumn: "Check-In Date",
+    columnsData: "CheckIn" as keyof Booking,
+    columnRenderer: (row: Booking) => (
+      <span>{format(new Date(row.CheckIn), 'dd/MM/yyyy')}</span>
+    ),
+  },
+  {
+    headerColumn: "Check-Out Date",
+    columnsData: "CheckOut" as keyof Booking,
+    columnRenderer: (row: Booking) => (
+      <span>{format(new Date(row.CheckOut), 'dd/MM/yyyy')}</span>
+    ),
+  },
+  { headerColumn: "Special Request", columnsData: "SpecialRequest" as keyof Booking },
+  { headerColumn: "Room Type", columnsData: "RoomType" as keyof Booking },
+  { headerColumn: "Room Number", columnsData: "RoomNumber" as keyof Booking },
+  {
+    headerColumn: "Status",
+    columnsData: "Status" as keyof Booking,
+    columnRenderer: (row: Booking) => (
+      <BookingButtonStatus styled={row.Status}>
+        {row.Status}
+      </BookingButtonStatus>
+    ),
+  },
+  {
+    headerColumn: 'Actions',
+    columnsData: '_id', 
+    columnRenderer: (row: Booking) => (
+      <ActionContainer>
+        <TbEdit title="Edit Booking" onClick={() => handleEditBooking(row)} />
+        <TbTrash title="Delete Booking" onClick={() => handleDeleteBooking(row._id)} />
+      </ActionContainer>
+    ),
+  },
+];
 
   return (
     <>

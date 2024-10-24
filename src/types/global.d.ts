@@ -14,11 +14,11 @@ export interface User {
     photo: string;
     number: string;
     id: string;
-    BedType: string;
-    Amenities: string [];
-    Rate: number;
-    OfferPrice: number;
-    Status: string; 
+    bedType: string;
+    amenities: string [];
+    rate: number;
+    offerPrice: number;
+    status: string; 
     RoomFloor: string;
   }
 
