@@ -45,7 +45,9 @@ export const RoomComponent: React.FC = () => {
     {
       headerColumn: 'Amenities',
       columnsData: 'Amenities',
-      columnRenderer: (row: Room) => <span>{row.Amenities.join(', ')}</span> 
+      columnRenderer: (row: Room) => (
+        <span>{row.Amenities ? row.Amenities.join(', ') : 'No amenities listed'}</span>
+      )
     },
     { headerColumn: 'Rate', columnsData: 'Rate' },
     { headerColumn: 'Offer Price', columnsData: 'OfferPrice' },

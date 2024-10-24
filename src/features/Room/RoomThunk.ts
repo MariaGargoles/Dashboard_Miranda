@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Room } from "../../types/global";
 import { ApiConnect } from "../Connect API/ConnectApi";
 
+// Obtener la lista de habitaciones
 export const fetchRoomsListThunk = createAsyncThunk<Room[]>(
   "rooms/getRoomsList",
   async () => {
@@ -15,6 +16,7 @@ export const fetchRoomsListThunk = createAsyncThunk<Room[]>(
   }
 );
 
+// Obtener una sola habitación por ID
 export const fetchSingleRoomThunk = createAsyncThunk<Room, string>(
   "rooms/getSingleRoom",
   async (id: string) => {
@@ -28,6 +30,7 @@ export const fetchSingleRoomThunk = createAsyncThunk<Room, string>(
   }
 );
 
+// Agregar una nueva habitación
 export const addRoomThunk = createAsyncThunk<Room, Partial<Room>>(
   "rooms/postRoom",
   async (roomData) => {
@@ -41,6 +44,7 @@ export const addRoomThunk = createAsyncThunk<Room, Partial<Room>>(
   }
 );
 
+// Actualizar una habitación existente
 export const updateRoomThunk = createAsyncThunk<Room, Room>(
   "rooms/putRoom",
   async (roomData) => {
@@ -54,6 +58,7 @@ export const updateRoomThunk = createAsyncThunk<Room, Room>(
   }
 );
 
+// Eliminar una habitación por ID
 export const deleteRoomThunk = createAsyncThunk<string, string>(
   "rooms/deleteRoom",
   async (id: string) => {

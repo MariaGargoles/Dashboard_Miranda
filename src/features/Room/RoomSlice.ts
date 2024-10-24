@@ -47,9 +47,12 @@ const RoomSlice = createSlice({
       .addCase(fetchRoomsListThunk.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(fetchRoomsListThunk.fulfilled, (state, action: PayloadAction<Room[]>) => {
+      .addCase(fetchRoomsListThunk.fulfilled, (state, action: PayloadAction<any>) => {
         state.status = "fulfilled";
-        state.data = action.payload;
+        state.data = action.payload.data; 
+        if (!Array.isArray(action.payload)) {
+          state.error = "Data received is not an array";
+        }
       })
       .addCase(fetchRoomsListThunk.rejected, (state, action) => {
         state.status = "rejected";
