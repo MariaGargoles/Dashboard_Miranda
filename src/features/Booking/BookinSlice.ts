@@ -8,9 +8,10 @@ import {
 } from "./BookinThunk";
 import { Booking, BookingState } from "../../types/global";
 
+// Estado inicial
 const initialState: BookingState = {
   status: 'idle',
-  data: [],
+  data: [],  // Asegúrate de que sea un array al inicio
   error: null,
 };
 
@@ -38,13 +39,18 @@ export const BookinSlice = createSlice({
       .addCase(fetchBookingsListThunk.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(fetchBookingsListThunk.fulfilled, (state, action: PayloadAction<Booking[]>) => {
+      .addCase(fetchBookingsListThunk.fulfilled, (state, action: PayloadAction<any>) => {
         state.status = "fulfilled";
-        state.data = action.payload;
+        state.data = action.payload.data;
+        if (Array.isArray(action.payload)) {
+          state.data = action.payload;
+        } else {
+          state.error = "Data received is not an array";
+        }
       })
       .addCase(fetchBookingsListThunk.rejected, (state, action) => {
         state.status = "rejected";
-        state.error = action.error.message || null;
+        state.error = action.error.message || "Error fetching bookings";
       })
       .addCase(fetchSingleBookingThunk.fulfilled, (state, action: PayloadAction<Booking>) => {
         const index = state.data.findIndex((booking) => booking._id === action.payload._id);

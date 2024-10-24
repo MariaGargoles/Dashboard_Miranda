@@ -19,7 +19,6 @@ import {
   ActionContainer
 } from '../RoomComponent/RoomStyled';
 import { UpdateBookingModal } from "../PopUpEditBookinComponent/PopUpEditBookin";
-
 import { RootState, AppDispatch } from '../../app/store';
 
 export const BookingComponent: React.FC = () => {
@@ -36,7 +35,7 @@ export const BookingComponent: React.FC = () => {
     if (bookingStatus === 'idle') {
       dispatch(fetchBookingsListThunk());
     } else if (bookingStatus === 'rejected') {
-      alert('Error: ' + bookingError);
+      Swal.fire('Error!', 'Error fetching bookings: ' + bookingError, 'error');
     }
   }, [bookingStatus, dispatch, bookingError]);
 
@@ -116,7 +115,7 @@ export const BookingComponent: React.FC = () => {
     <>
       <TableContainer>
         <TableFilters>
-          <TableButtonFilter onClick={() => handleFilterClick('all')}>All Booking</TableButtonFilter>
+          <TableButtonFilter onClick={() => handleFilterClick('all')}>All Bookings</TableButtonFilter>
           <TableButtonFilter onClick={() => handleFilterClick('available')}>Check In</TableButtonFilter>
           <TableButtonFilter onClick={() => handleFilterClick('booked')}>Check Out</TableButtonFilter>
           <TableButtonFilter onClick={() => handleFilterClick('inProgress')}>In Progress</TableButtonFilter>
