@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../context/AuthUserContext';
 import "./FormLoginComponent.css";
-import { LoginForm, TitleForm, Form, Label, Input, LogoForm } from "./FormLoginStyled.js";
+import { LoginForm, TitleForm, Form, Label, Input, LogoForm, FormButton,  } from "./FormLoginStyled.js";
 import logo from "../../assets/Logo.png";
 import { login as apiLogin } from "../../features/Connect API/ConnectApi";
 
@@ -25,9 +25,8 @@ export const FormLoginComponent: React.FC = () => {
   };
 
   return (
-    <LoginForm>
+    <><LoginForm>
       <TitleForm>LoginPage</TitleForm>
-      <LogoForm src={logo} alt="Logo" />
       <Form onSubmit={submitHandler}>
         <Label>Nombre</Label>
         <Input
@@ -36,8 +35,7 @@ export const FormLoginComponent: React.FC = () => {
           name="username"
           placeholder="username"
           value={username}
-          onChange={(event) => setUsername(event.target.value)}
-        />
+          onChange={(event) => setUsername(event.target.value)} />
         <Label>Password</Label>
         <Input
           type="password"
@@ -45,11 +43,11 @@ export const FormLoginComponent: React.FC = () => {
           name="password"
           placeholder="password"
           value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
+          onChange={(event) => setPassword(event.target.value)} />
         {error && <p className="error-message">{error}</p>}
-        <input className="FormButton" type="submit" value="Login" />
+        <FormButton  type="submit" value="Login" />
       </Form>
-    </LoginForm>
+    </LoginForm></>
+    
   );
 };

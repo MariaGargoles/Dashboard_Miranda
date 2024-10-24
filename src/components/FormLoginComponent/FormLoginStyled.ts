@@ -1,52 +1,96 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
+
+
+// Estilo para el contenedor principal del formulario
 export const LoginForm = styled.section`
   background-color: #f2f4f4;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 30%;
   margin: auto;
-  height: 50%;
+  height: auto;
   margin-top: 3rem;
+  padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+  position: relative;
+  top: 52%;
+  
+  
 `;
 
+// Estilo para el logo
 export const LogoForm = styled.img`
   margin: auto;
-  padding-right: 1rem;
   width: 10rem;
-  height: 9rem;
-  background-color: #f2f4f4;
+  height: auto;
 `;
 
+
+// Estilo para el título del formulario
 export const TitleForm = styled.h2`
-  font-size: 1.5em;
-  weight: 400;
+  font-size: 2rem;
+  font-weight: 600;
   text-align: center;
-  padding-top: 1rem;
+  margin-bottom: 1.5rem;
   font-family: "Poppins", sans-serif;
-  background-color: #f2f4f4;
+  color: #333;
 `;
 
+// Estilo para el formulario en sí
 export const Form = styled.form`
-  padding: 2em;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #f2f4f4;
+  align-items: center;
 `;
 
+// Etiquetas de los campos
 export const Label = styled.label`
-  font-size: 1em;
-  weight: 400;
-  padding-bottom: 1.2em;
-  background-color: #f2f4f4;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #333;
+  width: 70%;
+  text-align: left;
   font-family: "Poppins", sans-serif;
 `;
 
+// Estilo para los inputs
 export const Input = styled.input`
   width: 70%;
-  margin-bottom: 2rem;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+
+  &:focus {
+    outline: none;
+    border-color: #009688;
+  }
+`;
+
+
+export const FormButton = styled.input`
+  width: 70%;
+  padding: 0.8rem;
+  background-color: #F35E69;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  margin-top: 1rem;
+
+  &:hover {
+    background-color: #B82B47;
+  }
 `;
