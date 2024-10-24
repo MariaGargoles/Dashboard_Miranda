@@ -1,23 +1,22 @@
-import styled, { createGlobalStyle } from "styled-components";
-
+import styled from "styled-components";
 
 
 // Estilo para el contenedor principal del formulario
 export const LoginForm = styled.section`
-  background-color: #f2f4f4;
+  background-color: transparent;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 30%;
+  width: 20%;
   margin: auto;
   height: auto;
   margin-top: 3rem;
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+  box-shadow: 0.3em 0.3em 2em rgba(0, 0, 0, 0.3);
   position: relative;
-  top: 52%;
+  top: 55%;
   
   
 `;
@@ -38,6 +37,7 @@ export const TitleForm = styled.h2`
   margin-bottom: 1.5rem;
   font-family: "Poppins", sans-serif;
   color: #333;
+  background-color: transparent;
 `;
 
 // Estilo para el formulario en sí
@@ -47,6 +47,7 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
 `;
 
 // Etiquetas de los campos
@@ -58,6 +59,7 @@ export const Label = styled.label`
   width: 70%;
   text-align: left;
   font-family: "Poppins", sans-serif;
+  background-color: transparent;
 `;
 
 // Estilo para los inputs

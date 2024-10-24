@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../context/AuthUserContext';
 import "./FormLoginComponent.css";
-import { LoginForm, TitleForm, Form, Label, Input, LogoForm, FormButton,  } from "./FormLoginStyled.js";
-import logo from "../../assets/Logo.png";
-import { login as apiLogin } from "../../features/Connect API/ConnectApi";
+import { LoginForm, TitleForm, Form, Label, Input, LogoForm, FormButton } from "./FormLoginStyled.js";
+import { ApiConnect } from "../../features/Connect API/ConnectApi";
 
 export const FormLoginComponent: React.FC = () => {
   const dispatch = useDispatch();
@@ -14,18 +13,26 @@ export const FormLoginComponent: React.FC = () => {
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     try {
-      const user = await apiLogin({ email: username, password });
-      dispatch(login(user));
-      setError('');
-    } catch (err: any) {
-      setError('Datos de inicio de sesión incorrectos');
+        const response = await ApiConnect('/login', 'POST', { email: username, password });
+        
+        
+        localStorage.setItem('TOKEN_KEY', response.Token);
+        
+        
+        localStorage.setItem('user', JSON.stringify(response.User));
+        
+        
+        dispatch(login(response.User));
+
+        setError('');
+    } catch (err) {
+        setError('Datos de inicio de sesión incorrectos');
     }
-  };
+};
 
   return (
-    <><LoginForm>
+    <LoginForm>
       <TitleForm>LoginPage</TitleForm>
       <Form onSubmit={submitHandler}>
         <Label>Nombre</Label>
@@ -35,7 +42,8 @@ export const FormLoginComponent: React.FC = () => {
           name="username"
           placeholder="username"
           value={username}
-          onChange={(event) => setUsername(event.target.value)} />
+          onChange={(event) => setUsername(event.target.value)}
+        />
         <Label>Password</Label>
         <Input
           type="password"
@@ -43,11 +51,11 @@ export const FormLoginComponent: React.FC = () => {
           name="password"
           placeholder="password"
           value={password}
-          onChange={(event) => setPassword(event.target.value)} />
+          onChange={(event) => setPassword(event.target.value)}
+        />
         {error && <p className="error-message">{error}</p>}
-        <FormButton  type="submit" value="Login" />
+        <FormButton className="FormButton" type="submit" value="Login" />
       </Form>
-    </LoginForm></>
-    
+    </LoginForm>
   );
 };
