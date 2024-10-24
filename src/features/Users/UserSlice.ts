@@ -8,6 +8,7 @@ import {
   deleteUserThunk 
 } from './UserThunk';
 
+// Estado inicial
 const initialState: UserStateStates = {
   data: [],
   status: 'idle',
@@ -18,17 +19,20 @@ const userSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
+    // Agregar un nuevo usuario
     addUser: (state, action: PayloadAction<User>) => {
       state.data.push(action.payload);
     },
+    // Actualizar un usuario existente
     updateUser: (state, action: PayloadAction<User>) => {
-      const index = state.data.findIndex((user: { _id: any; }) => user._id === action.payload._id);
+      const index = state.data.findIndex((user) => user._id === action.payload._id);
       if (index !== -1) {
         state.data[index] = action.payload;
       }
     },
+    // Eliminar un usuario por su ID
     deleteUser: (state, action: PayloadAction<string>) => {
-      state.data = state.data.filter((user: { _id: string; }) => user._id !== action.payload);
+      state.data = state.data.filter((user) => user._id !== action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -36,17 +40,17 @@ const userSlice = createSlice({
       .addCase(fetchUsersListThunk.pending, (state) => {
         state.status = 'pending';
       })
-      .addCase(fetchUsersListThunk.fulfilled, (state, action: PayloadAction<User[]>) => {
-        state.status = 'fulfilled';
-        state.data = action.payload;
+      .addCase(fetchUsersListThunk.fulfilled, (state, action: PayloadAction<any>) => {
+        state.status = "fulfilled";
+        state.data = action.payload.data;
         state.error = null;
       })
       .addCase(fetchUsersListThunk.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.error.message || 'Unknown error';
+        state.error = action.error.message || 'Error desconocido';
       })
       .addCase(fetchSingleUserThunk.fulfilled, (state, action: PayloadAction<User>) => {
-        const index = state.data.findIndex((user: { _id: any; }) => user._id === action.payload._id);
+        const index = state.data.findIndex((user) => user._id === action.payload._id);
         if (index === -1) {
           state.data.push(action.payload); 
         }
@@ -55,13 +59,13 @@ const userSlice = createSlice({
         state.data.push(action.payload);
       })
       .addCase(updateUserThunk.fulfilled, (state, action: PayloadAction<User>) => {
-        const index = state.data.findIndex((user: { _id: any; }) => user._id === action.payload._id);
+        const index = state.data.findIndex((user) => user._id === action.payload._id);
         if (index !== -1) {
           state.data[index] = action.payload; 
         }
       })
       .addCase(deleteUserThunk.fulfilled, (state, action: PayloadAction<string>) => {
-        state.data = state.data.filter((user: { _id: string; }) => user._id !== action.payload); 
+        state.data = state.data.filter((user) => user._id !== action.payload); 
       });
   },
 });

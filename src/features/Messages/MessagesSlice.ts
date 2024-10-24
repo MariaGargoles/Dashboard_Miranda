@@ -36,9 +36,9 @@ const contactSlice = createSlice({
       .addCase(fetchMessagesListThunk.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(fetchMessagesListThunk.fulfilled, (state, action: PayloadAction<ContactMessage[]>) => {
+      .addCase(fetchMessagesListThunk.fulfilled, (state, action: PayloadAction<any>) => {
         state.status = "fulfilled";
-        state.data = action.payload;
+        state.data = action.payload.data;
         state.error = null;
       })
       .addCase(fetchMessagesListThunk.rejected, (state, action) => {
