@@ -33,7 +33,7 @@ export const FormLoginComponent: React.FC = () => {
 
   return (
     <LoginForm>
-      <TitleForm>LoginPage</TitleForm>
+      <TitleForm>Login Page</TitleForm>
       <Form onSubmit={submitHandler}>
         <Label>Nombre</Label>
         <Input
