@@ -45,15 +45,14 @@ export const EditRoomModal: React.FC<UpdateRoomModalProps> = ({ room, onClose })
     }
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
       const resultAction = await dispatch(updateRoomThunk(formData));
-      unwrapResult(resultAction);
-      Swal.fire('Success', 'Room updated successfully', 'success');
+      unwrapResult(resultAction); 
+      Swal.fire("Success", "Room updated successfully", "success");
       onClose();
     } catch (error) {
-      Swal.fire('Error', 'There was an error updating the room', 'error');
+      Swal.fire("Error", "Failed to update the room", "error");
     }
   };
 
