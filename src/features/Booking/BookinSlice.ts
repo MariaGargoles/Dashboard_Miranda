@@ -11,7 +11,7 @@ import { Booking, BookingState } from "../../types/global";
 // Estado inicial
 const initialState: BookingState = {
   status: 'idle',
-  data: [],  // Asegúrate de que sea un array al inicio
+  data: [],  
   error: null,
 };
 

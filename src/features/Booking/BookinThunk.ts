@@ -19,7 +19,7 @@ export const fetchSingleBookingThunk = createAsyncThunk<Booking, string>(
   "booking/getSingleBooking",
   async (id: string) => {
     try {
-      const booking = await ApiConnect(`/booking/${id}`, "GET"); // Cambiar a /booking
+      const booking = await ApiConnect(`/booking/${id}`, "GET"); 
       return booking;
     } catch (error) {
       console.error("Error fetching booking:", error);
@@ -32,7 +32,7 @@ export const addBookingThunk = createAsyncThunk<Booking, Partial<Booking>>(
   "booking/postBooking",
   async (bookingData) => {
     try {
-      const newBooking = await ApiConnect("/booking", "POST", bookingData); // Cambiar a /booking
+      const newBooking = await ApiConnect("/booking", "POST", bookingData); 
       return newBooking;
     } catch (error) {
       console.error("Error adding booking:", error);

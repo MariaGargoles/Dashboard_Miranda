@@ -46,14 +46,14 @@ export const addRoomThunk = createAsyncThunk<Room, Partial<Room>>(
 
 // Actualizar una habitación existente utilizando "update"
 export const updateRoomThunk = createAsyncThunk<Room, Room>(
-  "rooms/updateRoom",  // Acción
-  async (roomData) => {
+  "rooms/updateRoom",
+  async (roomData, { rejectWithValue }) => {
     try {
-      const updatedRoom = await ApiConnect(`/rooms/${roomData._id}/update`, "POST", roomData); // Cambia PATCH por POST hacia el endpoint /update
-      return updatedRoom;
-    } catch (error) {
+      const updatedRoom = await ApiConnect(`/rooms/${roomData._id}`, "PUT", roomData);
+      return updatedRoom; 
+    } catch (error: any) {
       console.error("Error updating room:", error);
-      throw error;
+      return rejectWithValue(error.response?.data || "Failed to update room");
     }
   }
 );

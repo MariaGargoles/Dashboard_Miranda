@@ -38,7 +38,7 @@ export const EditRoomModal: React.FC<UpdateRoomModalProps> = ({ room, onClose })
           ? [...prevState.amenities, value]
           : prevState.amenities.filter(amenity => amenity !== value);
 
-        return { ...prevState, amenities }; // Use lowercase 'amenities' consistently
+        return { ...prevState, amenities }; 
       });
     } else {
       setFormData({ ...formData, [name]: value });
