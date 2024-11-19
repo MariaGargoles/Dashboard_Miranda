@@ -11,7 +11,7 @@ export const FormLoginComponent: React.FC = () => {
   const [error, setError] = useState('');
 
   // URL del backend (endpoint de AWS API Gateway)
-  const API_URL = 'https://awzzonqc95.execute-api.eu-west-3.amazonaws.com/dev/login';
+  const API_URL = 'https://hh9omnddfj.execute-api.eu-west-3.amazonaws.com/dev/login';
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
