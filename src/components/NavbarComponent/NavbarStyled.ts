@@ -157,6 +157,6 @@ export const IconContainer = styled.div<IconContainerProps>`
   svg {
     padding-right: 1rem;
     background-color:  #ffff;
-    font-size: 1.3rem;
+    font-size: 2.5rem;
   }
 `;
