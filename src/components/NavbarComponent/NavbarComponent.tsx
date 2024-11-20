@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import "./NavbarComponent.css";
+import "./NavbarComponentStyles.css";
 import { TfiAlignLeft } from "react-icons/tfi";
 import { IoIosSearch } from "react-icons/io";
 import { IoMdHeartEmpty } from "react-icons/io";

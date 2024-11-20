@@ -53,10 +53,7 @@ export const ListMenu = styled.li`
   padding: 1.5rem;
   cursor: pointer;
   background-color: #ffff;
-   svg {
-    font-size: 2.5rem; 
-    
-  }
+  
 `;
 
 export const PersonCard = styled.div`
