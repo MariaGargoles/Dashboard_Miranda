@@ -12,7 +12,7 @@ import { MdOutlinePersonOutline } from "react-icons/md";
 import { MdContactPhone } from "react-icons/md";
 import { HiLogin } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-
+import logo from  "../../assets/logo3.png"
 
 
 import { 
@@ -72,7 +72,7 @@ export const NavbarComponent: React.FC = () => {
         <>
             <NavbarSection>
                 <IconsSection>
-                    <LogoMenu src="src/assets/Logo.png" alt="Logo" />
+                    <LogoMenu src={logo} alt="Logo" />
                     <LogoText src="src/assets/Trav.png" alt="trav" />
                 </IconsSection>
                 {openMenu &&  
