@@ -185,6 +185,10 @@ Error generating stack: `+o.message+`
   padding: 1.5rem;
   cursor: pointer;
   background-color: #ffff;
+   svg {
+    font-size: 2.5rem; 
+    
+  }
 `,Zk=z.div`
   display: flex;
   flex-direction: column;
