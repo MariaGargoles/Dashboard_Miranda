@@ -5,21 +5,24 @@ import styled from "styled-components";
 
 export const NavbarSection = styled.nav`
   background-color: #ffff;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   width: 100%;
   position: relative;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+  max-height: 6rem;
+
 `;
 
 export const LogoMenu = styled.img`
-  width: 7rem;
-  height: 7rem;
+  width: 10rem;
+  height: 10rem;
   background-color: #ffff;
+  padding-top: 1rem;
 `;
 
 export const LogoText = styled.img`
-  padding-left: 1rem;
+  padding-top: 4rem;
   width: 10rem;
   height: 10rem;
   background-color: #ffff;
@@ -29,6 +32,7 @@ export const IconsSection = styled.div`
   background-color: #ffff;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   
 `;
 

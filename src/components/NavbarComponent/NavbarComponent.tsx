@@ -73,8 +73,12 @@ export const NavbarComponent: React.FC = () => {
         <>
             <NavbarSection>
                 <IconsSection>
+                <div>
                     <LogoMenu src={logohotel} alt="Logo" />
+                    </div>
+                    <div>
                     <LogoText src={logoletra} alt="trav" />
+                    </div>
                 </IconsSection>
                 {openMenu &&  
                 <MenuSection>
