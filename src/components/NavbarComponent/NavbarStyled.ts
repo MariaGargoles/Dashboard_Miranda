@@ -13,20 +13,23 @@ export const NavbarSection = styled.nav`
 `;
 
 export const LogoMenu = styled.img`
-  width: 5rem;
-  height: 5rem;
+  width: 7rem;
+  height: 7rem;
   background-color: #ffff;
 `;
 
 export const LogoText = styled.img`
   padding-left: 1rem;
-  width: 11rem;
-  height: 5rem;
+  width: 10rem;
+  height: 10rem;
   background-color: #ffff;
 `;
 
 export const IconsSection = styled.div`
   background-color: #ffff;
+  display: inline-flex;
+  align-items: center;
+  
 `;
 
 export const MenuSection = styled.div`
